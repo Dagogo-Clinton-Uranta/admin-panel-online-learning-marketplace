@@ -88,7 +88,7 @@ export default function AccountPopover() {
             {user?user.firstName + " " + user.lastName:"Globus Contractors"}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            {user?user.email:'ut1@cmc.com'}
+            {user?user.email:'ut1@bc.com'}
           </Typography>
         </Box>
         </Grid>

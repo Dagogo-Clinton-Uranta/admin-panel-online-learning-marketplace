@@ -80,7 +80,7 @@ const loginPageData = {
         <div className ="welcome-barcode">
       <img src={barcode} alt="White Barcode"/>
 
-        <h1> Welcome to CMC Network</h1>
+        <h1> Welcome to BONECOLE</h1>
         </div>
 
       <div className = "intro-desc">

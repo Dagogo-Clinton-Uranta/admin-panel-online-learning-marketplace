@@ -225,7 +225,7 @@ export default function CJobList({jobs}) {
       </div>*/}
       
       <br/>
-      <p style={{fontSize: '26px', marginLeft: '5px', color: 'black'}}><b>ALL CMC USERS</b></p><br/>
+      <p style={{fontSize: '26px', marginLeft: '5px', color: 'black'}}><b>ALL BONECOLE USERS</b></p><br/>
       <hr />
       <TableContainer component={Paper}>
         <Table sx={{ maxWidth: 1500,tableLayout:"fixed" }} aria-label="custom pagination table">

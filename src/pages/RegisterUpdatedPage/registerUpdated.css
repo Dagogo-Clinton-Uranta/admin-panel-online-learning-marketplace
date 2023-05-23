@@ -1,0 +1,368 @@
+@import url("https://fonts.googleapis.com/css?family=Libre+Barcode+128+Text:400 | Josefin+Sans:400, 300, 700, 500 | Montserrat:500");
+@import url('https://fonts.googleapis.com/css2?family=Libre+Barcode+39&family=Roboto+Flex:opsz,wght@8..144,600;8..144,700;8..144,800&display=swap');
+
+
+  @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,600;0,700;1,400&family=Roboto+Flex:opsz,wght@8..144,600;8..144,700;8..144,800&display=swap');
+
+.screen a {
+display: contents;
+text-decoration: none;
+}
+
+.overall-backround{
+ 
+ 
+/*background: linear-gradient(white, black);*/
+}
+
+/*ALL THE FONT, (ON EVERY PAGE) IS CHANGED FROM HERE*/
+* {
+   
+    font-family: 'Josefin Sans', sans-serif !important;
+  
+    }
+
+    body {
+        /*background-color: black !important;*/
+       /* background: linear-gradient(rgb(255, 255, 255,0), black);*/
+       background-color: white !important;
+        
+    }
+
+.container-center-horizontal {
+display: flex;
+flex-direction: row;
+justify-content: center;
+pointer-events: none;
+width: 80%;
+height:80%;
+margin: 3% auto;
+/*border: 1px solid blue;*/
+border-radius:2rem;
+
+
+}
+
+
+.container-center-horizontal > * {
+flex-shrink: 0;
+pointer-events: auto;
+}
+
+.login-page {
+
+background-color:#FFFFFF;
+position: relative;
+top:-1.95rem;
+
+
+/*display: flex;
+justify-content: center;
+align-items: center;*/
+
+height: 715px;
+flex:1;
+border-top-left-radius:2rem;
+border-bottom-left-radius:2rem;
+}
+
+
+
+
+.login-content {
+
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+position: relative;
+    width:100%;
+   height: 100%;
+    border:0.5px solid lightgrey;
+    
+    border-top-left-radius:2rem;
+   border-bottom-left-radius:2rem;
+} 
+
+.login-content h2 {
+    font-size: 1.9rem;
+    position:absolute;
+    top: 20%;
+    
+} 
+
+/*.login-content input {
+    width:100%;
+    margin-bottom:1rem;
+    border-radius: rem;
+    border: 1px solid grey;
+    height:2rem;
+  }*/
+
+
+.login-accent-logo {
+    position: relative;
+    left:4%;
+    top:6%;
+    height:2rem;
+}
+
+
+
+.intro-box {
+    margin:0 auto;
+    margin-top: 50%;
+    width:90%;
+    background:rgba(0,0,0,0.1);
+    backdrop-filter:blur(15px);
+    color: white;
+   border-radius: 1.2rem;
+   padding:2rem;
+   
+} 
+
+.intro-box img {
+    height:5rem;
+    width: 50%;
+    object-position: top right ;
+}
+
+.intro-box li {
+    list-style-type: disc;
+    margin-left: 1rem;
+}
+
+.welcome-barcode {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 3rem;
+}
+
+.welcome-barcode h1{
+
+    font-size: 1.3rem; 
+    letter-spacing:5px; 
+    font-weight: 800;
+   
+}
+
+
+.intro-desc{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: left;
+}
+
+.intro-desc h1{
+
+margin-bottom: 0.8rem;
+
+font-size: 1.3rem; 
+ 
+font-weight: 800;
+}
+
+.intro-desc li{
+
+font-size: 1rem;
+margin-top: 0.3rem;
+margin-bottom: 0.3rem;
+}
+
+
+
+.bx-network-chartsvg {
+height: 36px;
+margin-left: 60px;
+margin-top: 30px;
+width: 36px;
+}
+
+.flex-col {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    margin-left: 46px;
+    margin-top: 182px;
+    min-height: 360px;
+    width: 434px;
+    }
+
+    .login-to-access {
+    letter-spacing: 0;
+    line-height: 40px;
+    white-space: nowrap;
+    }
+   
+    .overlap-group3 {
+    border-radius: 6px;
+    height: 60px;
+    margin-top: 31px;
+    position: relative;
+    width: 434px;
+    }
+    .email-address,
+    .password {
+    left: 30px;
+    letter-spacing: 0;
+    line-height: 20px;
+    position: absolute;
+    top: 19px;
+    white-space: nowrap;
+    }
+   
+    
+    .rectangle {
+    border-radius: 6px;
+    height: 60px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 434px; 
+    }
+
+
+    .icon {
+        height: 24px;
+        left: 380px;
+        position: absolute;
+        top: 18px;
+        width: 24px;
+        }
+
+        .overlap-group2 {
+        border-radius: 6px;
+        height: 60px;
+        margin-top: 20px;
+        position: relative;
+        width: 434px;
+        }
+
+       
+        .overlap-group {
+        align-items: flex-start;
+        background-color: var(--black);
+        border-radius: 6px;
+        display: flex;
+        height: 60px;
+        margin-top: 40px;
+        min-width: 434px;
+        padding: 19px 195px;
+        }
+        
+       
+        .login {
+        letter-spacing: 0;
+        line-height: 20px;
+        white-space: nowrap;
+        }
+        .dont-have-an-accoun{
+        letter-spacing: 0;
+        line-height: 20px;
+        margin-top: 29px;
+        white-space: nowrap;
+        }
+
+
+
+        
+.span1 {
+
+color: var(--curious-blue);
+font-family: var(--font-family-josefin_sans);
+ font-size: var(--font-size-xs);
+font-weight: 700;
+}
+
+/*THE RIGHT HALF OF THE LOGIN SCREEN*/
+.overlap-group1 {
+
+background-position: 50% 50%;
+background-size: cover;
+border-top-right-radius:2rem;
+border-bottom-right-radius:2rem ;
+/*height: 100%;
+width: 50%;*/
+flex:1;
+position: relative;
+}
+
+.barcode {
+    font-family: 'Libre Barcode 128 Text', cursive;
+        font-size: 24px;
+}
+
+
+.rectangle-2 {
+-webkit-backdrop-filter: blur (20px) brightness(100%);
+backdrop-filter: blur (20px) brightness(100%);
+background-color: var(--gunsmoke);
+border-radius: 10px;
+height: 315px;
+left: 21px;
+position: absolute;
+top: 505px;
+width: 680px;
+}
+
+.title {
+left: 71px;
+letter-spacing: 0; line-height: 60px; position: absolute;
+top: 534px;
+white-space: nowrap;
+width: 582px;
+}
+
+
+.group-1 {
+
+align-items: flex-start; display: flex;
+flex-direction: column;
+left: 71px;
+min-height: 127px; position: absolute;
+top: 645px;
+width: 532px;
+}
+
+.were-on-a-mission-t {
+letter-spacing: 0;
+line-height: normal;
+margin-top: -1px;
+min-height: 18px;
+}
+.connect-with-other-c {
+
+letter-spacing: 0;
+line-height: 24px;
+margin-top: 20px;
+min-height: 48px;
+width: 526px;
+}
+
+
+.apply-to-our-foundat {
+letter-spacing: 0;
+line-height: 24px;
+margin-top: 17px;
+white-space: nowrap;
+}
+
+/*========================  FOR MEDIUM SCREESN AND BELOW =======================*/
+
+@media screen and (max-width:1100px){
+
+    .overlap-group1 {
+        display: none;
+    }
+
+    .login-content {
+
+        border-top-right-radius:2rem;
+        border-bottom-right-radius:2rem;
+        }
+        
+}

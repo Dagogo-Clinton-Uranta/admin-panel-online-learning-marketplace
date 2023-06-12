@@ -87,7 +87,7 @@ const allIncubatorVideos = data?.length ? (
         <CustomSearchBar/>
         </div>
 
-      <h1 style={{position:"relative",left:"15px",fontWeight:"bold",marginBottom:"40px",fontSize:"30px"}}>VIDEOS</h1>
+      <h1 style={{position:"relative",left:"15px",fontWeight:"bold",marginBottom:"40px",fontSize:"30px"}}>COURSES</h1>
       {/* <SearchBox style={{ width: '100%' }} /> */}
       <br/>
       {/* <Grid  container direction="row" justifyContent="flex-end" alignItems="flex-end">

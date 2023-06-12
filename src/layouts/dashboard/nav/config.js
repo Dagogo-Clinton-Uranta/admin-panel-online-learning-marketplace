@@ -11,25 +11,25 @@ const icon = (name) => <SvgColor src={`/assets/icons/navbar/${name}.svg`} sx={{ 
 
 const navConfig = [
   {
-    title: 'Dashboard',
+    title: 'DASHBOARD',
     path: '/dashboard/home',
     icon:<AiOutlineHome/>
     // icon: icon('ic_analytics'),
   },
   {
-    title: 'Contractors',
+    title: `STUDENTS`,
     path: '/dashboard/contractor-list',
     icon:<IoIosPerson/>,
     // icon: icon('ic_analytics'),
   },
   {
-    title: 'Admin Feed',
+    title: 'FEED',
     path: '/dashboard/feed',
     icon:<AiOutlineInbox/>
     
 },
   {
-    title: 'incubator',
+    title: 'COURSES',
     path: '/dashboard/categories-videos',
     icon:<AiOutlineBulb/>,
     

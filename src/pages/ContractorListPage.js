@@ -91,7 +91,7 @@ export default function CJobs() {
       
         
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-       <h1 style={{position:"relative",fontWeight:"bold",left:"0px",marginBottom:"40px",fontSize:"30px"}}>CONTRACTORS</h1>
+       <h1 style={{position:"relative",fontWeight:"bold",left:"0px",marginBottom:"40px",fontSize:"30px"}}>STUDENTS</h1>
       
 
        {jobArr.length ?

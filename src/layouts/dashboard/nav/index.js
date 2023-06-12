@@ -75,7 +75,7 @@ export default function Nav({ openNav, onCloseNav }) {
               </Typography>
             </Box>
           </StyledAccount> */}
-          <img src={CMCLOGO} width="60" height="60"/>
+          <img src={CMCLOGO} />
         </Link>
       </Box>
 

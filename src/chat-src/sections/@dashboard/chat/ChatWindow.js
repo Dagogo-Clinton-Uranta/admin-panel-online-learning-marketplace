@@ -23,27 +23,27 @@ export default function ChatWindow() {
     <Stack sx={{ flexGrow: 1, minWidth: '1px' }}>
       <Divider />
 
-      <Box sx={{ flexGrow: 1, display: 'flex', overflow: 'hidden' }}>
+      <Box sx={{ flexGrow: 1, display: 'flex', overflow: 'hidden', border:"1px solid lightgray" }}>
         <Stack sx={{ flexGrow: 1 }}>
           {/* <ChatMessageList conversation={conversation} /> */}
-          <center><h4>{inboxDetails ? 'Message From:'+ inboxDetails:"No message selected"}</h4></center>
+          <p style={{backgroundColor:"black",color:"white",borderTopLeftRadius:"0.7rem",padding:"1rem"}}><h4 style={{marginLeft:"1rem"}}>{inboxDetails ? inboxDetails.title:"No message selected"}</h4></p>
           <Divider />
           <Grid
           container
           direction="column"
           justifyContent="flex-start"
           alignItems="flex-start"
-          sx={{pl: 4, pt: 5}}
+          sx={{pl: 4, pt: 5,position:"relative"}}
         >
           {inboxDetails?
-          <p style={{fontSize: '20px', margin: '10px 0'}}>Title:<span style={{color:"red"}}>{' '}{inboxDetails}</span> </p>
+          <p style={{fontSize: '20px', margin: '10px 0'}}><b style={{fontWeight:"bolder"}}>{' '}{inboxDetails && inboxDetails.title}</b> </p>
           :
-          <p style={{fontSize: '20px', margin: '10px 0'}}>Click a message to View </p>
+          <center style={{fontSize: '20px', margin: '10px 0',position:"absolute",top:"400%",left:"30%"}}>Click a message to View  </center>
           }
          
          {inboxDetails &&
            <>
-          <p style={{fontSize: '20px', margin: '10px 0'}}>Message Body: </p>
+          <p style={{fontSize: '20px', margin: '10px 0'}}> </p>
           <p style={{fontSize: '20px', margin: '10px 0'}}>{randomMessage()} </p>
           </>
           }

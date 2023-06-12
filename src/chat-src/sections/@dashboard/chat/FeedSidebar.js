@@ -126,16 +126,16 @@ const [noticeFeed,setNoticeFeed] = useState(candidates.length?candidates:rowData
 
   const renderContent = (
     <>
-      <Box sx={{ py: 2, px: 3 }}>
-      <div style={{ display: "flex", justifyContent: "flex-start", marginTop: '10px',marginLeft:"-20px" }}>
+      <Box sx={{ py: 2, px: 3,backgroundColor:"black",borderTopRightRadius:"0.7rem" }}>
+      <div style={{ display: "flex", justifyContent: "flex-start", marginTop: '10px',marginLeft:"0px"  }}>
         <Button
           variant="contained"
           style={{
             minHeight: "35px",
             minWidth: "100px",
-            backgroundColor: "white",
-            color: 'black',
-            border: "1px solid black",
+            backgroundColor: "black",
+            color: 'white',
+            border: "1px solid white",
             marginRight: '10px'
           }}
         >
@@ -146,9 +146,9 @@ const [noticeFeed,setNoticeFeed] = useState(candidates.length?candidates:rowData
           style={{
             minHeight: "35px",
             minWidth: "100px",
-            backgroundColor: "black",
-            color: 'white',
-            border: "1px solid black",
+            backgroundColor: "white",
+            color: 'black',
+            border: "1px solid white",
           }}
         >
           ALL
@@ -178,8 +178,8 @@ const [noticeFeed,setNoticeFeed] = useState(candidates.length?candidates:rowData
         </Stack> */}
 
       </Box>
-       {console.log("displayResults: ", displayResults)}
-      <Scrollbar>
+       
+      <Scrollbar sx={{backgroundColor:"black",borderBottomRightRadius:"0.7rem", px: 3 }}>
           {/* <ChatConversationList
             conversations={conversations}
             isOpenSidebar={openSidebar}
@@ -188,7 +188,7 @@ const [noticeFeed,setNoticeFeed] = useState(candidates.length?candidates:rowData
           /> */}
           {/*<FeedListItem inboxMessages={inboxMessages} user={user} />*/}
          
-          {candidates.length &&<FeedMiniBox  feed = {candidates}/>}
+          {candidates.length && <FeedMiniBox  feed = {candidates}/>}
       </Scrollbar>
     </>
   );
@@ -207,6 +207,7 @@ const [noticeFeed,setNoticeFeed] = useState(candidates.length?candidates:rowData
           variant="persistent"
           sx={{
             width: SIDEBAR_WIDTH,
+            
             transition: theme.transitions.create('width'),
             '& .MuiDrawer-paper': {
               position: 'static',
@@ -231,6 +232,7 @@ const [noticeFeed,setNoticeFeed] = useState(candidates.length?candidates:rowData
           open={openSidebar}
           onClose={handleCloseSidebar}
           sx={{
+           
             '& .MuiDrawer-paper': { width: SIDEBAR_WIDTH },
           }}
         >
@@ -240,3 +242,4 @@ const [noticeFeed,setNoticeFeed] = useState(candidates.length?candidates:rowData
     </>
   );
 }
+

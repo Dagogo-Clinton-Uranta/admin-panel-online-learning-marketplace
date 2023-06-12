@@ -162,7 +162,7 @@ export default function ContractorStatsList({jobs}) {
     setPage(0);
   };
   const viewJobsFxn = (id) => {
-    navigate(`/dashboard/view-users/${id}`);
+    navigate(`/dashboard/contractor-stats/`,{ state: { id:id } });
   };
 
   const deleteJobFxn = (id) => {

@@ -35,11 +35,17 @@ const useStyles = makeStyles((theme) => ({
       },
   }));
   
-  function Row({ title, avatarSrc, time }) {
+  function Row({ title, avatarSrc, time,position }) {
     const classes = useStyles();
     return (
-      <Paper className={classes.paper} square>
-      <Avatar className={classes.avatar} src={avatarSrc} />
+      <Paper  style ={{backgroundColor:"#FBFFE3",padding:"1.2rem",
+      borderTopLeftRadius:position==="first"? "1rem":"0rem",
+      borderTopRightRadius:position==="first"? "1rem":"0rem",
+      borderBottomRightRadius:position==="last"? "1rem":"0rem",
+      borderBottomLeftRadius:position==="last"? "1rem":"0rem",
+      
+      }} className={classes.paper} square>
+      <Avatar className={classes.avatar} src={avatarSrc} p />
       <Typography variant="h6" style={{ flex: 1, fontWeight: 'lighter' }}>{title}</Typography>
       <Typography variant="h6" style={{ textAlign: "right", marginRight: '10px', fontWeight: 'lighter' }}>
         {time}
@@ -107,25 +113,29 @@ export default function FeedMiniBox(feed) {
 
   return (
     <>
-      <Grid container alignItems="center" spacing={2}>
+      <Grid  container alignItems="center" spacing={2}>
        
        
       </Grid>
       <br/>
-      <Grid container spacing={1} className={classes.container}>
-     
-    {userData.length &&
+      <Grid    container spacing={0}   className={classes.container}>
       
-      userData.map((row,i) => (
-        <Grid item xs={12} key={row.title} onClick={() => setInboxData(row.title)}>
+      {userData.length &&
+      
+       userData.map((row,i) => (
+        <Grid   item xs={12} key={row.title} onClick={() => setInboxData(row)}>
           
-          <Row title={row.title.slice(0,10)+"..."} avatarSrc={profileImages?profileImages[i]:AvatarIcon} time={rowData[i].time} />
-          {/*<Row title={feed.feed?feed.feed[feed.feed.length-(i+1)].title:row.title} avatarSrc={imageData[imageData.length -(i+1)]} />*/}
+          <Row title={row.title.slice(0,10)+"..."} position={i === 0 ? 'first':(i ===userData.length-1?"last":null)} avatarSrc={profileImages?profileImages[i]:AvatarIcon} time={rowData[i].time} />
+          
         </Grid>
-      ))}
+      
+      ))
+     
+      }
+       
     </Grid>
     <div style={{borderTop: '1px solid lightgray'}}></div>
-    <div style={{ display: "flex", justifyContent: "space-between", marginTop: '10px' }}>
+    <div style={{ display: "flex", justifyContent: "space-between", marginTop: '100%' }}>
       <div></div>
       
     </div>

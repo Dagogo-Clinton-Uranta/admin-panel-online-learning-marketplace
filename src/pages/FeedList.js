@@ -1,4 +1,4 @@
-import { useEffect ,useState} from 'react';
+import { useEffect } from 'react';
 // @mui
 import { Card, Container } from '@mui/material';
 
@@ -16,8 +16,6 @@ export default function FeedList() {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
   const { inboxDetails } = useSelector((state) => state.inbox);
-  const {candidates } = useSelector((state) => state.candidates);
-const [noticeFeed,setNoticeFeed] = useState(candidates.length && candidates)
 
   
   useEffect(() => {
@@ -30,10 +28,10 @@ const [noticeFeed,setNoticeFeed] = useState(candidates.length && candidates)
   }, [user])
 
   return (
-      <Container maxWidth={'lg'}>
-        <Card sx={{ height: '72vh', display: 'flex',margin: '2%' }}>
+      <Container maxWidth={'lg'} >
+        <Card sx={{ height: '72vh', width:"100%"/*maxWidth: {xl:1100,lg:900,md:800,sm:650}*/ ,display: 'flex',gap:"1%",margin: 'auto' }}>
           <FeedSidebar />
-          {noticeFeed !== null ? <ChatWindow /> : <span style={{margin: '5%'}}><img src={EmptyIMAGE} /></span>}
+          { inboxDetails === null ? <ChatWindow /> :<ChatWindow /> /*<span style={{margin: '5%'}}><img src={EmptyIMAGE} /></span>*/}
         </Card>
       </Container>
   );

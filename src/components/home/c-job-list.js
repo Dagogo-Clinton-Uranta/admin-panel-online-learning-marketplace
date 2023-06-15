@@ -225,7 +225,23 @@ export default function CJobList({jobs}) {
       </div>*/}
       
       <br/>
-      <p style={{fontSize: '26px', marginLeft: '5px', color: 'black'}}><b>ALL BONECOLE USERS</b></p><br/>
+      <p style={{fontSize: '26px', marginLeft: '5px',marginBottom:"1rem", color: 'black',display:"flex",justifyContent:"space-between"}}><b>ALL STUDENTS</b>   <Button
+                   
+                   type="button"
+                    // fullWidth
+                    variant="contained"
+                    style={{
+                      backgroundColor: '#000000' /*"#60A1EC"*/,
+                      color: "white",
+                      width: "17%",
+
+                      fontSize: "15px",
+                    }}
+                    sx={{ mt: 7, mb: 2 }}
+                   
+                  >
+                    FILTER
+                  </Button></p><br/>
       <hr />
       <TableContainer component={Paper}>
         <Table sx={{ maxWidth: 1500,tableLayout:"fixed" }} aria-label="custom pagination table">

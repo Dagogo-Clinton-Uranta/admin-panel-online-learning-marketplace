@@ -6,6 +6,7 @@ import {AiOutlineHome} from 'react-icons/ai'
  import {FiSettings} from 'react-icons/fi' 
  import {AiOutlineInbox} from 'react-icons/ai'
  import {IoIosPerson} from 'react-icons/io'
+ import {FaChalkboardTeacher} from 'react-icons/fa'
 
 const icon = (name) => <SvgColor src={`/assets/icons/navbar/${name}.svg`} sx={{ width: 1, height: 1 }} />;
 
@@ -20,6 +21,12 @@ const navConfig = [
     title: `STUDENTS`,
     path: '/dashboard/contractor-list',
     icon:<IoIosPerson/>,
+    // icon: icon('ic_analytics'),
+  },
+  {
+    title: `TEACHERS`,
+   // path: '/dashboard/contractor-list',
+    icon:<FaChalkboardTeacher/>,
     // icon: icon('ic_analytics'),
   },
   {

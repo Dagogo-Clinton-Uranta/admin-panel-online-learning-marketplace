@@ -1,6 +1,6 @@
 import React from 'react'
 import './loginUpdated.css'
-import bxNetworkChartSvg from './bxNetworkChartsvg1.jpeg'
+import bxNetworkChartSvg from './african-10.jpg'
 import accentLogo from './accentLogo.png'
 import barcode from './barcode2.png'
 
@@ -64,7 +64,7 @@ const loginPageData = {
        <LoginForm />
        
 
-      Dont Have an account? <Link style={{color:"lightblue"}} to ={'/regTest'}>Register Here.</Link> 
+      {/*Dont Have an account? <Link style={{color:"lightblue"}} to ={'/regTest'}>Register Here.</Link> */}
       </div>
      
     </div>
@@ -83,14 +83,14 @@ const loginPageData = {
         <h1> Welcome to BONECOLE</h1>
         </div>
 
-      <div className = "intro-desc">
+      {/*<div className = "intro-desc">
          <h1>We’re on a mission to help MBE & WBE Contractors grow</h1>
          <ul>
           <li>Connect with other contractors, resources and more in our community.</li>
           <li>Apply to our foundation program & project matching</li>
          
          </ul>
-       </div>
+       </div>*/}
 
       </div>
    </div>

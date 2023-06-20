@@ -111,7 +111,7 @@ position: relative;
 
 .intro-box {
     margin:0 auto;
-    margin-top: 50%;
+    margin-top: 72%;
     width:90%;
     background:rgba(0,0,0,0.1);
     backdrop-filter:blur(15px);
@@ -137,7 +137,7 @@ position: relative;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
 }
 
 .welcome-barcode h1{

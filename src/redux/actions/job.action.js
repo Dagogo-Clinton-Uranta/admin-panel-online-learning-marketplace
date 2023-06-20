@@ -3,7 +3,7 @@ import { fetchJobs,fetchCourses, fetchSingleJob,saveUserCourses } from "../reduc
 import { useDispatch, useSelector } from "react-redux";
 
 export const getJobs = (uid) => async (dispatch) => {
-    db.collection('users').get().then((snapshot) => {
+    db.collection('students').get().then((snapshot) => {
         const jobs = snapshot.docs.map((doc) => ({id: doc.id, ...doc.data() }));
         // console.log('Jobs: ', jobs);
         dispatch(fetchJobs(jobs));

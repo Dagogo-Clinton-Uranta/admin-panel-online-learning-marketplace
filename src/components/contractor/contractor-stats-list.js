@@ -252,7 +252,7 @@ export default function ContractorStatsList({jobs}) {
             ).map((row) => (
               <TableRow key={row.id}>
                 <TableCell component="th" scope="row">
-                  {row.businessName}
+                  {row.firstName + " " + row.lastName }
                 </TableCell>
                 <TableCell style={{ width: 140 }} align="right">
                   {row.email}

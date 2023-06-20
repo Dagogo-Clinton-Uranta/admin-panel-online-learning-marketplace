@@ -248,7 +248,7 @@ export default function CJobList({jobs}) {
           <TableHead>
             <TableRow>
               <StyledTableCell>Name</StyledTableCell>
-              <StyledTableCell align="right">Badge</StyledTableCell>
+              <StyledTableCell align="right">Email</StyledTableCell>
               <StyledTableCell align="right">Registered</StyledTableCell>
               
               {/*<StyledTableCell align="right">Industry</StyledTableCell>
@@ -268,7 +268,7 @@ export default function CJobList({jobs}) {
             ).map((row) => (
               <TableRow key={row.id}>
                 <TableCell component="th" scope="row">
-                  {row.businessName}
+                  {row.firstName + " " + row.lastName}
                 </TableCell>
                 <TableCell style={{ width: 140 }} align="right">
                   {row.email}

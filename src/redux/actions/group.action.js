@@ -2,7 +2,10 @@ import { db, fb, auth, storage } from '../../config/firebase';
 import { clearUser, loginFailed, loginSuccess, logoutFxn, signupFailed, storeUserData } from '../reducers/auth.slice';
 import { v4 as uuidv4 } from 'uuid';
 import { notifyErrorFxn, notifySuccessFxn } from 'src/utils/toast-fxn';
-import { isItLoading, saveAllGroup ,saveEmployeer,saveCategories ,saveGroupMembers, saveMyGroup, savePrivateGroup, savePublicGroup, saveSectionVideos,saveCategoryVideos } from '../reducers/group.slice';
+import { isItLoading, saveAllGroup ,saveEmployeer,
+         saveCategories ,saveGroupMembers, saveMyGroup,
+         savePrivateGroup, savePublicGroup, saveSectionVideos,
+          saveCategoryVideos,saveCategoryChapters } from '../reducers/group.slice';
 import firebase from "firebase/app";
 
 export const createGroup = (groupData, user, file, navigate, setLoading, url) => async (dispatch) => {
@@ -310,6 +313,41 @@ export const fetchGroups = (adminID) => async (dispatch) => {
    } else {
       // dispatch(isItLoading(false));
       dispatch(saveCategoryVideos(sortedSectionVids));
+       console.log("No sections for this category!");
+   }
+ }).catch((error) => {
+   console.log("Error getting document:", error);
+   dispatch(isItLoading(false));
+ });
+ };
+
+
+ export const fetchSubjectChapters = (chosenSection)=> async(dispatch) =>{
+
+  //dispatch(isItLoading(true));
+  db.collection("chapters")
+  .where('sectionId', '==', chosenSection)
+   .get()
+   .then((snapshot) => {
+     const allSectionChapters = snapshot.docs.map((doc) => ({ ...doc.data() }));
+     const sortFunction = (array)=>{
+      if (array.length){
+        return  array.sort((a,b)=>(Number(a.title.substring(7,8)) - Number(b.title.substring(7,8)) ))
+       }else{
+        return []
+       }
+     }
+     
+     const sortedSectionChapters = sortFunction(allSectionChapters)
+
+
+   if (allSectionChapters.length > 0) {
+     //dispatch(isItLoading(false));
+     console.log("ALL sections FROM DATABASE(FOR THIS CATEGORY):", sortedSectionChapters);
+     dispatch(saveCategoryChapters(sortedSectionChapters));
+   } else {
+      // dispatch(isItLoading(false));
+      dispatch(saveCategoryChapters(sortedSectionChapters));
        console.log("No sections for this category!");
    }
  }).catch((error) => {

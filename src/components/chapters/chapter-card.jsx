@@ -15,7 +15,7 @@ import { fetchVideoSection } from 'src/redux/actions/group.action';
 import {SlideDown} from 'react-slidedown'
 import 'react-slidedown/lib/slidedown.css'
 
-import ChapterCard from   'src/components/chapters/chapter-card';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -23,10 +23,10 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor:'#F8FFEECC',
+    backgroundColor:'#f2ecfe',
     border:'1px solid lightgrey',
     borderRadius:'5pxyyy',
-    width: '100%',
+    width: '90%',
     padding: theme.spacing(2),
     marginBottom: theme.spacing(2),
     marginTop: theme.spacing(2),
@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SubSectionCard = ({data,index,user}) => {
+const ChapterCard = ({data,index,user}) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -105,52 +105,27 @@ const SubSectionCard = ({data,index,user}) => {
       <Button variant="contained" style={{minHeight: '45px', minWidth: '145px', backgroundColor: 'black', }}
               onClick={() => {
                
-              /*  setLoading(true) 
+                setLoading(true) 
                 dispatch(setRequestedSection(data.title))
                dispatch(fetchVideoSubsection(data.title))
                 const makeRequest = async()=>{
                   console.log("i have set the requested section as",data.title)
                   dispatch(setRequestedSection(data.title))
                   dispatch(fetchVideoSubsection(data.title))}
-                makeRequest().then(()=>(setTimeout(()=>{navigate('/dashboard/view-incubator', { state: { title:data.title } })},1300)))*/
-                fetchChaptersAndDropDown(data.uid)
+                makeRequest().then(()=>(setTimeout(()=>{navigate('/dashboard/view-incubator', { state: { title:data.title } })},1300)))
+                
               }}>
-                {loading?"Loading...":"View"}
+                {loading?"Loading...":"Edit"}
             </Button>
 
            
     </div>
 
 
-     {/*=================THE DROPDOWN ICON =============================*/}
-          
-     <SlideDown style={{width:"100%"}}>
-     {dropDown &&
-    <Grid item xs container direction="column" spacing={6} style={{marginLeft:"0px",marginTop:"0px",backgroundColor:"#f2ecfe",display:"flex",flexDirection:"column",alignItems:"center" }}>
-         <br/><br/>
-        {categoryData.length?
-        categoryData.map(((dt,i) => {
-         return (
-
-         
-             <ChapterCard data={dt} index={i} user={user.uid}/>
-         )
-        })):
-           
-          <center>
-           <br/> <br/>
-           No Chapter(s) available for this subject.
-           </center>
-         
-           }
-       </Grid>
-         }
-       </SlideDown>
-     
-     {/*=================THE DROPDOWN ICON END=============================*/}
+   
 
      </>
   );
 };
 
-export default SubSectionCard;
+export default ChapterCard;

@@ -22,6 +22,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import ListRowCard from 'src/components/incubator/list-card';
 import SubSectionCard from   'src/components/incubator/subSection-card';
+import ChapterCard from   'src/components/chapters/chapter-card';
 
 import { setRequestedSection,savePresentOpenMenu } from 'src/redux/reducers/group.slice';
 import { fetchVideoSection } from 'src/redux/actions/group.action';
@@ -88,7 +89,7 @@ function CategoriesRowCard ({ id, title, body, img}) {
     const { categoryVideos,presentOpenMenu } = useSelector((state) => state.group);
 
     const { user} = useSelector((state) => state.auth);
-    console.log("user's info is",user)
+   // console.log("user's info is",user)
 
     useEffect(()=>{ 
       //this code is responsible for the right section appearing in the dropdown
@@ -206,6 +207,7 @@ function CategoriesRowCard ({ id, title, body, img}) {
                 <br/><br/>
                {data.length?
                data.map(((dt,i) => {
+                console.log("dt inside map is",dt)
                 return (
 
                 

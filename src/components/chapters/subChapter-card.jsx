@@ -63,26 +63,28 @@ const SubSectionCard = ({data,index,user}) => {
   const [categoryData,setCategoryData] = useState(categoryChapters?categoryChapters:dummyData) 
 
   //console.log("THE VIDEO ID IS",dummyData[0].uid)
-  console.log("I AM RECEIVING from my parent AS - - -",data)
+  console.log("I AM RECEIVING from my parent",data)
   
 
   useEffect(()=>{ 
     //this code is responsible for the right section appearing in the dropdown
     if(presentOpenChapter !== data.uid){setTimeout(()=>{setDropDown(false)},300)}
    
-       setTimeout(()=>{setCategoryData(categoryChapters)},600)
-
+    setCategoryData(categoryChapters)
     },[categoryChapters,presentOpenChapter])
 
 
-    const fetchChaptersAndDropDown  = (id)=> {
-      console.log("ID BEING PASSED IN IS",id)
+    const fetchChaptersAndDropDown  = (title)=> {
+      console.log("ID BEING PASSED IN IS",title)
  if(!dropDown){
       setLoading(true)
-      dispatch(fetchSubjectChapters(id))
-      dispatch(savePresentOpenChapter(id))
-      console.log("I WANNA SEE CATEGORY CAHPTERS", categoryData)
-     setTimeout(()=>{setLoading(false);setDropDown(true)},600)
+      dispatch(fetchSubjectChapters(title))
+      dispatch(savePresentOpenChapter(title))
+     const makeRequest = async()=>{
+     
+      dispatch(fetchVideoSection(title))}
+  
+    makeRequest().then(()=>(setTimeout(()=>{setLoading(false);setDropDown(true)},600)))
      }
      else{
        setDropDown(false)
@@ -126,10 +128,10 @@ const SubSectionCard = ({data,index,user}) => {
           
      <SlideDown style={{width:"100%"}}>
      {dropDown &&
-    <Grid item xs container direction="column" spacing={6} style={{marginLeft:"0px",marginTop:"0px",backgroundColor:"#f2ecfe",display:"flex",flexDirection:"column",alignItems:"center" }}>
+    <Grid item xs container direction="column" spacing={6} style={{marginLeft:"10px",paddingLeft: '0px', paddingRight: '0px',transition:" height 5s ease"}}>
          <br/><br/>
-        {categoryData.length?
-        categoryData.map(((dt,i) => {
+        {data.length?
+        data.map(((dt,i) => {
          return (
 
          
@@ -139,7 +141,7 @@ const SubSectionCard = ({data,index,user}) => {
            
           <center>
            <br/> <br/>
-           No Chapter(s) available for this subject.
+           No Sessions available for this chapters.
            </center>
          
            }

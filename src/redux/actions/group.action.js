@@ -323,7 +323,7 @@ export const fetchGroups = (adminID) => async (dispatch) => {
 
 
  export const fetchSubjectChapters = (chosenSection)=> async(dispatch) =>{
-
+ console.log("FETCH SUBJ CHAPTERS IS WORKING")
   //dispatch(isItLoading(true));
   db.collection("chapters")
   .where('sectionId', '==', chosenSection)

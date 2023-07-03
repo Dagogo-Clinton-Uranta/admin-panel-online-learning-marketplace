@@ -17,7 +17,7 @@ import DocsPage from './pages/DocsPage';
 //import CoolersPage from './pages/CoolersPage';
 //import JoinCoolerPage from './pages/JoinCoolerPage';
 import InboxPage from './pages/InboxPage';
-import SettingsPage from './pages/SettingsPage';
+import SettingsPage from './pages/AddCourse';
 import UserListPage from './pages/UserListPage';
 import IncubatorVideoPage from './pages/IncubatorVideosPage';
 import OperationsVideoPage from './pages/OperationsVideosPage';
@@ -35,6 +35,9 @@ import CategoriesVideoPage from './pages/CategoriesVideosPage';
 import CoursesStatsPage from './pages/CoursesStatsPage'
 import ContractorListPage from './pages/ContractorListPage'
 import ContractorStatsPage from './pages/ContractorStatsPage'
+import AddCourse from './pages/AddCourse';
+import EditCourse from './pages/EditCourse';
+import AddLesson from './pages/AddLesson';
 
 export default function Router() {
   const routes = useRoutes([
@@ -64,7 +67,9 @@ export default function Router() {
        
         
         { path: 'chat', element: <InboxPage /> },
-        { path: 'settings', element: <SettingsPage /> },
+        { path: 'add-course', element: <AddCourse /> },
+        { path: 'edit-course', element: <EditCourse /> },
+        { path: 'add-lesson', element: <AddLesson /> },
         // { path: 'my-cooler', element: <MyCoolersPage /> },
        
        

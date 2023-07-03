@@ -131,7 +131,7 @@ const SubSectionCard = ({data,index,user}) => {
             <Button variant="contained" style={{minHeight: '45px', minWidth: '145px', backgroundColor: 'black', }}
               onClick={() => {
              
-                navigate('/dashboard/categories-videos')
+                navigate('/dashboard/edit-course')
               }}>
                 {"Edit"}
             </Button>

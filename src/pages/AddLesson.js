@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { notifyErrorFxn } from 'src/utils/toast-fxn';
 import users from 'src/_mock/user';
 
-function SettingsPage() {
+function AddLesson() {
   const navigate = useNavigate();
   const [file, setFile] = useState();
   const [file2, setFile2] = useState();
@@ -308,4 +308,4 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
   );
 }
 
-export default SettingsPage;
+export default AddLesson;

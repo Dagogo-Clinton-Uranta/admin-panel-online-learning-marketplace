@@ -112,15 +112,15 @@ const ChapterCard = ({data,index,user}) => {
       <Button variant="contained" style={{minHeight: '45px', minWidth: '145px', backgroundColor: 'black', }}
               onClick={() => {
                
-                setLoading(true) 
+              /*  setLoading(true) 
                 dispatch(setRequestedSection(data.title))
                dispatch(fetchVideoSubsection(data.title))
                 const makeRequest = async()=>{
                   console.log("i have set the requested section as",data.title)
                   dispatch(setRequestedSection(data.title))
                   dispatch(fetchVideoSubsection(data.title))}
-                makeRequest().then(()=>(setTimeout(()=>{navigate('/dashboard/view-incubator', { state: { title:data.title } })},1300)))
-                
+                makeRequest().then(()=>(setTimeout(()=>{navigate('/dashboard/view-incubator', { state: { title:data.title } })},1300)))*/
+                navigate('/dashboard/add-lesson')
               }}>
                 {loading?"Loading...":"Edit"}
             </Button>

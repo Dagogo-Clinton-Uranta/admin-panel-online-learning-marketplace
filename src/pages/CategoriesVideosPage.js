@@ -15,11 +15,13 @@ import { fCurrency } from '../utils/formatNumber';
 
 import CategoriesRowCard from 'src/components/categories/categories-row-card';
 import CustomSearchBar from 'src/components/global/CustomSearchBar';
+import { useNavigate } from 'react-router-dom';
 
 
 
 export default function CategoriesVideoPage() {
   const theme = useTheme();
+  const navigate = useNavigate()
   const dispatch = useDispatch();
   const { allCategories } = useSelector((state) => state.group);
    console.log("CATEGORIES ARE:",allCategories)
@@ -82,10 +84,23 @@ const allIncubatorVideos = data?.length ? (
       </Helmet>
       <Container maxWidth="xl">
         
+        <div style={{display:"flex",justifyContent:"space-between"}}>
          {/*I USE THE DIV TO REGULATE STYLE AND POSITIONING OF THE  SEARCH BAR */}
         <div style={{width:"35%",marginBottom:"40px"}}>
         <CustomSearchBar/>
         </div>
+
+
+        <Button variant="contained" style={{maxHeight: '45px', minWidth: '145px', backgroundColor: 'black',position:"relative",left:"-5px",top:"5px" }}
+              onClick={() => {
+               
+                  navigate('/dashboard/categories-videos')
+              }}>
+                {"ADD COURSE"}
+            </Button>
+
+        </div>
+
 
       <h1 style={{position:"relative",left:"15px",fontWeight:"bold",marginBottom:"40px",fontSize:"30px"}}>COURSES</h1>
       {/* <SearchBox style={{ width: '100%' }} /> */}

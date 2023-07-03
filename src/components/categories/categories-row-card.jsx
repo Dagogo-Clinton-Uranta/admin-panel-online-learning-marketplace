@@ -188,7 +188,7 @@ function CategoriesRowCard ({ id, title, body, img}) {
               }}>
                 {loading?"Loading...":"View"}
             </Button>
-              </Grid>
+              </Grid> 
               </Grid>
 
               </Box>

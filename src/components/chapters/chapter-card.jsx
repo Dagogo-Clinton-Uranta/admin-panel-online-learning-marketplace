@@ -25,11 +25,18 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
     backgroundColor:'#f2ecfe',
     border:'1px solid lightgrey',
-    borderRadius:'5pxyyy',
+    borderRadius:'5px',
     width: '90%',
     padding: theme.spacing(2),
     marginBottom: theme.spacing(2),
     marginTop: theme.spacing(2),
+  },
+  buttonSpacer: {
+    display: 'flex',
+    flexDirection:'column',
+    alignItems: 'center',
+    justifyContent:'center',
+    gap:'20px'
   },
   text: {
     width: '80%',
@@ -117,6 +124,9 @@ const ChapterCard = ({data,index,user}) => {
               }}>
                 {loading?"Loading...":"Edit"}
             </Button>
+
+
+          
 
            
     </div>

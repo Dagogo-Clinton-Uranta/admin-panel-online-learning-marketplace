@@ -35,6 +35,13 @@ const useStyles = makeStyles((theme) => ({
     width: '80%',
     color: 'grey',
   },
+  buttonSpacer: {
+    display: 'flex',
+    flexDirection:'column',
+    alignItems: 'center',
+    justifyContent:'center',
+    gap:'20px'
+  },
   button: {
     width: '20%',
     marginLeft: 'auto',
@@ -102,6 +109,8 @@ const SubSectionCard = ({data,index,user}) => {
         </div>{' '}
         <span style={{ marginLeft: '20px' }}>{data && data.body}</span>
       </div>
+
+      <div className={classes.buttonSpacer}>
       <Button variant="contained" style={{minHeight: '45px', minWidth: '145px', backgroundColor: 'black', }}
               onClick={() => {
                
@@ -118,6 +127,15 @@ const SubSectionCard = ({data,index,user}) => {
                 {loading?"Loading...":"View"}
             </Button>
 
+
+            <Button variant="contained" style={{minHeight: '45px', minWidth: '145px', backgroundColor: 'black', }}
+              onClick={() => {
+             
+                navigate('/dashboard/categories-videos')
+              }}>
+                {"Edit"}
+            </Button>
+       </div>
            
     </div>
 

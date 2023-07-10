@@ -217,7 +217,7 @@ function CategoriesRowCard ({ id, title, body, img}) {
                   
                  <center>
                   <br/> <br/>
-                  No videos available for this sub section.
+                  No Subjects available for this sub section.
                   </center>
                 
                   }

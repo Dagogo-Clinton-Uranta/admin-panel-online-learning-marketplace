@@ -5,7 +5,8 @@ import { notifyErrorFxn, notifySuccessFxn } from 'src/utils/toast-fxn';
 import { isItLoading, saveAllGroup ,saveEmployeer,
          saveCategories ,saveGroupMembers, saveMyGroup,
          savePrivateGroup, savePublicGroup, saveSectionVideos,
-          saveCategoryVideos,saveCategoryChapters } from '../reducers/group.slice';
+          saveCategoryVideos,saveCategoryChapters,
+        saveChapterSessions } from '../reducers/group.slice';
 import firebase from "firebase/app";
 
 export const createGroup = (groupData, user, file, navigate, setLoading, url) => async (dispatch) => {
@@ -355,6 +356,48 @@ export const fetchGroups = (adminID) => async (dispatch) => {
    dispatch(isItLoading(false));
  });
  };
+
+
+
+
+
+ export const fetchChapterSessions = (chosenChapter)=> async(dispatch) =>{
+
+  //dispatch(isItLoading(true));
+  db.collection("boneCourses")
+  .where('chapterId', '==', chosenChapter)
+   .get()
+   .then((snapshot) => {
+     const allChapterSessions = snapshot.docs.map((doc) => ({ ...doc.data() }));
+     const sortFunction = (array)=>{
+      if (array.length){
+       
+        return  array.sort((a,b)=>(Number(a.title.substring(8,9)) - Number(b.title.substring(8,9))   ))
+       }else{
+        return []
+       }
+     }
+     
+     const sortedChapterSessions = sortFunction(allChapterSessions)
+
+
+   if (allChapterSessions.length > 0) {
+     //dispatch(isItLoading(false));
+     console.log("ALL sessions FROM DATABASE(FOR THIS CHAPTER):", sortedChapterSessions);
+     dispatch(saveChapterSessions(sortedChapterSessions));
+   } else {
+      // dispatch(isItLoading(false));
+      dispatch(saveChapterSessions(sortedChapterSessions));
+       console.log("No sections for this category!");
+   }
+ }).catch((error) => {
+   console.log("Error getting document:", error);
+   dispatch(isItLoading(false));
+ });
+ };
+
+
+
 
  export const fetchVideoSubsection = (chosenSection)=> async(dispatch) =>{
 

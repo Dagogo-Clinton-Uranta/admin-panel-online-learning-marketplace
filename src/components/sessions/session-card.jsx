@@ -14,7 +14,6 @@ import { fetchVideoSection } from 'src/redux/actions/group.action';
 
 import {SlideDown} from 'react-slidedown'
 import 'react-slidedown/lib/slidedown.css'
-import SessionCard from '../sessions/session-card';
 
 
 
@@ -24,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor:'#f2ecfe',
+    backgroundColor:'#fefcec',
     border:'1px solid lightgrey',
     borderRadius:'5px',
     width: '90%',
@@ -49,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ChapterCard = ({data,index,user}) => {
+const SessionCard = ({data,index}) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -57,7 +56,7 @@ const ChapterCard = ({data,index,user}) => {
   const { allSectionVideos,requestedSection } = useSelector((state) => state.group);
     const { categoryChapters,presentOpenChapter} = useSelector((state) => state.group);
     const { chapterSessions,presentOpenSession} = useSelector((state) => state.group);
-   
+  
 
 
   const dummyData = [
@@ -72,16 +71,8 @@ const ChapterCard = ({data,index,user}) => {
   const [sessionsData,setSessionsData] = useState(chapterSessions?chapterSessions:dummyData) 
 
 
-  console.log("THIS IS THIS CHAPTER'S INFO - - -",data)
+  console.log("I AM RECEIVING from my parent AS - - -",data)
   
-
-  useEffect(()=>{ 
-    //this code is responsible for the right section appearing in the dropdown
-    if(presentOpenSession !== data.uid){setTimeout(()=>{setDropDown(false)},300)}
-   
-       setTimeout(()=>{setSessionsData(chapterSessions)},600)
-
-    },[chapterSessions,presentOpenSession])
 
 
     const fetchSessionsAndDropDown  = (id)=> {
@@ -90,7 +81,7 @@ const ChapterCard = ({data,index,user}) => {
       setLoading(true)
       dispatch(fetchChapterSessions(id))
       dispatch(savePresentOpenSessions(id))
-      console.log(" CHAPTER SESSIONS", sessionsData)
+     
      setTimeout(()=>{setLoading(false);setDropDown(true)},600)
      }
      else{
@@ -111,24 +102,7 @@ const ChapterCard = ({data,index,user}) => {
         </div>{' '}
         <span style={{ marginLeft: '20px' }}>{data && data.body}</span>
       </div>
-      <Button variant="contained" style={{minHeight: '45px', minWidth: '145px', backgroundColor: 'black', }}
-              onClick={() => {
-               
-              /*  setLoading(true) 
-                dispatch(setRequestedSection(data.title))
-               dispatch(fetchVideoSubsection(data.title))
-                const makeRequest = async()=>{
-                  console.log("i have set the requested section as",data.title)
-                  dispatch(setRequestedSection(data.title))
-                  dispatch(fetchVideoSubsection(data.title))}
-                makeRequest().then(()=>(setTimeout(()=>{navigate('/dashboard/view-incubator', { state: { title:data.title } })},1300)))*/
-                //navigate('/dashboard/add-lesson')
-
-                fetchSessionsAndDropDown(data.uid)
-              }}>
-                {loading?"Loading...":"View"}
-            </Button>
-
+     
 
             <Button variant="contained" style={{minHeight: '45px', minWidth: '145px', backgroundColor: 'black', }}
               onClick={() => {
@@ -142,38 +116,11 @@ const ChapterCard = ({data,index,user}) => {
            
     </div>
     
-        {/*=================THE DROPDOWN ICON =============================*/}
-          
-        <SlideDown style={{width:"100%"}}>
-            {dropDown &&
-           <Grid item xs container direction="column" spacing={6} style={{marginLeft:"10px",paddingLeft: '0px', paddingRight: '0px'}}>
-                <br/><br/>
-               {sessionsData.length?
-               sessionsData.map(((dt,i) => {
-              
-                return (
-
-                
-                    <SessionCard data={dt} index={i} />
-                )
-               })):
-                  
-                 <center>
-                  <br/> <br/>
-                  No Sessions available for this Chapter.
-                  </center>
-                
-                  }
-              </Grid>
-                }
-              </SlideDown>
-            
-            {/*=================THE DROPDOWN ICON END=============================*/}
-
+      
    
 
      </>
   );
 };
 
-export default ChapterCard;
+export default SessionCard;

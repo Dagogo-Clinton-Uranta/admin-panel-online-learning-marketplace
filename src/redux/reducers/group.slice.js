@@ -7,8 +7,10 @@ const initialState = {
        allSectionVideos:[],
        categoryVideos:[],
        categoryChapters:[],
+       chapterSessions:[],
        presentOpenMenu:null,
        presentOpenChapter:null,
+       presentOpenSession:null,
        requestedSection:null,
        publicGroups: [], 
        privateGroups: [],
@@ -41,11 +43,17 @@ saveCategoryVideos: (state, action) => {
 saveCategoryChapters: (state, action) => {
   state.categoryChapters = action.payload;
 },
+saveChapterSessions: (state, action) => {
+  state.chapterSessions = action.payload;
+},
 savePresentOpenMenu: (state, action) => {
   state.presentOpenMenu = action.payload;
 },
 savePresentOpenChapter: (state, action) => {
   state.presentOpenChapter = action.payload;
+},
+savePresentOpenSessions: (state, action) => {
+  state.presentOpenSession = action.payload;
 },
   saveCategories: (state, action) => {
     state.allCategories = action.payload;
@@ -83,6 +91,8 @@ export const {
  saveCategoryChapters,
  savePresentOpenMenu,
  savePresentOpenChapter,
+ savePresentOpenSessions,
+ saveChapterSessions,
  savePublicGroup,
  saveCategories,
  savePrivateGroup,

@@ -111,18 +111,11 @@ const ChapterCard = ({data,index,user}) => {
         </div>{' '}
         <span style={{ marginLeft: '20px' }}>{data && data.body}</span>
       </div>
+      <div style={{display:"flex",flexDirection:"column",gap:"10px"}}>
       <Button variant="contained" style={{minHeight: '45px', minWidth: '145px', backgroundColor: 'black', }}
               onClick={() => {
                
-              /*  setLoading(true) 
-                dispatch(setRequestedSection(data.title))
-               dispatch(fetchVideoSubsection(data.title))
-                const makeRequest = async()=>{
-                  console.log("i have set the requested section as",data.title)
-                  dispatch(setRequestedSection(data.title))
-                  dispatch(fetchVideoSubsection(data.title))}
-                makeRequest().then(()=>(setTimeout(()=>{navigate('/dashboard/view-incubator', { state: { title:data.title } })},1300)))*/
-                //navigate('/dashboard/add-lesson')
+            
 
                 fetchSessionsAndDropDown(data.uid)
               }}>
@@ -135,9 +128,9 @@ const ChapterCard = ({data,index,user}) => {
                
                 navigate('/dashboard/edit-chapter')
               }}>
-                {loading?"Loading...":"Edit"}
+                {"Edit"}
             </Button>
-          
+       </div> 
 
            
     </div>

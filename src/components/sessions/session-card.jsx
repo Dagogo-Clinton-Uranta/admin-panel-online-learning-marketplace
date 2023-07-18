@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     marginBottom: theme.spacing(2),
     marginTop: theme.spacing(2),
+    marginLeft: theme.spacing(10),
   },
   buttonSpacer: {
     display: 'flex',

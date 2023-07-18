@@ -251,6 +251,7 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
       </Paper>
       <p>{selectedFile?.selectedFileName}</p>
     </Grid>
+    
     <Grid item xs={12} md={8} lg={6}>
       <br/>
      <Divider variant="fullWidth" />

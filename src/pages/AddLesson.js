@@ -385,10 +385,137 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
 style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px', paddingBottom: '10px', 
 paddingRight: '30px', paddingLeft: '30px'}}
 >
-SUBMIT
+UPDATE
 </Button>
 </div>
 </Container>
+
+
+<Container maxWidth="xl" sx={{position:"relative",marginTop:"5rem"}}>
+
+<Grid container item xs={12} spacing={2}>
+      <Grid container item xs={6}>
+
+      <Grid item xs={5} md={5} lg={5}>
+      <br/>
+      <Typography variant="p" component="p">
+      ADD PDF
+       </Typography>
+      <Divider variant="fullWidth" sx={{backgroundColor:"#000000"}}  /> 
+      <br/><br/>
+
+      
+      <Paper
+        sx={{
+          p: 2,
+          display: 'flex',
+          flexDirection: 'column',
+          height: 200,
+          border: '1px solid grey'
+        }}
+      >
+        <center>
+        <Typography
+            color="textPrimary"
+            variant="h3"
+            component="p"
+          >
+          <Button component="label" style={{backgroundColor: 'white' }}>
+         <img src={UPLOADIMG} width='120px' />
+         <input
+            type="file"
+            style={{ display: 'none' }}
+            onChange={handleselectedFile}
+            />
+            </Button>
+      </Typography>
+      <Typography
+            color="textPrimary"
+            variant="p"
+            component="p"
+          >
+        Browse for PDF
+      </Typography>
+      </center>
+      </Paper>
+      <p>{selectedFile?.selectedFileName}</p>
+    </Grid>
+
+    <Grid xs={6} style={{ display: 'flex',flexDirection:"column", justifyContent: 'center',alignItems:"center" }}>
+      
+           <Button  variant="contained" style={{ backgroundColor: "#000000", paddingTop: '10px', paddingBottom: '10px', paddingRight: '30px', paddingLeft: '30px'}} >
+           SUBMIT
+           </Button>
+     
+    </Grid>
+  </Grid>
+
+  <Grid container item xs={6}>
+
+<Grid item xs={5} md={5} lg={5}>
+<br/>
+
+<Typography variant="p" component="p">
+EDIT PDF
+ </Typography>
+<Divider variant="fullWidth"  sx={{backgroundColor:"#000000"}} /> 
+<br/><br/>
+
+
+<Paper
+  sx={{
+    p: 2,
+    display: 'flex',
+    flexDirection: 'column',
+    height: 200,
+    border: '1px solid grey'
+  }}
+>
+  <center>
+  <Typography
+      color="textPrimary"
+      variant="h3"
+      component="p"
+    >
+    <Button component="label" style={{backgroundColor: 'white' }}>
+   <img src={UPLOADIMG} width='120px' />
+   <input
+      type="file"
+      style={{ display: 'none' }}
+      onChange={handleselectedFile}
+      />
+      </Button>
+</Typography>
+<Typography
+      color="textPrimary"
+      variant="p"
+      component="p"
+    >
+  Browse for PDF
+</Typography>
+</center>
+</Paper>
+<p>{selectedFile?.selectedFileName}</p>
+</Grid>
+
+<Grid xs={6} style={{ display: 'flex',flexDirection:"column", justifyContent: 'center',alignItems:"center" }}>
+
+     <Button  variant="contained" style={{ backgroundColor: "#000000", paddingTop: '10px', paddingBottom: '10px', paddingRight: '30px', paddingLeft: '30px'}} >
+     SUBMIT
+     </Button>
+
+</Grid>
+</Grid>
+  </Grid>
+  
+  
+  
+  <br/><br/><br/>
+  <Divider variant="fullWidth"  sx={{backgroundColor:"#000000"}} /> 
+
+</Container>
+
+
     </>
   );
 }

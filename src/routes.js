@@ -38,6 +38,9 @@ import ContractorStatsPage from './pages/ContractorStatsPage'
 import AddCourse from './pages/AddCourse';
 import EditCourse from './pages/EditCourse';
 import AddLesson from './pages/AddLesson';
+import AddChapter from './pages/AddChapter';
+import EditChapter from './pages/EditChapter';
+import AddQuiz from './pages/AddQuiz';
 
 export default function Router() {
   const routes = useRoutes([
@@ -70,6 +73,9 @@ export default function Router() {
         { path: 'add-course', element: <AddCourse /> },
         { path: 'edit-course', element: <EditCourse /> },
         { path: 'add-lesson', element: <AddLesson /> },
+        { path: 'add-chapter', element: <AddChapter /> },
+        { path: 'add-quiz', element: <AddQuiz /> },
+        { path: 'edit-chapter', element: <EditChapter /> },
         // { path: 'my-cooler', element: <MyCoolersPage /> },
        
        

@@ -11,7 +11,7 @@ import { notifyErrorFxn } from 'src/utils/toast-fxn';
 import users from 'src/_mock/user';
 
 
-function AddLesson() {
+function AddQuiz() {
   const navigate = useNavigate();
   const [file, setFile] = useState();
   const [file2, setFile2] = useState();
@@ -19,6 +19,14 @@ function AddLesson() {
   const [fileSize2, setFileSize2] = useState();
   const [selectedFile, setSelectedFile] = useState({selectedFile: [], selectedFileName: []});
   const [selectedFile2, setSelectedFile2] = useState({selectedFile2: [], selectedFileName2: []});
+
+  const [optionFill,setOptionFill] = useState('');
+
+  const [optionA, setOptionA] = useState(null);
+  const [optionB, setOptionB] = useState(null);
+  const [optionC, setOptionC] = useState(null);
+  const [optionD, setOptionD] = useState(null);
+
   const dispatch = useDispatch();
 
   const [age, setAge] = useState('');
@@ -83,16 +91,118 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
 }
 }
 
+
+const addOption =(option) => {
+
+
+
+  if(!optionA){
+  setOptionA(option) 
+  setOptionFill('')
+  return
+ }
+ else if(optionA && !optionB){
+  setOptionB(option) 
+  setOptionFill('')
+  return
+ }
+ else if(optionA && optionB && !optionC){
+  setOptionC(option) 
+  setOptionFill('')
+  return
+ }
+ else if(optionA && optionB && optionC && !optionD){
+  setOptionD(option) 
+  setOptionFill('')
+  return
+ }
+
+ setOptionFill(null)
+
+}
+
   return (
     <>
+
+<Container maxWidth="xl" sx={{posiiton:"relative"}}>
+
+<h1 style={{position:"relative",fontWeight:"bold",marginBottom:"40px",fontSize:"30px"}}>ADD QUIZ</h1>
+
+
+ <Grid container spacing={2}>
+    
+    <Grid container item xs={12} spacing={2}>
+      <Grid item xs={3}>
+        <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
+         <div >
+         LEVEL
+         </div>
+  
+        </Typography>
+      
+      </Grid>
+
+      <Grid item xs={7}>
+        <TextField
+        fullWidth
+        placeholder=" confirm password"
+        variant="outlined"
+        multiline
+        maxRows={2}
+        value= {"CHEMIE TSE/TSM"}
+        onChange = {(e)=>{setConfirmPassword(e.target.value)}}
+        
+        />
+        
+        
+      </Grid>
+    </Grid>
+
+
+    <Grid container item xs={12} spacing={2}>
+      <Grid item xs={3}>
+        <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
+         <div >
+         SUBJECT
+         </div>
+  
+        </Typography>
+      
+      </Grid>
+
+      <Grid item xs={7}>
+        <TextField
+        fullWidth
+        placeholder=" confirm password"
+        variant="outlined"
+        multiline
+        maxRows={2}
+        value= {"CHEMIE TSE/TSM"}
+        onChange = {(e)=>{setConfirmPassword(e.target.value)}}
+        
+        />
+        
+        
+      </Grid>
+    </Grid>
+
+    
+
+  
+  </Grid>
+  <br/><br/>
+
+</Container>
+
+
     <Container maxWidth="xl" sx={{posiiton:"relative"}}>
 
-    <h1 style={{position:"relative",fontWeight:"bold",marginBottom:"40px",fontSize:"30px"}}>LESSONS</h1>
+    
 
     <Grid item xs={12} sx={{ display: 'flex', flexDirection: 'row',justifyContent:"space-between"}}>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <Typography variant="h4" component="p">
-              ADD LESSON
+              ADD CHAPTER
               </Typography>
 
             
@@ -100,7 +210,7 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
            
           </Grid>
    
-          <div style={{height:"2px", width:"90%",borderBottom:"1px solid black",position:"absolute",left:"4rem",top:"15rem"}}></div>
+          <div style={{height:"2px", width:"90%",borderBottom:"1px solid black",position:"absolute",left:"4rem",top:"26rem"}}></div>
      <br/> <br/> <br/>
 
      <Grid container spacing={2}>
@@ -108,7 +218,7 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
           <Grid item xs={3}>
             <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
              <div >
-             CHAPTER
+             CHAPTER NAME
              </div>
       
             </Typography>
@@ -138,7 +248,7 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
           <Grid item xs={3}>
             <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
              <div >
-             NUMBER
+             PDF URL
              </div>
       
             </Typography>
@@ -160,77 +270,10 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
             
           </Grid>
         </Grid>
-
-
-
-        <Grid container item xs={12} spacing={2}>
-          <Grid item xs={3}>
-            <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
-             <div >
-             COURSE
-             </div>
-      
-            </Typography>
-          
-          </Grid>
-
-          <Grid item xs={7}>
-            <TextField
-            fullWidth
-            placeholder=" confirm password"
-            variant="outlined"
-            multiline
-            maxRows={2}
-            value= {"CHEMIE TSE/TSM"}
-            onChange = {(e)=>{setConfirmPassword(e.target.value)}}
-            
-            />
-            
-            
-          </Grid>
-        </Grid>
-
-
-        <Grid container item xs={12} spacing={2}>
-          <Grid item xs={3}>
-            <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
-             <div >
-             LENGTH
-             </div>
-      
-            </Typography>
-          
-          </Grid>
-
-          <Grid item xs={7}>
-            <TextField
-            fullWidth
-            placeholder=" confirm password"
-            variant="outlined"
-            multiline
-            maxRows={2}
-            value= {"CHEMIE TSE/TSM"}
-            onChange = {(e)=>{setConfirmPassword(e.target.value)}}
-            
-            />
-            
-            
-          </Grid>
-        </Grid>
-
-        
-
-      
+ 
       </Grid>
-      <br/><br/>
-  <div style={{ display: 'flex', justifyContent: 'center' }}>
-  <Button  onClick={() => { uploadMovie(groupData,selectedFile.selectedFile,navigate)}} variant="contained" 
-  style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px', paddingBottom: '10px', 
-  paddingRight: '30px', paddingLeft: '30px'}}
->
-    SUBMIT
-  </Button>
-</div>
+     <br/>
+
 </Container>
 
 
@@ -246,7 +289,7 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
 <Grid item xs={12} sx={{ display: 'flex', flexDirection: 'row',justifyContent:"space-between", marginBottom:"3rem"}}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <Typography variant="h4" component="p">
-          EDIT LESSON
+          ADD QUIZ
           </Typography>
 
         
@@ -261,7 +304,7 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
       <Grid item xs={3}>
         <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
          <div >
-         CHAPTER
+        QUESTION
          </div>
   
         </Typography>
@@ -291,25 +334,55 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
       <Grid item xs={3}>
         <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
          <div >
-         NUMBER
+        ANSWER OPTIONS
          </div>
   
         </Typography>
       
       </Grid>
 
-      <Grid item xs={7}>
+      <Grid item xs={7} sx={{display:"flex",justifyContent:"center",gap:"20px"}} >
         <TextField
-        fullWidth
+        sx={{width:"90%"}}
         placeholder=" confirm password"
         variant="outlined"
         multiline
         maxRows={2}
-        value= {"CHEMIE TSE/TSM"}
-        onChange = {(e)=>{setConfirmPassword(e.target.value)}}
+        value= {optionFill}
+        onChange = {(e)=>{setOptionFill(e.target.value)}}
         
         />
+
+<div style={{ display: 'flex', justifyContent: 'center' }}>
+<Button  onClick={() => { addOption(optionFill)}} variant="contained" 
+style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px', paddingBottom: '10px', 
+paddingRight: '30px', paddingLeft: '30px'}}
+>
+ADD
+</Button>
+</div>
         
+        
+      </Grid>
+    </Grid>
+
+
+    <Grid container item xs={12} sx={{paddingTop:"4rem"}} spacing={2}>
+      <Grid item xs={3}>
+        <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
+         <div >
+        ANSWERS ADDED
+         </div>
+  
+        </Typography>
+      
+      </Grid>
+
+      <Grid item xs={7} sx={{display:"flex",  flexDirection:"column",justifyContent:"flex-start",gap:"20px"}} >
+       <p>A.){" "}{optionA && optionA}</p>
+       <p>B.){" "}{optionB && optionB}</p>
+       <p>C.){" "}{optionC && optionC}</p>
+       <p>D.){" "}{optionD && optionD}</p> 
         
       </Grid>
     </Grid>
@@ -320,7 +393,7 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
       <Grid item xs={3}>
         <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
          <div >
-         COURSE
+         CORRECT ANSWER
          </div>
   
         </Typography>
@@ -342,44 +415,26 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
         
       </Grid>
     </Grid>
-
-
-    <Grid container item xs={12} spacing={2}>
-      <Grid item xs={3}>
-        <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
-         <div >
-         LENGTH
-         </div>
-  
-        </Typography>
-      
-      </Grid>
-
-      <Grid item xs={7}>
-        <TextField
-        fullWidth
-        placeholder=" confirm password"
-        variant="outlined"
-        multiline
-        maxRows={2}
-        value= {"CHEMIE TSE/TSM"}
-        onChange = {(e)=>{setConfirmPassword(e.target.value)}}
-        
-        />
-        
-        
-      </Grid>
-    </Grid>
-
-    
-
 
 
    
 
   
+
+  
   </Grid>
-  <br/><br/><br/><br/>
+  <br/><br/>
+<div style={{ display: 'flex', justifyContent: 'center' }}>
+<Button  onClick={() => { uploadMovie(groupData,selectedFile.selectedFile,navigate)}} variant="contained" 
+style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px', paddingBottom: '10px', 
+paddingRight: '30px', paddingLeft: '30px'}}
+>
+ADD
+</Button>
+</div>
+</Container>
+
+<br/><br/><br/><br/>
 <div style={{ display: 'flex', justifyContent: 'center' }}>
 <Button  onClick={() => { uploadMovie(groupData,selectedFile.selectedFile,navigate)}} variant="contained" 
 style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px', paddingBottom: '10px', 
@@ -388,9 +443,8 @@ paddingRight: '30px', paddingLeft: '30px'}}
 SUBMIT
 </Button>
 </div>
-</Container>
     </>
   );
 }
 
-export default AddLesson;
+export default AddQuiz;

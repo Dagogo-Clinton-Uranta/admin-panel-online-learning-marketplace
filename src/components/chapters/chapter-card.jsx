@@ -133,7 +133,7 @@ const ChapterCard = ({data,index,user}) => {
             <Button variant="contained" style={{minHeight: '45px', minWidth: '145px', backgroundColor: 'black', }}
               onClick={() => {
                
-                navigate('/dashboard/add-lesson')
+                navigate('/dashboard/edit-chapter')
               }}>
                 {loading?"Loading...":"Edit"}
             </Button>

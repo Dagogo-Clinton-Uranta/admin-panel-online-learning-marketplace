@@ -3,6 +3,8 @@ import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UPLOADIMG from '../assets/images/upload.png';
 import { fetchGroups, fetchMyGroups, uploadUserSettings} from 'src/redux/actions/group.action';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { notifyErrorFxn } from 'src/utils/toast-fxn';
@@ -17,6 +19,8 @@ function EditCourse() {
   const [selectedFile, setSelectedFile] = useState({selectedFile: [], selectedFileName: []});
   const [selectedFile2, setSelectedFile2] = useState({selectedFile2: [], selectedFileName2: []});
   const dispatch = useDispatch();
+
+  const [age, setAge] = useState('');
 
   const [newPassword,setNewPassword] =useState('')
   const [confirmPassword,setConfirmPassword] =useState('')
@@ -84,16 +88,37 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
 
     <h1 style={{position:"relative",fontWeight:"bold",marginBottom:"40px",fontSize:"30px"}}>COURSES</h1>
 
-    <Grid item xs={12} sx={{ display: 'flex' }}>
-            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <Grid item xs={12} sx={{ display: 'flex', flexDirection: 'row',justifyContent:"space-between"}}>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <Typography variant="h4" component="p">
               EDIT COURSE
               </Typography>
-              <div style={{height:"2px", width:"80%",borderBottom:"1px solid black",position:"absolute",left:"20rem",top:"15rem"}}></div>
+
+            
             </Box>
-            <br/> <br/> <br/>
+
+
+            <div style={{ display: 'flex', justifyContent: 'center', gap:'1rem'}}>
+          <Button   variant="contained" 
+          style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px', paddingBottom: '10px', 
+          paddingRight: '30px', paddingLeft: '30px'}}   onClick={() => {  navigate('/dashboard/add-lesson')}}
+          >
+           ADD LESSON
+         </Button>
+     
+     
+       <Button   variant="contained" 
+           style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px', paddingBottom: '10px', 
+           paddingRight: '30px', paddingLeft: '30px'}} onClick={() => {  navigate('/dashboard/add-quiz')}}
+       >
+    ADD QUIZ
+             </Button>
+      </div>
+           
           </Grid>
    
+     <div style={{height:"2px", width:"80%",borderBottom:"1px solid black",position:"absolute",left:"20rem",top:"16rem"}}></div>
+     <br/> <br/> <br/>
 
      <Grid container spacing={2}>
          <Grid container item xs={12} spacing={2}>
@@ -223,16 +248,21 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
           </Grid>
 
           <Grid item xs={7}>
-            <TextField
-            fullWidth
-            placeholder=" confirm password"
-            variant="outlined"
-            multiline
-            maxRows={2}
-            value= {confirmPassword}
-            onChange = {(e)=>{setConfirmPassword(e.target.value)}}
-            
-            />
+          
+         <Select
+         style={{width:"100%"}}
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={age}
+          label="Age"
+          onChange={(event) => {
+            setAge(event.target.value);
+          }}
+        >
+          <MenuItem value={10}>Ten</MenuItem>
+          <MenuItem value={20}>Twenty</MenuItem>
+          <MenuItem value={30}>Thirty</MenuItem>
+        </Select>
             
             
           </Grid>

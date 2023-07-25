@@ -99,6 +99,15 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
 
 
             <div style={{ display: 'flex', justifyContent: 'center', gap:'1rem'}}>
+        
+            <Button   variant="contained" 
+          style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px', paddingBottom: '10px', 
+          paddingRight: '30px', paddingLeft: '30px'}}   onClick={() => {  navigate('/dashboard/add-chapter')}}
+          >
+           ADD CHAPTER
+         </Button>
+        
+        
           <Button   variant="contained" 
           style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px', paddingBottom: '10px', 
           paddingRight: '30px', paddingLeft: '30px'}}   onClick={() => {  navigate('/dashboard/add-lesson')}}

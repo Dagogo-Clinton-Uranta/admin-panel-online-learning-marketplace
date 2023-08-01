@@ -4,8 +4,8 @@ import LockIcon from '@mui/icons-material/Lock';
 import { Divider, Chip, Grid, Paper, Typography, Box, Avatar, Button, ButtonBase, Stack, 
   ToggleButton, ToggleButtonGroup, Hidden  } from '@mui/material';
 import { useDispatch,useSelector } from 'react-redux';
-import {fetchSubjectChapters, updateVideoAndUserWatchlists} from 'src/redux/actions/group.action'
-import { fetchVideoSubsection } from 'src/redux/actions/group.action';
+import {fetchSubjectChapters, updateVideoAndUserWatchlists,fetchSubjectInfo} from 'src/redux/actions/group.action'
+
 import { useNavigate } from 'react-router-dom';
 
 import { setRequestedSection,savePresentOpenChapter } from 'src/redux/reducers/group.slice';
@@ -16,6 +16,7 @@ import {SlideDown} from 'react-slidedown'
 import 'react-slidedown/lib/slidedown.css'
 
 import ChapterCard from   'src/components/chapters/chapter-card';
+import { populate } from 'react-redux-firebase';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -66,6 +67,7 @@ const SubSectionCard = ({data,index,user}) => {
 
   
   const [loading,setLoading] =useState(false)
+  const [wait,setWait] =useState(false)
   const [dropDown, setDropDown] = useState(false);
   const [categoryData,setCategoryData] = useState(categoryChapters?categoryChapters:dummyData) 
 
@@ -98,6 +100,14 @@ const SubSectionCard = ({data,index,user}) => {
 
     }
 
+    const populateEditSubject = (identity)=>{
+
+      setWait(true)
+      dispatch(fetchSubjectInfo(identity))
+
+     setTimeout(()=> {navigate('/dashboard/edit-course',{state:{uid:identity}})}, 1000)
+    }
+
 
 
   return (
@@ -128,12 +138,12 @@ const SubSectionCard = ({data,index,user}) => {
             </Button>
 
 
-            <Button variant="contained" style={{minHeight: '45px', minWidth: '145px', backgroundColor: 'black', }}
+            <Button variant="contained" style={{minHeight: '45px', minWidth: '145px', backgroundColor:'black' }}
               onClick={() => {
              
-                navigate('/dashboard/edit-course')
+               populateEditSubject(data.uid)
               }}>
-                {"Edit"}
+                {wait?"Please Wait...":"Edit"}
             </Button>
        </div>
            

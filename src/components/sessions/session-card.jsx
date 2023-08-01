@@ -4,7 +4,7 @@ import LockIcon from '@mui/icons-material/Lock';
 import { Divider, Chip, Grid, Paper, Typography, Box, Avatar, Button, ButtonBase, Stack, 
   ToggleButton, ToggleButtonGroup, Hidden  } from '@mui/material';
 import { useDispatch,useSelector } from 'react-redux';
-import {fetchChapterSessions, fetchSubjectChapters, updateVideoAndUserWatchlists} from 'src/redux/actions/group.action'
+import {fetchChapterSessions, fetchSubjectChapters, updateVideoAndUserWatchlists,fetchLessonInfo} from 'src/redux/actions/group.action'
 import { fetchVideoSubsection } from 'src/redux/actions/group.action';
 import { useNavigate } from 'react-router-dom';
 
@@ -68,11 +68,20 @@ const SessionCard = ({data,index}) => {
 
   
   const [loading,setLoading] =useState(false)
+  const [wait,setWait] =useState(false)
   const [dropDown, setDropDown] = useState(false);
   const [sessionsData,setSessionsData] = useState(chapterSessions?chapterSessions:dummyData) 
 
 
-  console.log("I AM RECEIVING from my parent AS - - -",data)
+  const populateEditLesson = (identity)=>{
+
+    setWait(true)
+    dispatch(fetchLessonInfo(identity))
+
+   setTimeout(()=> {navigate('/dashboard/add-lesson',{state:{uid:identity}})}, 1000)
+  }
+
+
   
 
 
@@ -108,9 +117,9 @@ const SessionCard = ({data,index}) => {
             <Button variant="contained" style={{minHeight: '45px', minWidth: '145px', backgroundColor: 'black', }}
               onClick={() => {
                
-                navigate('/dashboard/add-lesson')
+                populateEditLesson(data.uid)
               }}>
-                {loading?"Loading...":"Edit"}
+                {wait?"Please wait...":"Edit"}
             </Button>
           
 

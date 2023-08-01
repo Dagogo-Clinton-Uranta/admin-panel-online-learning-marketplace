@@ -12,6 +12,9 @@ const initialState = {
        presentOpenChapter:null,
        presentOpenSession:null,
        requestedSection:null,
+       subjectInfo:{},
+       chapterInfo:{},
+       lessonInfo:{},
        publicGroups: [], 
        privateGroups: [],
        groupMembers: [], 
@@ -58,6 +61,16 @@ savePresentOpenSessions: (state, action) => {
   saveCategories: (state, action) => {
     state.allCategories = action.payload;
 },
+
+saveSubjectInfo: (state, action) => {
+  state.subjectInfo = action.payload;
+},
+saveChapterInfo: (state, action) => {
+  state.chapterInfo = action.payload;
+},
+saveLessonInfo: (state, action) => {
+  state.lessonInfo = action.payload;
+},
     savePublicGroup: (state, action) => {
         state.publicGroups = action.payload;
     },
@@ -95,6 +108,9 @@ export const {
  saveChapterSessions,
  savePublicGroup,
  saveCategories,
+ saveSubjectInfo,
+ saveChapterInfo,
+ saveLessonInfo,
  savePrivateGroup,
  saveGroupMembers,
  saveEmployeer,

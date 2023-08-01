@@ -1,17 +1,19 @@
 import { Container,Grid, TextField, Typography, TextareaAutosize, Button, Paper,Divider,Box} from '@mui/material';
-import { useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRef, useState,useEffect } from 'react';
+import { useNavigate,useLocation } from 'react-router-dom';
 import UPLOADIMG from '../assets/images/upload.png';
-import { fetchGroups, fetchMyGroups, uploadUserSettings} from 'src/redux/actions/group.action';
+import { fetchGroups, fetchMyGroups, uploadUserSettings,updateSubject} from 'src/redux/actions/group.action';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { notifyErrorFxn } from 'src/utils/toast-fxn';
+import { notifyErrorFxn, notifySuccessFxn } from 'src/utils/toast-fxn';
 import users from 'src/_mock/user';
 
 function EditCourse() {
   const navigate = useNavigate();
+  const location = useLocation();
+  let { uid } = location.state;
   const [file, setFile] = useState();
   const [file2, setFile2] = useState();
   const [fileSize, setFileSize] = useState();
@@ -26,14 +28,17 @@ function EditCourse() {
   const [confirmPassword,setConfirmPassword] =useState('')
   const [companySize,setCompanySize] =useState('')
 
+  const {subjectInfo} = useSelector((state) => state.group)
   const { user } = useSelector((state) => state.auth);
   console.log("user details are:",user)
 
-  /*const [releaseDate,setReleaseDate] =useState('')
-  const [director,setDirector] =useState('')
-  const [cast,setCast] =useState([])
-  const [description,setDescription] =useState('')
-  const [trivia,setTrivia] =useState('')*/
+  const [title,setTitle] =useState(subjectInfo.title)
+  const [body,setBody] =useState(subjectInfo.body)
+  const [instructor,setInstructor] =useState([])
+  const [category,setCategory] =useState(subjectInfo.category)
+  const [subLevel,setSubLevel] =useState(subjectInfo.subLevel)
+
+  const [loading,setLoading] = useState(false)
   
   const groupData = {
     email:user.email,
@@ -41,6 +46,27 @@ function EditCourse() {
     newPassword,
     companySize,
     uid:user.uid
+  }
+
+
+  useEffect(()=>{
+
+    console.log("INFO FOR THE SELECTED SUBJECT ARE",subjectInfo)
+ 
+   },[])
+
+  const updateObject ={
+    title,
+    body,
+    level:subLevel,
+    category
+  }
+
+  const updateThisSubject = (uid,updateObject) => {
+    setLoading(true)
+    dispatch(updateSubject(uid,updateObject))
+ 
+    setTimeout(()=>{setLoading(false)},1000)
   }
 
 
@@ -144,12 +170,12 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
           <Grid item xs={7}>
             <TextField
             fullWidth
-            placeholder=" confirm password"
+            placeholder=" change level"
             variant="outlined"
             multiline
             maxRows={2}
-            value= {"6E ANNEE"}
-            onChange = {(e)=>{setConfirmPassword(e.target.value)}}
+            value= {subLevel}
+            onChange = {(e)=>{setSubLevel(e.target.value)}}
             
             />
             
@@ -174,12 +200,12 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
           <Grid item xs={7}>
             <TextField
             fullWidth
-            placeholder=" confirm password"
+            placeholder=" change title"
             variant="outlined"
             multiline
             maxRows={2}
-            value= {"CHEMIE TSE/TSM"}
-            onChange = {(e)=>{setConfirmPassword(e.target.value)}}
+            value= {title}
+            onChange = {(e)=>{setTitle(e.target.value)}}
             
             />
             
@@ -201,12 +227,12 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
           <Grid item xs={7}>
             <TextField
             fullWidth
-            placeholder=" confirm password"
+            placeholder=" change description"
             variant="outlined"
             multiline
             rows={8}
-            value= {"Conçu par le MENA en collaboration avec L’INRAP, ce programme de chimie Terminales est un programme harmonisé."}
-            onChange = {(e)=>{setConfirmPassword(e.target.value)}}
+            value= {body}
+            onChange = {(e)=>{setBody(e.target.value)}}
             
             />
             
@@ -220,7 +246,7 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
           <Grid item xs={3}>
             <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
              <div >
-             OVERVIEW
+             CLASS
              </div>
       
             </Typography>
@@ -230,13 +256,13 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
           <Grid item xs={7}>
             <TextField
             fullWidth
-            placeholder=" confirm password"
+            placeholder=" change class"
             variant="outlined"
             multiline
             Rows={8}
-            value= {"Ce cours couvre ce qui suit  1 La notion de pH de quantité et concentration 2.) Un acide fort, une base forte, un acide"}
+            value= {category}
 
-            onChange = {(e)=>{setConfirmPassword(e.target.value)}}
+            onChange = {(e)=>{setCategory(e.target.value)}}
             
             />
             
@@ -262,10 +288,10 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
          style={{width:"100%"}}
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={age}
-          label="Age"
+          value={instructor}
+          label="Instructor"
           onChange={(event) => {
-            setAge(event.target.value);
+            setInstructor(event.target.value);
           }}
         >
           <MenuItem value={10}>Ten</MenuItem>
@@ -284,11 +310,11 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
       </Grid>
       <br/><br/><br/><br/>
   <div style={{ display: 'flex', justifyContent: 'center' }}>
-  <Button  onClick={() => { uploadMovie(groupData,selectedFile.selectedFile,navigate)}} variant="contained" 
+  <Button  onClick={() => { updateThisSubject(uid,updateObject)}} variant="contained" 
   style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px', paddingBottom: '10px', 
   paddingRight: '30px', paddingLeft: '30px'}}
 >
-    SUBMIT
+   {loading?"Loading...": "SUBMIT"}
   </Button>
 </div>
 </Container>

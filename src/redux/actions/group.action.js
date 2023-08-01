@@ -6,7 +6,8 @@ import { isItLoading, saveAllGroup ,saveEmployeer,
          saveCategories ,saveGroupMembers, saveMyGroup,
          savePrivateGroup, savePublicGroup, saveSectionVideos,
           saveCategoryVideos,saveCategoryChapters,
-        saveChapterSessions } from '../reducers/group.slice';
+        saveChapterSessions,saveSubjectInfo,
+      saveLessonInfo,saveChapterInfo} from '../reducers/group.slice';
 import firebase from "firebase/app";
 
 export const createGroup = (groupData, user, file, navigate, setLoading, url) => async (dispatch) => {
@@ -323,6 +324,8 @@ export const fetchGroups = (adminID) => async (dispatch) => {
  };
 
 
+
+
  export const fetchSubjectChapters = (chosenSection)=> async(dispatch) =>{
 
   //dispatch(isItLoading(true));
@@ -431,6 +434,111 @@ export const fetchGroups = (adminID) => async (dispatch) => {
  }).catch((error) => {
    console.log("Error getting document:", error);
    dispatch(isItLoading(false));
+ });
+ };
+
+ export const fetchSubjectInfo = (uid) =>async (dispatch) => {
+  db.collection("sections").doc(uid).get().then((doc) => {
+  console.log()
+  
+    dispatch(saveSubjectInfo(doc.data()))
+ }).catch((error) => {
+  console.log("Error fetching a particular subject from sections collection:", error);
+
+});
+};
+
+export const fetchChapterInfo = (uid) =>async (dispatch) => {
+  db.collection("chapters").doc(uid).get().then((doc) => {
+  console.log("FRESHLY FETCHED FROM CHAPTERZ",doc.data())
+  
+    dispatch(saveChapterInfo(doc.data()))
+ }).catch((error) => {
+  console.log("Error fetching a particular subject from sections collection:", error);
+
+});
+};
+
+export const fetchLessonInfo = (uid) =>async (dispatch) => {
+  db.collection("boneCourses").doc(uid).get().then((doc) => {
+  console.log()
+  
+    dispatch(saveLessonInfo(doc.data()))
+ }).catch((error) => {
+  console.log("Error fetching a particular subject from sections collection:", error);
+
+});
+};
+
+
+ export const updateSubject = (uid,updateObject) => async (dispatch) => {
+ 
+  db.collection("sections").doc(uid).update(
+    {
+      body: updateObject.body,
+      category:updateObject.category,
+      title:updateObject.title,
+      subLevel:updateObject.subLevel
+    
+    }
+  ).then((snapshot) => {
+     //const publicGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
+     
+     notifySuccessFxn("updated successfully")
+
+ }).catch((error) => {
+   console.log("Error updating document:", error);
+   notifyErrorFxn("Problem Updating subject, please try again")
+
+
+ });
+ };
+ 
+
+ export const updateChapter = (uid,updateObject) => async (dispatch) => {
+ 
+  db.collection("chapters").doc(uid).update(
+    {
+      
+      category:updateObject.category,
+      title:updateObject.title,
+      subject:updateObject.subject
+    
+    }
+  ).then((snapshot) => {
+     //const publicGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
+     
+     notifySuccessFxn("updated successfully")
+
+ }).catch((error) => {
+   console.log("Error updating document:", error);
+   notifyErrorFxn("Problem Updating subject, please try again")
+
+
+ });
+ };
+
+
+ export const updateLesson = (uid,updateObject) => async (dispatch) => {
+ 
+  db.collection("boneCourses").doc(uid).update(
+    {
+     
+      chapter:updateObject.chapter,
+      title:updateObject.title,
+      section:updateObject.section
+    
+    }
+  ).then((snapshot) => {
+     //const publicGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
+     
+     notifySuccessFxn("updated successfully")
+
+ }).catch((error) => {
+   console.log("Error updating document:", error);
+   notifyErrorFxn("Problem Updating subject, please try again")
+
+
  });
  };
 

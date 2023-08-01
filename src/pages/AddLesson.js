@@ -1,13 +1,13 @@
 import { Container,Grid, TextField, Typography, TextareaAutosize, Button, Paper,Divider,Box} from '@mui/material';
-import { useRef, useState } from 'react';
+import { useRef, useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UPLOADIMG from '../assets/images/upload.png';
-import { fetchGroups, fetchMyGroups, uploadUserSettings} from 'src/redux/actions/group.action';
+import { fetchGroups, fetchMyGroups, uploadUserSettings,updateLesson} from 'src/redux/actions/group.action';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { notifyErrorFxn } from 'src/utils/toast-fxn';
+import { notifyErrorFxn,notifySuccessFxn } from 'src/utils/toast-fxn';
 import users from 'src/_mock/user';
 
 
@@ -26,16 +26,50 @@ function AddLesson() {
   const [newPassword,setNewPassword] =useState('')
   const [confirmPassword,setConfirmPassword] =useState('')
   const [companySize,setCompanySize] =useState('')
+  const [loading,setLoading] = useState(false)
 
+  const {lessonInfo} = useSelector((state) => state.group)
   const { user } = useSelector((state) => state.auth);
-  console.log("user details are:",user)
+ 
+  
 
   /*const [releaseDate,setReleaseDate] =useState('')
   const [director,setDirector] =useState('')
   const [cast,setCast] =useState([])
   const [description,setDescription] =useState('')
   const [trivia,setTrivia] =useState('')*/
+
+  const [title,setTitle] =useState(lessonInfo.title)
+  const [body,setBody] =useState(lessonInfo.body)
+  const [instructor,setInstructor] =useState([])
+  const [section,setSection] =useState(lessonInfo.section)
+  const [subLevel,setSubLevel] =useState(lessonInfo.uid)
+  const [subject,setSubject] =useState(lessonInfo.subject)
+  const [chapter,setChapter] =useState(lessonInfo.chapter)
   
+  useEffect(()=>{
+
+    console.log("INFO FOR THE SELECTED LESSON IS NOW",lessonInfo)
+ 
+   },[])
+
+
+  const updateObject ={
+    chapter,
+    section,
+    title
+  }
+
+
+  const updateThisLesson= (uid,updateObject) => {
+    setLoading(true)
+    dispatch(updateLesson(uid,updateObject))
+
+    setTimeout(()=>{setLoading(false)},1000)
+   // setTimeout(()=>{},1000)
+   
+  }
+
   const groupData = {
     email:user.email,
     password:user.password,
@@ -122,8 +156,8 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
             variant="outlined"
             multiline
             maxRows={2}
-            value= {"6E ANNEE"}
-            onChange = {(e)=>{setConfirmPassword(e.target.value)}}
+            value= {chapter}
+            onChange = {(e)=>{setChapter(e.target.value)}}
             
             />
             
@@ -152,8 +186,8 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
             variant="outlined"
             multiline
             maxRows={2}
-            value= {"CHEMIE TSE/TSM"}
-            onChange = {(e)=>{setConfirmPassword(e.target.value)}}
+            value= {title}
+            onChange = {(e)=>{setTitle(e.target.value)}}
             
             />
             
@@ -181,8 +215,8 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
             variant="outlined"
             multiline
             maxRows={2}
-            value= {"CHEMIE TSE/TSM"}
-            onChange = {(e)=>{setConfirmPassword(e.target.value)}}
+            value= {section}
+            onChange = {(e)=>{setSection(e.target.value)}}
             
             />
             
@@ -209,8 +243,8 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
             variant="outlined"
             multiline
             maxRows={2}
-            value= {"CHEMIE TSE/TSM"}
-            onChange = {(e)=>{setConfirmPassword(e.target.value)}}
+            value= {"cant update for now, no corresponding field in database"}
+            onChange = {(e)=>{}}
             
             />
             
@@ -224,7 +258,7 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
       </Grid>
       <br/><br/>
   <div style={{ display: 'flex', justifyContent: 'center' }}>
-  <Button  onClick={() => { uploadMovie(groupData,selectedFile.selectedFile,navigate)}} variant="contained" 
+  <Button  onClick={() => { updateThisLesson(lessonInfo.uid,updateObject)}} variant="contained" 
   style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px', paddingBottom: '10px', 
   paddingRight: '30px', paddingLeft: '30px'}}
 >
@@ -275,8 +309,8 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
         variant="outlined"
         multiline
         maxRows={2}
-        value= {"6E ANNEE"}
-        onChange = {(e)=>{setConfirmPassword(e.target.value)}}
+        value= {chapter}
+        onChange = {(e)=>{setChapter(e.target.value)}}
         
         />
         
@@ -305,8 +339,8 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
         variant="outlined"
         multiline
         maxRows={2}
-        value= {"CHEMIE TSE/TSM"}
-        onChange = {(e)=>{setConfirmPassword(e.target.value)}}
+        value= {"cant update for now, no corresponding field in database"}
+        onChange = {(e)=>{}}
         
         />
         
@@ -334,8 +368,8 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
         variant="outlined"
         multiline
         maxRows={2}
-        value= {"CHEMIE TSE/TSM"}
-        onChange = {(e)=>{setConfirmPassword(e.target.value)}}
+        value= {"cant update for now, no corresponding field in database"}
+        onChange = {(e)=>{}}
         
         />
         
@@ -362,8 +396,8 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
         variant="outlined"
         multiline
         maxRows={2}
-        value= {"CHEMIE TSE/TSM"}
-        onChange = {(e)=>{setConfirmPassword(e.target.value)}}
+        value= {"cant update for now, no corresponding field in database"}
+        onChange = {(e)=>{}}
         
         />
         
@@ -381,7 +415,7 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
   </Grid>
   <br/><br/><br/><br/>
 <div style={{ display: 'flex', justifyContent: 'center' }}>
-<Button  onClick={() => { uploadMovie(groupData,selectedFile.selectedFile,navigate)}} variant="contained" 
+<Button  onClick={() => { updateThisLesson(lessonInfo.uid,updateObject)}} variant="contained" 
 style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px', paddingBottom: '10px', 
 paddingRight: '30px', paddingLeft: '30px'}}
 >

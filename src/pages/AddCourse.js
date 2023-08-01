@@ -1,5 +1,5 @@
 import { Container,Grid, TextField, Typography, TextareaAutosize, Button, Paper,Divider,Box} from '@mui/material';
-import { useRef, useState } from 'react';
+import { useRef, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import UPLOADIMG from '../assets/images/upload.png';
 import { fetchGroups, fetchMyGroups, uploadUserSettings} from 'src/redux/actions/group.action';
@@ -23,6 +23,7 @@ function AddCourse() {
   const [companySize,setCompanySize] =useState('')
 
   const { user } = useSelector((state) => state.auth);
+
   console.log("user details are:",user)
 
   /*const [releaseDate,setReleaseDate] =useState('')
@@ -38,6 +39,7 @@ function AddCourse() {
     companySize,
     uid:user.uid
   }
+
 
 
   const handleselectedFile = event => {

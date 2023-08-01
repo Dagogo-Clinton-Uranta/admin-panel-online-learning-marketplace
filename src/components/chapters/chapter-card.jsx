@@ -4,7 +4,7 @@ import LockIcon from '@mui/icons-material/Lock';
 import { Divider, Chip, Grid, Paper, Typography, Box, Avatar, Button, ButtonBase, Stack, 
   ToggleButton, ToggleButtonGroup, Hidden  } from '@mui/material';
 import { useDispatch,useSelector } from 'react-redux';
-import {fetchChapterSessions, fetchSubjectChapters, updateVideoAndUserWatchlists} from 'src/redux/actions/group.action'
+import {fetchChapterSessions, fetchSubjectChapters, updateVideoAndUserWatchlists,fetchChapterInfo} from 'src/redux/actions/group.action'
 import { fetchVideoSubsection } from 'src/redux/actions/group.action';
 import { useNavigate } from 'react-router-dom';
 
@@ -53,12 +53,19 @@ const ChapterCard = ({data,index,user}) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [wait,setWait] =useState(false)
 
   const { allSectionVideos,requestedSection } = useSelector((state) => state.group);
     const { categoryChapters,presentOpenChapter} = useSelector((state) => state.group);
     const { chapterSessions,presentOpenSession} = useSelector((state) => state.group);
    
+    const populateEditChapter = (identity)=>{
 
+      setWait(true)
+      dispatch(fetchChapterInfo(identity))
+
+     setTimeout(()=> {navigate('/dashboard/edit-chapter',{state:{uid:identity}})}, 1000)
+    }
 
   const dummyData = [
     {uid: 1, title: "General (16 mins)", desc: "Lorem ipsum dolor sit amet consectetur tesdsjk. Eget cursus..."},
@@ -125,10 +132,10 @@ const ChapterCard = ({data,index,user}) => {
 
             <Button variant="contained" style={{minHeight: '45px', minWidth: '145px', backgroundColor: 'black', }}
               onClick={() => {
-               
-                navigate('/dashboard/edit-chapter')
+                
+                populateEditChapter(data.uid)
               }}>
-                {"Edit"}
+                 {wait?"Please wait...":"Edit"}
             </Button>
        </div> 
 

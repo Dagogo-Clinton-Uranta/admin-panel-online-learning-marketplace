@@ -129,7 +129,8 @@ const useStyles = makeStyles({
 export default function ContractorStatsList({jobs}) {
   //search function
   const dispatch = useDispatch();
-  const [jobList, setJobList] = useState(jobs);
+  const [jobList, setJobList] = useState([{subject:"Mathematiques",courseName:"Dissociation et produit ionique",watchedOn:"July 22, 2023. 4:05pm"},
+                                          {subject:"Biologie",courseName:"Dissociation et produit ionique",watchedOn:"July 25, 2023. 12:00pm",}]);
   console.log("all users are:",jobs)
   const [searched, setSearched] = useState("");
   const classes = useStyles();
@@ -231,9 +232,9 @@ export default function ContractorStatsList({jobs}) {
         <Table sx={{ maxWidth: 1500,tableLayout:"fixed" }} aria-label="custom pagination table">
           <TableHead>
             <TableRow>
-              <StyledTableCell>Name</StyledTableCell>
-              <StyledTableCell align="right">Badge</StyledTableCell>
-              <StyledTableCell align="right">Registered</StyledTableCell>
+              <StyledTableCell>Subject</StyledTableCell>
+              <StyledTableCell align="right">Course Name</StyledTableCell>
+              <StyledTableCell align="right">Watched On</StyledTableCell>
               
               {/*<StyledTableCell align="right">Industry</StyledTableCell>
               <StyledTableCell align="center">State</StyledTableCell>
@@ -252,18 +253,23 @@ export default function ContractorStatsList({jobs}) {
             ).map((row) => (
               <TableRow key={row.id}>
                 <TableCell component="th" scope="row">
-                  {row.firstName + " " + row.lastName }
+                  {row.subject}
                 </TableCell>
                 <TableCell style={{ width: 140 }} align="right">
-                  {row.email}
+                  {row.courseName}
                 </TableCell>
+
+                <TableCell style={{ width: 140 }} align="right">
+                  {row.watchedOn}
+                </TableCell>
+
                 {/*<TableCell style={{ width: 140 }} align="right">
                 {row.accountCreated &&typeof(row.accountCreated) !== "string"  ?(new Date(row.accountCreated.seconds*1000)).toDateString():row.accountCreated}
                 </TableCell>*/}
                 
-                <TableCell style={{ width: 140 }} align="right">
+                {/*<TableCell style={{ width: 140 }} align="right">
                 {row.registeredOn &&typeof(row.registeredOn) !== "string"  ?(new Date(row.registeredOn.seconds*1000)).toDateString():row.accountCreated}
-                </TableCell>
+                </TableCell>*/}
 
                
 

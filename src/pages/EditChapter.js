@@ -1,13 +1,13 @@
 import { Container,Grid, TextField, Typography, TextareaAutosize, Button, Paper,Divider,Box} from '@mui/material';
-import { useRef, useState } from 'react';
+import { useRef, useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UPLOADIMG from '../assets/images/upload.png';
-import { fetchGroups, fetchMyGroups, uploadUserSettings} from 'src/redux/actions/group.action';
+import { fetchGroups, fetchMyGroups, uploadUserSettings,updateChapter} from 'src/redux/actions/group.action';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { notifyErrorFxn } from 'src/utils/toast-fxn';
+import { notifyErrorFxn, notifySuccessFxn } from 'src/utils/toast-fxn';
 import users from 'src/_mock/user';
 
 
@@ -34,7 +34,9 @@ function AddQuiz() {
   const [newPassword,setNewPassword] =useState('')
   const [confirmPassword,setConfirmPassword] =useState('')
   const [companySize,setCompanySize] =useState('')
+  const [loading,setLoading] = useState(false)
 
+  const {chapterInfo} = useSelector((state) => state.group)
   const { user } = useSelector((state) => state.auth);
   console.log("user details are:",user)
 
@@ -43,6 +45,35 @@ function AddQuiz() {
   const [cast,setCast] =useState([])
   const [description,setDescription] =useState('')
   const [trivia,setTrivia] =useState('')*/
+
+
+  const [title,setTitle] =useState(chapterInfo.title)
+  const [body,setBody] =useState(chapterInfo.body)
+  const [instructor,setInstructor] =useState([])
+  const [category,setCategory] =useState(chapterInfo.category)
+  const [subLevel,setSubLevel] =useState(chapterInfo.uid)
+  const [subject,setSubject] =useState(chapterInfo.subject)
+
+  useEffect(()=>{
+
+    console.log("INFO FOR THE SELECTED SUBJECT ARE",chapterInfo)
+ 
+   },[])
+
+  const updateObject ={
+    title,
+    category,
+    subject
+  }
+
+  const updateThisChapter= (uid,updateObject) => {
+    setLoading(true)
+    dispatch(updateChapter(uid,updateObject))
+
+    setTimeout(()=>{setLoading(false)},1000)
+   // setTimeout(()=>{},1000)
+   
+  }
   
   const groupData = {
     email:user.email,
@@ -149,8 +180,8 @@ const addOption =(option) => {
         variant="outlined"
         multiline
         maxRows={2}
-        value= {"CHEMIE TSE/TSM"}
-        onChange = {(e)=>{setConfirmPassword(e.target.value)}}
+        value= {category}
+        onChange = {(e)=>{setCategory(e.target.value)}}
         
         />
         
@@ -177,8 +208,8 @@ const addOption =(option) => {
         variant="outlined"
         multiline
         maxRows={2}
-        value= {"CHEMIE TSE/TSM"}
-        onChange = {(e)=>{setConfirmPassword(e.target.value)}}
+        value= {subject}
+        onChange = {(e)=>{setSubject(e.target.value)}}
         
         />
         
@@ -205,8 +236,8 @@ const addOption =(option) => {
             variant="outlined"
             multiline
             maxRows={2}
-            value= {"6E ANNEE"}
-            onChange = {(e)=>{setConfirmPassword(e.target.value)}}
+            value= {title}
+            onChange = {(e)=>{setTitle(e.target.value)}}
             
             />
             
@@ -231,12 +262,12 @@ const addOption =(option) => {
           <Grid item xs={7}>
             <TextField
             fullWidth
-            placeholder=" confirm password"
+            placeholder="pdf url"
             variant="outlined"
             multiline
             maxRows={2}
-            value= {"CHEMIE TSE/TSM"}
-            onChange = {(e)=>{setConfirmPassword(e.target.value)}}
+            value= {'cannot update for now, no corresponding value in db'}
+            onChange = {(e)=>{}}
             
             />
             
@@ -286,12 +317,12 @@ const addOption =(option) => {
       <Grid item xs={7}>
         <TextField
         fullWidth
-        placeholder=" confirm password"
+        placeholder=" Lesson title"
         variant="outlined"
         multiline
         maxRows={2}
-        value= {"6E ANNEE"}
-        onChange = {(e)=>{setConfirmPassword(e.target.value)}}
+        value= {"cannot update for now, no corresponding value in db"}
+        onChange = {(e)=>{}}
         
         />
         
@@ -316,12 +347,12 @@ const addOption =(option) => {
       <Grid item xs={7}>
         <TextField
         fullWidth
-        placeholder=" confirm password"
+        placeholder=" duration"
         variant="outlined"
         multiline
         maxRows={2}
-        value= {"CHEMIE TSE/TSM"}
-        onChange = {(e)=>{setConfirmPassword(e.target.value)}}
+        value= {"cannot update for now, no corresponding value in db"}
+        onChange = {(e)=>{}}
         
         />
         
@@ -343,12 +374,12 @@ const addOption =(option) => {
       <Grid item xs={7}>
         <TextField
         fullWidth
-        placeholder=" confirm password"
+        placeholder=" file url"
         variant="outlined"
         multiline
         maxRows={2}
-        value= {"CHEMIE TSE/TSM"}
-        onChange = {(e)=>{setConfirmPassword(e.target.value)}}
+        value= {"cannot update for now, ,no corresponding value in db"}
+        onChange = {(e)=>{}}
         
         />
         
@@ -405,8 +436,8 @@ const addOption =(option) => {
         variant="outlined"
         multiline
         maxRows={2}
-        value= {"6E ANNEE"}
-        onChange = {(e)=>{setConfirmPassword(e.target.value)}}
+        value= {"cannot update for now, no corresponding value in db"}
+        onChange = {(e)=>{}}
         
         />
         
@@ -431,7 +462,7 @@ const addOption =(option) => {
       <Grid item xs={7} sx={{display:"flex",justifyContent:"center",gap:"20px"}} >
         <TextField
         sx={{width:"90%"}}
-        placeholder=" confirm password"
+        placeholder=" cannot update for now, no corresponding value in db"
         variant="outlined"
         multiline
         maxRows={2}
@@ -495,7 +526,7 @@ ADD
         multiline
         maxRows={2}
         value= {"CHEMIE TSE/TSM"}
-        onChange = {(e)=>{setConfirmPassword(e.target.value)}}
+        onChange = {(e)=>{}}
         
         />
         
@@ -515,7 +546,7 @@ ADD
 
 <br/><br/><br/><br/>
 <div style={{ display: 'flex', justifyContent: 'center' }}>
-<Button  onClick={() => { uploadMovie(groupData,selectedFile.selectedFile,navigate)}} variant="contained" 
+<Button onClick={() => { updateThisChapter(chapterInfo.uid,updateObject)}} variant="contained" 
 style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px', paddingBottom: '10px', 
 paddingRight: '30px', paddingLeft: '30px'}}
 >

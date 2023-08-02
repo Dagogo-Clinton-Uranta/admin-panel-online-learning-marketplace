@@ -142,12 +142,6 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
          </Button>
      
      
-       <Button   variant="contained" 
-           style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px', paddingBottom: '10px', 
-           paddingRight: '30px', paddingLeft: '30px'}} onClick={() => {  navigate('/dashboard/add-quiz')}}
-       >
-    ADD QUIZ
-             </Button>
       </div>
            
           </Grid>

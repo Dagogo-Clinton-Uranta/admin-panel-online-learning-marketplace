@@ -17,7 +17,6 @@ import 'react-slidedown/lib/slidedown.css'
 
 import ChapterCard from   'src/components/chapters/chapter-card';
 import { populate } from 'react-redux-firebase';
-import QuizCard from '../chapters/quiz-card';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -50,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SubSectionCard = ({data,index,user}) => {
+const QuizCard = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -61,28 +60,28 @@ const SubSectionCard = ({data,index,user}) => {
 
 
   const dummyData = [
-    {uid: 1, title: "General (16 mins)", desc: "Lorem ipsum dolor sit amet consectetur tesdsjk. Eget cursus..."},
-    {uid: 2, title: "Public (11 mins)", desc: "Tetsla ipsum dolor sit amet consectetur tesdsjk. Eget cursus..."},
-    {uid: 3, title: "Future (39 mins)", desc: "Lorem ipsum dolor sit amet consectetur tesdsjk. Eget cursus..."},
+    {uid: 1, title: "Quiz", body: "Lorem ipsum dolor sit amet consectetur tesdsjk. Eget cursus..."},
+    {uid: 2, title: "Quiz ", body: "Tetsla ipsum dolor sit amet consectetur tesdsjk. Eget cursus..."},
+    {uid: 3, title: "Quiz", body: "Lorem ipsum dolor sit amet consectetur tesdsjk. Eget cursus..."},
 ];
 
   
   const [loading,setLoading] =useState(false)
   const [wait,setWait] =useState(false)
   const [dropDown, setDropDown] = useState(false);
-  const [categoryData,setCategoryData] = useState(categoryChapters?categoryChapters:dummyData) 
+  const [categoryData,setCategoryData] = useState(dummyData) 
 
   //console.log("THE VIDEO ID IS",dummyData[0].uid)
-  console.log("I AM RECEIVING from my parent AS - - -",data)
+  //console.log("I AM RECEIVING AS - - -",data)
   
 
-  useEffect(()=>{ 
-    //this code is responsible for the right section appearing in the dropdown
+  /*useEffect(()=>{ 
+    
     if(presentOpenChapter !== data.uid){setTimeout(()=>{setDropDown(false)},300)}
    
        setTimeout(()=>{setCategoryData(categoryChapters)},600)
 
-    },[categoryChapters,presentOpenChapter])
+    },[categoryChapters,presentOpenChapter])*/
 
 
     const fetchChaptersAndDropDown  = (id)=> {
@@ -116,33 +115,26 @@ const SubSectionCard = ({data,index,user}) => {
     <div className={classes.row}>
       <div className={classes.text}>
         <div style={{ color: 'black' }}>
-          <b>{ `${index + 1}.) `/*data.id*/} {data && data.title} </b>
+          <b>{ `${dummyData[0].uid}.) `/*data.id*/} { dummyData[0].title} </b>
         </div>{' '}
-        <span style={{ marginLeft: '20px' }}>{data && data.body}</span>
+        <span style={{ marginLeft: '20px' }}>{ dummyData[0].body}</span>
       </div>
 
       <div className={classes.buttonSpacer}>
-      <Button variant="contained" style={{minHeight: '45px', minWidth: '145px', backgroundColor: 'black', }}
+     {/* <Button variant="contained" style={{minHeight: '45px', minWidth: '145px', backgroundColor: 'black', }}
               onClick={() => {
                
-              /*  setLoading(true) 
-                dispatch(setRequestedSection(data.title))
-               dispatch(fetchVideoSubsection(data.title))
-                const makeRequest = async()=>{
-                  console.log("i have set the requested section as",data.title)
-                  dispatch(setRequestedSection(data.title))
-                  dispatch(fetchVideoSubsection(data.title))}
-                makeRequest().then(()=>(setTimeout(()=>{navigate('/dashboard/view-incubator', { state: { title:data.title } })},1300)))*/
                 fetchChaptersAndDropDown(data.uid)
               }}>
                 {loading?"Loading...":"View"}
-            </Button>
+        </Button>*/}
 
 
             <Button variant="contained" style={{minHeight: '45px', minWidth: '145px', backgroundColor:'black' }}
               onClick={() => {
              
-               populateEditSubject(data.uid)
+               //populateEditSubject(data.uid)
+               navigate('/dashboard/add-quiz')
               }}>
                 {wait?"Please Wait...":"Edit"}
             </Button>
@@ -154,7 +146,7 @@ const SubSectionCard = ({data,index,user}) => {
      {/*=================THE DROPDOWN ICON =============================*/}
           
      <SlideDown style={{width:"100%"}}>
-     {dropDown &&
+     {/*dropDown &&
     <Grid item xs container direction="column" spacing={6} style={{marginLeft:"0px",marginTop:"0px",backgroundColor:"#f2ecfe",display:"flex",flexDirection:"column",alignItems:"center" }}>
          <br/><br/>
         {categoryData.length?
@@ -172,10 +164,8 @@ const SubSectionCard = ({data,index,user}) => {
            </center>
          
            }
-           <QuizCard/> 
-      
        </Grid>
-         }
+          */}
        </SlideDown>
      
      {/*=================THE DROPDOWN ICON END=============================*/}
@@ -184,4 +174,4 @@ const SubSectionCard = ({data,index,user}) => {
   );
 };
 
-export default SubSectionCard;
+export default QuizCard;

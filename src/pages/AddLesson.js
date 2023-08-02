@@ -224,12 +224,67 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
           </Grid>
         </Grid>
 
+        <Grid container item xs={12} spacing={2}>
+          <Grid item xs={3}>
+            <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
+             <div >
+             MEDIA URL
+             </div>
+      
+            </Typography>
+          
+          </Grid>
+
+          <Grid item xs={7}>
+            <TextField
+            fullWidth
+            placeholder=" confirm password"
+            variant="outlined"
+            multiline
+            maxRows={2}
+            value= {"cant update for now, no corresponding field in database"}
+            onChange = {(e)=>{}}
+            
+            />
+            
+            
+          </Grid>
+        </Grid>
+
 
         <Grid container item xs={12} spacing={2}>
           <Grid item xs={3}>
             <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
              <div >
-             LENGTH
+             PDF URL
+             </div>
+      
+            </Typography>
+          
+          </Grid>
+
+          <Grid item xs={7}>
+            <TextField
+            fullWidth
+            placeholder=" confirm password"
+            variant="outlined"
+            multiline
+            maxRows={2}
+            value= {"cant update for now, no corresponding field in database"}
+            onChange = {(e)=>{}}
+            
+            />
+            
+            
+          </Grid>
+        </Grid>
+
+
+        <Grid container item xs={12} spacing={2}>
+          <Grid item xs={3}>
+            <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
+             <div >
+             MEDIA LENGTH
              </div>
       
             </Typography>
@@ -377,12 +432,69 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
       </Grid>
     </Grid>
 
+  
+    <Grid container item xs={12} spacing={2}>
+          <Grid item xs={3}>
+            <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
+             <div >
+             MEDIA URL
+             </div>
+      
+            </Typography>
+          
+          </Grid>
+
+          <Grid item xs={7}>
+            <TextField
+            fullWidth
+            placeholder=" confirm password"
+            variant="outlined"
+            multiline
+            maxRows={2}
+            value= {"cant update for now, no corresponding field in database"}
+            onChange = {(e)=>{}}
+            
+            />
+            
+            
+          </Grid>
+      </Grid>
+
+
+      <Grid container item xs={12} spacing={2}>
+          <Grid item xs={3}>
+            <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
+             <div >
+             PDF URL
+             </div>
+      
+            </Typography>
+          
+          </Grid>
+
+          <Grid item xs={7}>
+            <TextField
+            fullWidth
+            placeholder=" confirm password"
+            variant="outlined"
+            multiline
+            maxRows={2}
+            value= {"cant update for now, no corresponding field in database"}
+            onChange = {(e)=>{}}
+            
+            />
+            
+            
+          </Grid>
+        </Grid>
+
+
 
     <Grid container item xs={12} spacing={2}>
       <Grid item xs={3}>
         <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
          <div >
-         LENGTH
+         MEDIA LENGTH
          </div>
   
         </Typography>
@@ -425,7 +537,8 @@ UPDATE
 </Container>
 
 
-<Container maxWidth="xl" sx={{position:"relative",marginTop:"5rem"}}>
+{/*
+  <Container maxWidth="xl" sx={{position:"relative",marginTop:"5rem"}}>
 
 <Grid container item xs={12} spacing={2}>
       <Grid container item xs={6}>
@@ -548,7 +661,7 @@ EDIT PDF
   <Divider variant="fullWidth"  sx={{backgroundColor:"#000000"}} /> 
 
 </Container>
-
+*/}
 
     </>
   );

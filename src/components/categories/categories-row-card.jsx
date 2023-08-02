@@ -26,6 +26,7 @@ import ChapterCard from   'src/components/chapters/chapter-card';
 
 import { setRequestedSection,savePresentOpenMenu } from 'src/redux/reducers/group.slice';
 import { fetchVideoSection } from 'src/redux/actions/group.action';
+import QuizCard from '../incubator/quiz-card';
 
 
 const Img = styled('img')({
@@ -221,6 +222,9 @@ function CategoriesRowCard ({ id, title, body, img}) {
                   </center>
                 
                   }
+
+
+                
               </Grid>
                 }
               </SlideDown>

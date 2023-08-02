@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ChapterCard = ({data,index,user}) => {
+const QuizCard = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -68,9 +68,9 @@ const ChapterCard = ({data,index,user}) => {
     }
 
   const dummyData = [
-    {uid: 1, title: "General (16 mins)", desc: "Lorem ipsum dolor sit amet consectetur tesdsjk. Eget cursus..."},
-    {uid: 2, title: "Public (11 mins)", desc: "Tetsla ipsum dolor sit amet consectetur tesdsjk. Eget cursus..."},
-    {uid: 3, title: "Future (39 mins)", desc: "Lorem ipsum dolor sit amet consectetur tesdsjk. Eget cursus..."},
+    {uid: 1, title: "Quiz ", body: "A quiz at the end of this subject. Take this to reinforce the concepts..."},
+    {uid: 2, title: "Public (11 mins)", body: "Tetsla ipsum dolor sit amet consectetur tesdsjk. Eget cursus..."},
+    {uid: 3, title: "Future (39 mins)", body: "Lorem ipsum dolor sit amet consectetur tesdsjk. Eget cursus..."},
 ];
 
   
@@ -79,16 +79,16 @@ const ChapterCard = ({data,index,user}) => {
   const [sessionsData,setSessionsData] = useState(chapterSessions?chapterSessions:dummyData) 
 
 
-  console.log("THIS IS THIS CHAPTER'S INFO - - -",data)
+  //console.log("THIS IS THIS CHAPTER'S INFO - - -",data)
   
 
-  useEffect(()=>{ 
+  /*useEffect(()=>{ 
     //this code is responsible for the right section appearing in the dropdown
     if(presentOpenSession !== data.uid){setTimeout(()=>{setDropDown(false)},300)}
    
        setTimeout(()=>{setSessionsData(chapterSessions)},600)
 
-    },[chapterSessions,presentOpenSession])
+    },[chapterSessions,presentOpenSession])*/
 
 
     const fetchSessionsAndDropDown  = (id)=> {
@@ -114,12 +114,12 @@ const ChapterCard = ({data,index,user}) => {
     <div className={classes.row}>
       <div className={classes.text}>
         <div style={{ color: 'black' }}>
-          <b>{ `${index + 1}.) `/*data.id*/} {data && data.title} </b>
+          <b>{ `${dummyData[0].uid}.) `/*data.id*/} {dummyData[0].title} </b>
         </div>{' '}
-        <span style={{ marginLeft: '20px' }}>{data && data.body}</span>
+        <span style={{ marginLeft: '20px' }}>{dummyData[0].body}</span>
       </div>
       <div style={{display:"flex",flexDirection:"column",gap:"10px"}}>
-      <Button variant="contained" style={{minHeight: '45px', minWidth: '145px', backgroundColor: 'black', }}
+      {/*<Button variant="contained" style={{minHeight: '45px', minWidth: '145px', backgroundColor: 'black', }}
               onClick={() => {
                
             
@@ -128,12 +128,12 @@ const ChapterCard = ({data,index,user}) => {
               }}>
                 {loading?"Loading...":"View"}
             </Button>
-
+          */}
 
             <Button variant="contained" style={{minHeight: '45px', minWidth: '145px', backgroundColor: 'black', }}
               onClick={() => {
                 
-                populateEditChapter(data.uid)
+                navigate("/dashboard/add-quiz")
               }}>
                  {wait?"Please wait...":"Edit"}
             </Button>
@@ -145,7 +145,7 @@ const ChapterCard = ({data,index,user}) => {
         {/*=================THE DROPDOWN ICON =============================*/}
           
         <SlideDown style={{width:"100%"}}>
-            {dropDown &&
+            {/*dropDown &&
            <Grid item xs container direction="column" spacing={6} style={{marginLeft:"10px",paddingLeft: '0px', paddingRight: '0px'}}>
                 <br/><br/>
                {sessionsData.length?
@@ -168,7 +168,7 @@ const ChapterCard = ({data,index,user}) => {
                 
                   }
               </Grid>
-                }
+                */}
               </SlideDown>
             
             {/*=================THE DROPDOWN ICON END=============================*/}
@@ -179,4 +179,4 @@ const ChapterCard = ({data,index,user}) => {
   );
 };
 
-export default ChapterCard;
+export default QuizCard;

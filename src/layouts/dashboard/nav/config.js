@@ -31,7 +31,7 @@ const navConfig = [
   },
   {
     title: 'FEED',
-    path: '/dashboard/feed',
+   // path: '/dashboard/feed',
     icon:<AiOutlineInbox/>
     
 },

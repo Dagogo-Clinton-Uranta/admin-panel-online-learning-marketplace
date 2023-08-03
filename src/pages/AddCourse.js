@@ -112,7 +112,7 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
           <Grid item xs={7}>
             <TextField
             fullWidth
-            placeholder=" confirm password"
+            placeholder=" enter level"
             variant="outlined"
             multiline
             maxRows={2}
@@ -142,7 +142,7 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
           <Grid item xs={7}>
             <TextField
             fullWidth
-            placeholder=" confirm password"
+            placeholder=" enter title"
             variant="outlined"
             multiline
             maxRows={2}
@@ -169,7 +169,7 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
           <Grid item xs={7}>
             <TextField
             fullWidth
-            placeholder=" confirm password"
+            placeholder=" enter description"
             variant="outlined"
             multiline
             rows={8}
@@ -198,7 +198,7 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
           <Grid item xs={7}>
             <TextField
             fullWidth
-            placeholder=" confirm password"
+            placeholder=" enter overview"
             variant="outlined"
             multiline
             Rows={8}
@@ -226,7 +226,7 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
           <Grid item xs={7}>
             <TextField
             fullWidth
-            placeholder=" confirm password"
+            placeholder=" select instructor"
             variant="outlined"
             multiline
             maxRows={2}

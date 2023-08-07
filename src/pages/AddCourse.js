@@ -238,8 +238,36 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
             
           </Grid>
         </Grid>
-        {/* upload section */}
-        
+
+
+
+        <Grid container item xs={12} spacing={2}>
+          <Grid item xs={3}>
+            <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
+             <div >
+             IMAGE URL
+             </div>
+      
+            </Typography>
+          
+          </Grid>
+
+          <Grid item xs={7}>
+            <TextField
+            fullWidth
+            placeholder=" the URL of the image (from S3)"
+            variant="outlined"
+            multiline
+            maxRows={2}
+            value= {confirmPassword}
+            onChange = {(e)=>{setConfirmPassword(e.target.value)}}
+            
+            />
+            
+            
+          </Grid>
+        </Grid>
+     
 
 
       

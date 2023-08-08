@@ -37,6 +37,9 @@ import ContractorListPage from './pages/ContractorListPage'
 import ContractorStatsPage from './pages/ContractorStatsPage'
 import AddCourse from './pages/AddCourse';
 import EditCourse from './pages/EditCourse';
+import AddSubject from './pages/AddSubject';
+
+import AddSession from './pages/AddSession';
 import AddLesson from './pages/AddLesson';
 import AddChapter from './pages/AddChapter';
 import EditChapter from './pages/EditChapter';
@@ -72,6 +75,7 @@ export default function Router() {
         
         { path: 'chat', element: <InboxPage /> },
         { path: 'add-course', element: <AddCourse /> },
+        { path: 'add-subject', element: <AddSubject /> },
         { path: 'edit-course', element: <EditCourse /> },
         { path: 'add-lesson', element: <AddLesson /> },
         { path: 'add-chapter', element: <AddChapter /> },

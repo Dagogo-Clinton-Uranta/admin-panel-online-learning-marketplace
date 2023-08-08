@@ -1,47 +1,36 @@
 import { Container,Grid, TextField, Typography, TextareaAutosize, Button, Paper,Divider,Box} from '@mui/material';
-import { useRef, useState,useEffect } from 'react';
-import { useNavigate,useLocation } from 'react-router-dom';
+import { useRef, useState} from 'react';
+import { useNavigate } from 'react-router-dom';
 import UPLOADIMG from '../assets/images/upload.png';
-import { uploadUserSettings,updateSubject,updateSubjectNow,updateChapter} from 'src/redux/actions/group.action';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
+import { fetchGroups, fetchMyGroups, uploadUserSettings} from 'src/redux/actions/group.action';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { notifyErrorFxn, notifySuccessFxn } from 'src/utils/toast-fxn';
+import { notifyErrorFxn } from 'src/utils/toast-fxn';
 import users from 'src/_mock/user';
 
-function EditCourse() {
+function AddSession() {
   const navigate = useNavigate();
-  const location = useLocation();
-  const dispatch = useDispatch();
-
-  let { uid } = location.state;
-  console.log(",uid is....",uid)
   const [file, setFile] = useState();
   const [file2, setFile2] = useState();
   const [fileSize, setFileSize] = useState();
   const [fileSize2, setFileSize2] = useState();
   const [selectedFile, setSelectedFile] = useState({selectedFile: [], selectedFileName: []});
   const [selectedFile2, setSelectedFile2] = useState({selectedFile2: [], selectedFileName2: []});
-  
-
-  const [age, setAge] = useState('');
+  const dispatch = useDispatch();
 
   const [newPassword,setNewPassword] =useState('')
   const [confirmPassword,setConfirmPassword] =useState('')
   const [companySize,setCompanySize] =useState('')
 
-  const {subjectInfo} = useSelector((state) => state.group)
   const { user } = useSelector((state) => state.auth);
-  //console.log("user details are:",user)
 
-  const [title,setTitle] =useState(subjectInfo.title)
-  const [body,setBody] =useState(subjectInfo.body)
-  const [instructor,setInstructor] =useState([])
-  const [category,setCategory] =useState(subjectInfo.category)
-  const [subLevel,setSubLevel] =useState(subjectInfo.subLevel)
+  console.log("user details are:",user)
 
-  const [loading,setLoading] = useState(false)
+  /*const [releaseDate,setReleaseDate] =useState('')
+  const [director,setDirector] =useState('')
+  const [cast,setCast] =useState([])
+  const [description,setDescription] =useState('')
+  const [trivia,setTrivia] =useState('')*/
   
   const groupData = {
     email:user.email,
@@ -51,29 +40,6 @@ function EditCourse() {
     uid:user.uid
   }
 
-
-  useEffect(()=>{
-
-    console.log("INFO FOR THE SELECTED SUBJECT ARE",subjectInfo)
- 
-   },[])
-
-  const updateObject ={
-    title,
-    body,
-    level:subLevel,
-    category
-  }
-
-  const updateThisSubject = async(identity,updateObject) => {
-    setLoading(true)
-    dispatch(updateSubjectNow(identity,updateObject))
-   
-    // console.log("identity is",identity)
-    // console.log("update this subject is updating.........")
-    setTimeout(()=>{setLoading(false)},1800)
-    
-  }
 
 
   const handleselectedFile = event => {
@@ -118,50 +84,38 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
     <>
     <Container maxWidth="xl">
 
+
+
     <div style={{display:"flex",justifyContent:"space-between",marginBottom:"6rem"}}>
        
-
+       <Button variant="contained" style={{maxHeight: '45px', minWidth: '145px', backgroundColor: 'black',position:"relative",left:"-5px",top:"5px" }}
+             onClick={() => {
+              
+                 navigate(-1)
+             }}>
+               {"CANCEL"}
+           </Button>
 
        </div>
 
+
+
     <h1 style={{position:"relative",fontWeight:"bold",marginBottom:"40px",fontSize:"30px"}}>COURSES</h1>
 
-    <Grid item xs={12} sx={{ display: 'flex', flexDirection: 'row',justifyContent:"space-between"}}>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+    <Grid item xs={12} sx={{ display: 'flex' }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
               <Typography variant="h4" component="p">
-              EDIT COURSE
+              ADD COURSE
               </Typography>
-
-            
+              <div style={{height:"2px", width:"80%",borderBottom:"1px solid black",position:"absolute",left:"20rem",top:"18rem"}}></div>
             </Box>
-
-
-            <div style={{ display: 'flex', justifyContent: 'center', gap:'1rem'}}>
-        
-            <Button   variant="contained" 
-          style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px', paddingBottom: '10px', 
-          paddingRight: '30px', paddingLeft: '30px'}}   onClick={() => {  navigate('/dashboard/add-chapter')}}
-          >
-           ADD CHAPTER
-         </Button>
-        
-        
-          <Button   variant="contained" 
-          style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px', paddingBottom: '10px', 
-          paddingRight: '30px', paddingLeft: '30px'}}   onClick={() => {  navigate('/dashboard/add-lesson')}}
-          >
-           ADD LESSON
-         </Button>
-     
-     
-      </div>
-           
-          </Grid>
+            <br/> <br/> <br/>
+        </Grid>
    
-     <div style={{height:"2px", width:"80%",borderBottom:"1px solid black",position:"absolute",left:"20rem",top:"18rem"}}></div>
-     <br/> <br/> <br/>
 
      <Grid container spacing={2}>
+
+
          <Grid container item xs={12} spacing={2}>
           <Grid item xs={3}>
             <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
@@ -176,12 +130,12 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
           <Grid item xs={7}>
             <TextField
             fullWidth
-            placeholder=" change level"
+            placeholder=" enter level"
             variant="outlined"
             multiline
             maxRows={2}
-            value= {subLevel}
-            onChange = {(e)=>{setSubLevel(e.target.value)}}
+            value= {confirmPassword}
+            onChange = {(e)=>{setConfirmPassword(e.target.value)}}
             
             />
             
@@ -206,12 +160,12 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
           <Grid item xs={7}>
             <TextField
             fullWidth
-            placeholder=" change title"
+            placeholder=" enter title"
             variant="outlined"
             multiline
             maxRows={2}
-            value= {title}
-            onChange = {(e)=>{setTitle(e.target.value)}}
+            value= {confirmPassword}
+            onChange = {(e)=>{setConfirmPassword(e.target.value)}}
             
             />
             
@@ -233,12 +187,12 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
           <Grid item xs={7}>
             <TextField
             fullWidth
-            placeholder=" change description"
+            placeholder=" enter description"
             variant="outlined"
             multiline
             rows={8}
-            value= {body}
-            onChange = {(e)=>{setBody(e.target.value)}}
+            value= {confirmPassword}
+            onChange = {(e)=>{setConfirmPassword(e.target.value)}}
             
             />
             
@@ -252,7 +206,7 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
           <Grid item xs={3}>
             <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
              <div >
-             CLASS
+             OVERVIEW
              </div>
       
             </Typography>
@@ -262,13 +216,12 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
           <Grid item xs={7}>
             <TextField
             fullWidth
-            placeholder=" change class"
+            placeholder=" enter overview"
             variant="outlined"
             multiline
             Rows={8}
-            value= {category}
-
-            onChange = {(e)=>{setCategory(e.target.value)}}
+            value= {confirmPassword}
+            onChange = {(e)=>{setConfirmPassword(e.target.value)}}
             
             />
             
@@ -289,48 +242,61 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
           </Grid>
 
           <Grid item xs={7}>
-          
-         <Select
-         style={{width:"100%"}}
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={instructor}
-          label="Instructor"
-          onChange={(event) => {
-            setInstructor(event.target.value);
-          }}
-        >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
+            <TextField
+            fullWidth
+            placeholder=" select instructor"
+            variant="outlined"
+            multiline
+            maxRows={2}
+            value= {confirmPassword}
+            onChange = {(e)=>{setConfirmPassword(e.target.value)}}
+            
+            />
             
             
           </Grid>
         </Grid>
-        {/* upload section */}
-        
+
+
+
+        <Grid container item xs={12} spacing={2}>
+          <Grid item xs={3}>
+            <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
+             <div >
+             IMAGE URL
+             </div>
+      
+            </Typography>
+          
+          </Grid>
+
+          <Grid item xs={7}>
+            <TextField
+            fullWidth
+            placeholder=" the URL of the image (from S3)"
+            variant="outlined"
+            multiline
+            maxRows={2}
+            value= {confirmPassword}
+            onChange = {(e)=>{setConfirmPassword(e.target.value)}}
+            
+            />
+            
+            
+          </Grid>
+        </Grid>
+     
 
 
       
       </Grid>
       <br/><br/><br/><br/>
-  <div style={{ display: 'flex', justifyContent: 'center' , gap:"1rem" }}>
-  <Button  onClick={() => {navigate(-1) }} variant="contained" 
+  <div style={{ display: 'flex', justifyContent: 'center' }}>
+  <Button  onClick={() => { uploadMovie(groupData,selectedFile.selectedFile,navigate)}} variant="contained" 
   style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px', paddingBottom: '10px', 
   paddingRight: '30px', paddingLeft: '30px'}}
 >
-    CANCEL
-  </Button>
-  
-  
-  
-  
-  <Button  onClick={() => {updateThisSubject(uid,updateObject)}} variant="contained" 
-  style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px', paddingBottom: '10px', 
-  paddingRight: '30px', paddingLeft: '30px'}}
->
-   {loading?"Loading...": "SUBMIT"}
+    SUBMIT
   </Button>
 </div>
 </Container>
@@ -338,4 +304,4 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
   );
 }
 
-export default EditCourse;
+export default AddSession;

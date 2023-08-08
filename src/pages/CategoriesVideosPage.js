@@ -24,7 +24,7 @@ export default function CategoriesVideoPage() {
   const navigate = useNavigate()
   const dispatch = useDispatch();
   const { allCategories } = useSelector((state) => state.group);
-   console.log("CATEGORIES ARE:",allCategories)
+   console.log("CATEGORIES ARE NOW:",allCategories)
  
    const dummyData = [
     {id: 1, imageUrl: '', title: "Finance", body: "lorem ard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in their exact original form, accompani"},

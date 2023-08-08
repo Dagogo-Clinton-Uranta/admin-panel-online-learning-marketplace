@@ -227,7 +227,7 @@ function CategoriesRowCard ({ id, title, body, img}) {
                   </center>
                   
                   }
-                 <AddSubSectionCard /*data={dt}*//>
+                 <AddSubSectionCard categoryId={"hi"} category={"ji"}/>
 
                 
               </Grid>

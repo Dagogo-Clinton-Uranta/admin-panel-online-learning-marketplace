@@ -471,32 +471,58 @@ export const fetchLessonInfo = (uid) =>async (dispatch) => {
 };
 
 
- export const updateSubject = (uid,updateObject) => async (dispatch) => {
+ export const updateSubjectNow = (uid,updateObject) => async (dispatch) => {
  
-  db.collection("sections").doc(uid).update(
-    {
-      body: updateObject.body,
+  db.collection("sections").doc(uid).update({
+      body:updateObject.body,
       category:updateObject.category,
       title:updateObject.title,
-      subLevel:updateObject.subLevel
-    
-    }
-  ).then((snapshot) => {
+      subLevel:updateObject.level,
+      uid:uid
+    }).then((snapshot) => {
      //const publicGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
      
      notifySuccessFxn("updated successfully")
 
  }).catch((error) => {
    console.log("Error updating document:", error);
-   notifyErrorFxn("Problem Updating subject, please try again")
+   notifyErrorFxn(error)
+
+
+ });
+
+
+
+ };
+
+
+ export const updateSubject = (uid,updateObject) => async (dispatch) => {
+  console.log("I have reached the subject again land")
+  db.collection("sections").doc(uid).update(
+    {
+      body:updateObject.body,
+      category:updateObject.category,
+      title:updateObject.title,
+      subLevel:updateObject.subLevel,
+      uid:uid
+    }
+  ).then((snapshot) => {
+     //const publicGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
+   
+     notifySuccessFxn("updated successfully")
+
+ }).catch((error) => {
+   console.log("Error updating document:", error);
+   notifyErrorFxn(error)
 
 
  });
  };
+
  
 
  export const updateChapter = (uid,updateObject) => async (dispatch) => {
- 
+  console.log("I have reached the chapter land")
   db.collection("chapters").doc(uid).update(
     {
       
@@ -507,7 +533,7 @@ export const fetchLessonInfo = (uid) =>async (dispatch) => {
     }
   ).then((snapshot) => {
      //const publicGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
-     
+   
      notifySuccessFxn("updated successfully")
 
  }).catch((error) => {

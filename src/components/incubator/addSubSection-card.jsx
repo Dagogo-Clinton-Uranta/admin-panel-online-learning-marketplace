@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AddSubSectionCard = ({data,index,user}) => {
+const AddSubSectionCard = ({data}) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -78,12 +78,12 @@ const AddSubSectionCard = ({data,index,user}) => {
 
  
 
-    const sendToEditSubject = (identity)=>{
+    const sendToAddSubject = (identity="hi")=>{
 
       setWait(true)
       //dispatch(fetchSubjectInfo(identity))
 
-     setTimeout(()=> {navigate('/dashboard/edit-course',{state:{uid:identity}})}, 1000)
+     setTimeout(()=> {navigate('/dashboard/add-subject',{state:{uid:identity}})}, 1000)
     }
 
 
@@ -104,7 +104,7 @@ const AddSubSectionCard = ({data,index,user}) => {
             <Button variant="contained" style={{minHeight: '45px', minWidth: '145px', backgroundColor:'black' }}
               onClick={() => {
              
-               sendToEditSubject(data.uid)
+               sendToAddSubject("hi")
               }}>
                 {wait?"Please Wait...":<span><b style={{fontSize:"1.5rem"}}>+</b> Add Subject</span> }
             </Button>

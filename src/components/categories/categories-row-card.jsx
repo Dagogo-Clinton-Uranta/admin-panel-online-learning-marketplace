@@ -22,6 +22,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import ListRowCard from 'src/components/incubator/list-card';
 import SubSectionCard from   'src/components/incubator/subSection-card';
+import AddSubSectionCard from   'src/components/incubator/addSubSection-card';
 import ChapterCard from   'src/components/chapters/chapter-card';
 
 import { setRequestedSection,savePresentOpenMenu } from 'src/redux/reducers/group.slice';
@@ -207,6 +208,7 @@ function CategoriesRowCard ({ id, title, body, img}) {
            <Grid item xs container direction="column" spacing={6} style={{marginLeft:"10px",paddingLeft: '0px', paddingRight: '0px',transition:" height 5s ease"}}>
                 <br/><br/>
                {data.length?
+               
                data.map(((dt,i) => {
                 console.log("dt inside map is",dt)
                 return (
@@ -214,15 +216,18 @@ function CategoriesRowCard ({ id, title, body, img}) {
                 
                     <SubSectionCard data={dt} index={i} user={user.uid}/>
                 )
-               })):
-                  
+               }))
+               
+               
+               :
+             
                  <center>
                   <br/> <br/>
                   No Subjects available for this sub section.
                   </center>
-                
+                  
                   }
-
+                 <AddSubSectionCard /*data={dt}*//>
 
                 
               </Grid>

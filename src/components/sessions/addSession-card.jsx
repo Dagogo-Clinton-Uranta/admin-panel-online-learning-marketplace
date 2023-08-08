@@ -4,7 +4,7 @@ import LockIcon from '@mui/icons-material/Lock';
 import { Divider, Chip, Grid, Paper, Typography, Box, Avatar, Button, ButtonBase, Stack, 
   ToggleButton, ToggleButtonGroup, Hidden  } from '@mui/material';
 import { useDispatch,useSelector } from 'react-redux';
-import {fetchChapterSessions, fetchSubjectChapters, updateVideoAndUserWatchlists,fetchChapterInfo} from 'src/redux/actions/group.action'
+import {fetchChapterSessions, fetchSubjectChapters, updateVideoAndUserWatchlists,fetchLessonInfo} from 'src/redux/actions/group.action'
 import { fetchVideoSubsection } from 'src/redux/actions/group.action';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,8 +14,7 @@ import { fetchVideoSection } from 'src/redux/actions/group.action';
 
 import {SlideDown} from 'react-slidedown'
 import 'react-slidedown/lib/slidedown.css'
-import SessionCard from '../sessions/session-card';
-import AddSessionCard from '../sessions/addSession-card';
+
 
 
 
@@ -24,13 +23,14 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor:'#f2ecfe',
+    backgroundColor:'#fefcec',
     border:'1px solid lightgrey',
     borderRadius:'5px',
     width: '90%',
     padding: theme.spacing(2),
     marginBottom: theme.spacing(2),
     marginTop: theme.spacing(2),
+    marginLeft: theme.spacing(10),
   },
   buttonSpacer: {
     display: 'flex',
@@ -49,23 +49,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ChapterCard = ({data,index,user}) => {
+const AddSessionCard = ({data}) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [wait,setWait] =useState(false)
 
   const { allSectionVideos,requestedSection } = useSelector((state) => state.group);
     const { categoryChapters,presentOpenChapter} = useSelector((state) => state.group);
     const { chapterSessions,presentOpenSession} = useSelector((state) => state.group);
-   
-    const populateEditChapter = (identity)=>{
+  
 
-      setWait(true)
-      dispatch(fetchChapterInfo(identity))
-
-     setTimeout(()=> {navigate('/dashboard/edit-chapter',{state:{uid:identity}})}, 1000)
-    }
 
   const dummyData = [
     {uid: 1, title: "General (16 mins)", desc: "Lorem ipsum dolor sit amet consectetur tesdsjk. Eget cursus..."},
@@ -75,20 +68,21 @@ const ChapterCard = ({data,index,user}) => {
 
   
   const [loading,setLoading] =useState(false)
+  const [wait,setWait] =useState(false)
   const [dropDown, setDropDown] = useState(false);
   const [sessionsData,setSessionsData] = useState(chapterSessions?chapterSessions:dummyData) 
 
 
-  console.log("THIS IS THIS CHAPTER'S INFO - - -",data)
+  const sendToAddLesson = (identity)=>{
+
+    setWait(true)
+    //dispatch(fetchLessonInfo(identity))
+
+   setTimeout(()=> {navigate('/dashboard/add-lesson',{state:{uid:identity}})}, 1000)
+  }
+
+
   
-
-  useEffect(()=>{ 
-    //this code is responsible for the right section appearing in the dropdown
-    if(presentOpenSession !== data.uid){setTimeout(()=>{setDropDown(false)},300)}
-   
-       setTimeout(()=>{setSessionsData(chapterSessions)},600)
-
-    },[chapterSessions,presentOpenSession])
 
 
     const fetchSessionsAndDropDown  = (id)=> {
@@ -97,7 +91,7 @@ const ChapterCard = ({data,index,user}) => {
       setLoading(true)
       dispatch(fetchChapterSessions(id))
       dispatch(savePresentOpenSessions(id))
-      console.log(" CHAPTER SESSIONS", sessionsData)
+     
      setTimeout(()=>{setLoading(false);setDropDown(true)},600)
      }
      else{
@@ -114,70 +108,29 @@ const ChapterCard = ({data,index,user}) => {
     <div className={classes.row}>
       <div className={classes.text}>
         <div style={{ color: 'black' }}>
-          <b>{ `${index + 1}.) `/*data.id*/} {data && data.title} </b>
+          <b>{ /*`${index + 1}.) `data.id*/} {/*data && data.title*/} </b>
         </div>{' '}
-        <span style={{ marginLeft: '20px' }}>{data && data.body}</span>
+        <span style={{ marginLeft: '20px',color: 'black' }}>{"Add a new lesson or session here"}</span>
       </div>
-      <div style={{display:"flex",flexDirection:"column",gap:"10px"}}>
-      <Button variant="contained" style={{minHeight: '45px', minWidth: '145px', backgroundColor: 'black', }}
-              onClick={() => {
-               
-            
-
-                fetchSessionsAndDropDown(data.uid)
-              }}>
-                {loading?"Loading...":"View"}
-            </Button>
-
+     
 
             <Button variant="contained" style={{minHeight: '45px', minWidth: '145px', backgroundColor: 'black', }}
               onClick={() => {
-                
-                populateEditChapter(data.uid)
+               
+                sendToAddLesson(data.uid)
               }}>
-                 {wait?"Please wait...":"Edit"}
+                {wait?"Please wait...":<span><b style={{fontSize:"1.5rem"}}>+</b> Add Lesson</span>}
             </Button>
-       </div> 
+          
 
            
     </div>
     
-        {/*=================THE DROPDOWN ICON =============================*/}
-          
-        <SlideDown style={{width:"100%"}}>
-            {dropDown &&
-           <Grid item xs container direction="column" spacing={6} style={{marginLeft:"10px",paddingLeft: '0px', paddingRight: '0px'}}>
-                <br/><br/>
-               {sessionsData.length?
-               sessionsData.map(((dt,i) => {
-              
-                return (
-
-                
-                    <SessionCard data={dt} index={i} />
-                )
-               }))
-               
-               
-               :
-                  
-                 <center>
-                  <br/> <br/>
-                  No Sessions available for this Chapter.
-                  </center>
-                
-                  }
-                  <AddSessionCard/>
-              </Grid>
-                }
-              </SlideDown>
-            
-            {/*=================THE DROPDOWN ICON END=============================*/}
-
+      
    
 
      </>
   );
 };
 
-export default ChapterCard;
+export default AddSessionCard;

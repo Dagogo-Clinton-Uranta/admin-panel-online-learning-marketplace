@@ -114,9 +114,9 @@ const QuizCard = () => {
     <div className={classes.row}>
       <div className={classes.text}>
         <div style={{ color: 'black' }}>
-          <b>{ `${dummyData[0].uid}.) `/*data.id*/} {dummyData[0].title} </b>
+          <b>{/* `${dummyData[0].uid}.) `*/} {/*dummyData[0].title*/} </b>
         </div>{' '}
-        <span style={{ marginLeft: '20px' }}>{dummyData[0].body}</span>
+        <span style={{ marginLeft: '20px',color: 'black' }}>{"Add a new chapter or quiz here"}</span>
       </div>
       <div style={{display:"flex",flexDirection:"column",gap:"10px"}}>
       {/*<Button variant="contained" style={{minHeight: '45px', minWidth: '145px', backgroundColor: 'black', }}
@@ -135,44 +135,14 @@ const QuizCard = () => {
                 
                 navigate("/dashboard/add-quiz")
               }}>
-                 {wait?"Please wait...":"Edit"}
+                 {wait?"Please wait...":<span><b style={{fontSize:"1.5rem"}}>+</b> Add Chapter</span>}
             </Button>
        </div> 
 
            
     </div>
     
-        {/*=================THE DROPDOWN ICON =============================*/}
-          
-        <SlideDown style={{width:"100%"}}>
-            {/*dropDown &&
-           <Grid item xs container direction="column" spacing={6} style={{marginLeft:"10px",paddingLeft: '0px', paddingRight: '0px'}}>
-                <br/><br/>
-               {sessionsData.length?
-               sessionsData.map(((dt,i) => {
-              
-                return (
-
-                
-                    <SessionCard data={dt} index={i} />
-                )
-               }))
-               
-               
-               :
-                  
-                 <center>
-                  <br/> <br/>
-                  No Sessions available for this Chapter.
-                  </center>
-                
-                  }
-              </Grid>
-                */}
-              </SlideDown>
-            
-            {/*=================THE DROPDOWN ICON END=============================*/}
-
+       
    
 
      </>

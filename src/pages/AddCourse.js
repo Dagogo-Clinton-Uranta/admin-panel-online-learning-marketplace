@@ -84,6 +84,22 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
     <>
     <Container maxWidth="xl">
 
+
+
+    <div style={{display:"flex",justifyContent:"space-between",marginBottom:"6rem"}}>
+       
+       <Button variant="contained" style={{maxHeight: '45px', minWidth: '145px', backgroundColor: 'black',position:"relative",left:"-5px",top:"5px" }}
+             onClick={() => {
+              
+                 navigate(-1)
+             }}>
+               {"CANCEL"}
+           </Button>
+
+       </div>
+
+
+
     <h1 style={{position:"relative",fontWeight:"bold",marginBottom:"40px",fontSize:"30px"}}>COURSES</h1>
 
     <Grid item xs={12} sx={{ display: 'flex' }}>
@@ -91,13 +107,15 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
               <Typography variant="h4" component="p">
               ADD COURSE
               </Typography>
-              <div style={{height:"2px", width:"80%",borderBottom:"1px solid black",position:"absolute",left:"20rem",top:"15rem"}}></div>
+              <div style={{height:"2px", width:"80%",borderBottom:"1px solid black",position:"absolute",left:"20rem",top:"18rem"}}></div>
             </Box>
             <br/> <br/> <br/>
-          </Grid>
+        </Grid>
    
 
      <Grid container spacing={2}>
+
+
          <Grid container item xs={12} spacing={2}>
           <Grid item xs={3}>
             <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">

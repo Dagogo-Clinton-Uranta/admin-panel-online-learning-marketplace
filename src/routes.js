@@ -67,7 +67,7 @@ export default function Router() {
         { path: 'video', element: <VideoPage /> },
         { path: 'video-details', element: <VideoDetailsPage /> },
         { path: 'docs', element: <DocsPage /> },
-        { path: 'categories-videos', element: <CategoriesVideoPage /> },
+        { path: 'courses', element: <CategoriesVideoPage /> },
        
         
         { path: 'chat', element: <InboxPage /> },

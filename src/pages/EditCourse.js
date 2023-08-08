@@ -112,6 +112,18 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
     <>
     <Container maxWidth="xl">
 
+    <div style={{display:"flex",justifyContent:"space-between",marginBottom:"6rem"}}>
+       
+       <Button variant="contained" style={{maxHeight: '45px', minWidth: '145px', backgroundColor: 'black',position:"relative",left:"-5px",top:"5px" }}
+             onClick={() => {
+              
+                 navigate(-1)
+             }}>
+               {"CANCEL"}
+           </Button>
+
+       </div>
+
     <h1 style={{position:"relative",fontWeight:"bold",marginBottom:"40px",fontSize:"30px"}}>COURSES</h1>
 
     <Grid item xs={12} sx={{ display: 'flex', flexDirection: 'row',justifyContent:"space-between"}}>
@@ -146,7 +158,7 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
            
           </Grid>
    
-     <div style={{height:"2px", width:"80%",borderBottom:"1px solid black",position:"absolute",left:"20rem",top:"16rem"}}></div>
+     <div style={{height:"2px", width:"80%",borderBottom:"1px solid black",position:"absolute",left:"20rem",top:"18rem"}}></div>
      <br/> <br/> <br/>
 
      <Grid container spacing={2}>

@@ -126,6 +126,18 @@ const addOption =(option) => {
 
 <Container maxWidth="xl" sx={{posiiton:"relative"}}>
 
+<div style={{display:"flex",justifyContent:"space-between",marginBottom:"6rem"}}>
+       
+       <Button variant="contained" style={{maxHeight: '45px', minWidth: '145px', backgroundColor: 'black',position:"relative",left:"-5px",top:"5px" }}
+             onClick={() => {
+              
+                 navigate(-1)
+             }}>
+               {"CANCEL"}
+           </Button>
+
+       </div>
+
 <h1 style={{position:"relative",fontWeight:"bold",marginBottom:"40px",fontSize:"30px"}}>ADD QUIZ</h1>
 
 
@@ -196,10 +208,10 @@ const addOption =(option) => {
 
 
     <Container maxWidth="xl" sx={{posiiton:"relative"}}>
-
+   
     
 
-    <Grid item xs={12} sx={{ display: 'flex', flexDirection: 'row',justifyContent:"space-between"}}>
+    <Grid item xs={12} sx={{ display: 'flex', flexDirection: 'row',justifyContent:"space-between",position:"relative"}}>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <Typography variant="h4" component="p">
               ADD CHAPTER
@@ -207,10 +219,10 @@ const addOption =(option) => {
 
             
             </Box>
-           
+       <div style={{height:"2px", width:"90%",borderBottom:"1px solid black",position:"absolute",left:"0rem",top:"2rem"}}></div>
           </Grid>
    
-          <div style={{height:"2px", width:"90%",borderBottom:"1px solid black",position:"absolute",left:"4rem",top:"26rem"}}></div>
+        
      <br/> <br/> <br/>
 
      <Grid container spacing={2}>

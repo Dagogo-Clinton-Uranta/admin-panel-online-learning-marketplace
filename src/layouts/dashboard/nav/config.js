@@ -37,7 +37,7 @@ const navConfig = [
 },
   {
     title: 'COURSES',
-    path: '/dashboard/categories-videos',
+    path: '/dashboard/courses',
     icon:<AiOutlineBulb/>,
     
    /* children: [

@@ -157,6 +157,19 @@ const addOption =(option) => {
 
 <Container maxWidth="xl" sx={{posiiton:"relative"}}>
 
+
+<div style={{display:"flex",justifyContent:"space-between",marginBottom:"6rem"}}>
+       
+       <Button variant="contained" style={{maxHeight: '45px', minWidth: '145px', backgroundColor: 'black',position:"relative",left:"-5px",top:"5px" }}
+             onClick={() => {
+              
+                 navigate(-1)
+             }}>
+               {"CANCEL"}
+           </Button>
+
+       </div>
+
 <h1 style={{position:"relative",fontWeight:"bold",marginBottom:"40px",fontSize:"30px"}}>EDIT CHAPTER</h1>
 
 
@@ -288,7 +301,7 @@ const addOption =(option) => {
 
     
 
-<Grid item xs={12} sx={{ display: 'flex', flexDirection: 'row',justifyContent:"space-between"}}>
+<Grid item xs={12} sx={{ display: 'flex', flexDirection: 'row',justifyContent:"space-between",position:"relative"}}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <Typography variant="h4" component="p">
           EDIT LESSON
@@ -297,9 +310,10 @@ const addOption =(option) => {
         
         </Box>
        
+        <div style={{height:"2px", width:"95%",borderBottom:"1px solid black",position:"absolute",left:"0rem",top:"3rem"}}></div>
       </Grid>
 
-      <div style={{height:"2px", width:"76%",borderBottom:"1px solid black",position:"absolute",left:"17rem",top:"35.5rem"}}></div>
+    
  <br/> <br/> <br/>
 
  <Grid container spacing={2}>

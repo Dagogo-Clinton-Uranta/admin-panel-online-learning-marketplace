@@ -163,7 +163,7 @@ export default function ContractorStatsList({jobs}) {
     setPage(0);
   };
   const viewJobsFxn = (id) => {
-    navigate(`/dashboard/contractor-stats/`,{ state: { id:id } });
+    navigate(`/dashboard/student-stats/`,{ state: { id:id } });
   };
 
   const deleteJobFxn = (id) => {
@@ -205,7 +205,7 @@ export default function ContractorStatsList({jobs}) {
        
 
          {/*<div style={{float: 'right', border: '0px solid red'}}>
-        <Buttong
+        <Button
             type="submit"
            
             variant="contained"
@@ -219,7 +219,7 @@ export default function ContractorStatsList({jobs}) {
             onClick={() => {console.log("this button is supposed to move you to an add user page")window.location.href = "/company/add-jobs"}}
           >
             ADD USER
-          </Buttong>
+          </Button>
             
 
 
@@ -232,7 +232,7 @@ export default function ContractorStatsList({jobs}) {
         <Table sx={{ maxWidth: 1500,tableLayout:"fixed" }} aria-label="custom pagination table">
           <TableHead>
             <TableRow>
-              <StyledTableCell>Subject</StyledTableCell>
+              <StyledTableCell>Subject Watched</StyledTableCell>
               <StyledTableCell align="right">Course Name</StyledTableCell>
               <StyledTableCell align="right">Watched On</StyledTableCell>
               

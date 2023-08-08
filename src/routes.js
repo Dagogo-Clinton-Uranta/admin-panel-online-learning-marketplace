@@ -41,6 +41,7 @@ import AddLesson from './pages/AddLesson';
 import AddChapter from './pages/AddChapter';
 import EditChapter from './pages/EditChapter';
 import AddQuiz from './pages/AddQuiz';
+import StudentListPage from './pages/StudentListPage';
 
 export default function Router() {
   const routes = useRoutes([
@@ -56,8 +57,8 @@ export default function Router() {
         { path: 'home', element:<UserListPage/>/*<HomePage1 />*/ },
         { path: 'feed', element: <FeedPage /> },
         { path: 'courses-stats', element: <CoursesStatsPage /> },
-        { path: 'contractor-list', element: <ContractorListPage /> },
-        { path: 'contractor-stats', element: <ContractorStatsPage /> },
+        { path: 'student-list', element: <StudentListPage /> },
+        { path: 'student-stats', element: <ContractorStatsPage /> },
         { path: 'incubator-videos', element: <IncubatorVideoPage /> },
         { path: 'incu-videos-tech', element: <OperationsVideoPage /> },
         { path: 'incu-videos-ops', element: <OperationsVideoPage /> },

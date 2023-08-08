@@ -19,13 +19,13 @@ const navConfig = [
   },
   {
     title: `STUDENTS`,
-    path: '/dashboard/contractor-list',
+    path: '/dashboard/student-list',
     icon:<IoIosPerson/>,
     // icon: icon('ic_analytics'),
   },
   {
     title: `TEACHERS`,
-   // path: '/dashboard/contractor-list',
+   // path: '/dashboard/student-list',
     icon:<FaChalkboardTeacher/>,
     // icon: icon('ic_analytics'),
   },

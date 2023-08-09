@@ -1,8 +1,8 @@
 import { Container,Grid, TextField, Typography, TextareaAutosize, Button, Paper,Divider,Box} from '@mui/material';
-import { useRef, useState} from 'react';
+import { useRef, useState,useEffect} from 'react';
 import { useNavigate,useLocation } from 'react-router-dom';
 import UPLOADIMG from '../assets/images/upload.png';
-import { addLesson} from 'src/redux/actions/group.action';
+import { addLesson,updateLesson} from 'src/redux/actions/group.action';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { notifyErrorFxn } from 'src/utils/toast-fxn';
@@ -11,16 +11,8 @@ import users from 'src/_mock/user';
 function EditLesson() {
   const navigate = useNavigate();
   const location = useLocation()
-  console.log("location state is",location.state)
-
-
-
-  const [file, setFile] = useState();
-  const [file2, setFile2] = useState();
-  const [fileSize, setFileSize] = useState();
-  const [fileSize2, setFileSize2] = useState();
-  const [selectedFile, setSelectedFile] = useState({selectedFile: [], selectedFileName: []});
-  const [selectedFile2, setSelectedFile2] = useState({selectedFile2: [], selectedFileName2: []});
+ 
+ 
   const dispatch = useDispatch();
 
   const [newPassword,setNewPassword] =useState('')
@@ -29,61 +21,58 @@ function EditLesson() {
 
   const [loading,setLoading] =useState(false)
 
-  const [title,setTitle] = useState('')
-  const [category,setCategory] = useState(location.state.category)
-  const [body,setBody] = useState('')
-  const [subject,setSubject] = useState(location.state.subject)
-  const [lessonUrl,setLessonUrl] = useState('')
-  const [duration,setDuration] = useState('')
-  
-
+  const {lessonInfo} = useSelector((state) => state.group)
   const { user } = useSelector((state) => state.auth);
-
-  //console.log("user details are:",user)
-
-  /*const [releaseDate,setReleaseDate] =useState('')
-  const [director,setDirector] =useState('')
-  const [cast,setCast] =useState([])
-  const [description,setDescription] =useState('')
-  const [trivia,setTrivia] =useState('')*/
+ 
   
-  const groupData = {
-    email:user.email,
-    password:user.password,
-    newPassword,
-    companySize,
-    uid:user.uid
-  }
+
+  const [title,setTitle] =useState(lessonInfo.title)
+  const [body,setBody] =useState(lessonInfo.body)
+  
+  const [instructor,setInstructor] =useState([])
+  const [section,setSection] =useState(lessonInfo.section)
+  const [chapter,setChapter] =useState(lessonInfo.chapter)
+
+  const [category,setCategory] = useState(lessonInfo.category)
+  const [lessonUrl,setLessonUrl] = useState(lessonInfo.lessonUrl)
+  const [duration,setDuration] = useState(lessonInfo.duration)
+  
+  
+  useEffect(()=>{
+
+    console.log("INFO FOR THE SELECTED LESSON IS ACTUALLY",lessonInfo)
+ 
+   },[])
 
 
-  const addObject ={
+  const updateObject ={
+    /*chapter,
+    section,
+    title*/
     title,
     body,
-    chapterId:location.state.chapterId,
-    category:location.state.category,
-    subject:location.state.subject,
+    chapterId:lessonInfo.chapterId,
+    category:lessonInfo.category,
+    section:lessonInfo.section,
     duration:duration,
     lessonUrl:lessonUrl
   }
 
 
-
-
-  const addThisLesson = async(addObject) => {
-  
-  if(!title || !body ||!category || !lessonUrl||!subject ||!duration ||!location.state.chapterId){
-    notifyErrorFxn("Please make sure to fill in all fields.")
-  }
-  else{
+  const updateThisLesson= (uid,updateObject) => {
     setLoading(true)
-    dispatch(addLesson(addObject))
+    dispatch(updateLesson(uid,updateObject))
+
+    setTimeout(()=>{setLoading(false)},1000)
+   // setTimeout(()=>{},1000)
    
-    // console.log("identity is",identity)
-    // console.log("update this subject is updating.........")
-    setTimeout(()=>{setLoading(false)},1800)
-   }
   }
 
+
+
+
+
+ 
 
 
   return (
@@ -99,12 +88,12 @@ function EditLesson() {
 
 
 
-    <h1 style={{position:"relative",fontWeight:"bold",marginBottom:"40px",fontSize:"30px"}}>NEW LESSON/SESSION</h1>
+    <h1 style={{position:"relative",fontWeight:"bold",marginBottom:"40px",fontSize:"30px"}}>EDIT LESSON/SESSION</h1>
 
     <Grid item xs={12} sx={{ display: 'flex' }}>
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
               <Typography variant="h4" component="p">
-              ADD DETAILS BELOW
+              EDIT DETAILS BELOW
               </Typography>
               <div style={{height:"2px", width:"80%",borderBottom:"1px solid black",position:"absolute",left:"20rem",top:"18rem"}}></div>
             </Box>
@@ -133,7 +122,7 @@ function EditLesson() {
             variant="outlined"
             multiline
             maxRows={2}
-            value= {subject}
+            value= {section}
            
             
             />
@@ -303,7 +292,7 @@ function EditLesson() {
     CANCEL
   </Button>
  
-  <Button  onClick={() => { addThisLesson(addObject)}} variant="contained" 
+  <Button  onClick={() => { updateThisLesson(lessonInfo.uid,updateObject)}} variant="contained" 
   style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px', paddingBottom: '10px', 
   paddingRight: '30px', paddingLeft: '30px'}}
 >

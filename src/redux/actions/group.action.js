@@ -662,9 +662,12 @@ export const fetchLessonInfo = (uid) =>async (dispatch) => {
   db.collection("boneCourses").doc(uid).update(
     {
      
-      chapter:updateObject.chapter,
+      lessonUrl:updateObject.lessonUrl,
       title:updateObject.title,
-      section:updateObject.section
+      section:updateObject.section,
+      duration:updateObject.duration,
+      body:updateObject.body,
+
     
     }
   ).then((snapshot) => {

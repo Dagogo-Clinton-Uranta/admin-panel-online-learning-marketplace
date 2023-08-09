@@ -136,25 +136,25 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
             </Box>
 
 
-            <div style={{ display: 'flex', justifyContent: 'center', gap:'1rem'}}>
+          {/* <div style={{ display: 'flex', justifyContent: 'center', gap:'1rem'}}>
         
             <Button   variant="contained" 
-          style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px', paddingBottom: '10px', 
-          paddingRight: '30px', paddingLeft: '30px'}}   onClick={() => {  /*navigate('/dashboard/add-chapter')*/}}
+          style={{ backgroundColor: "#000000", paddingTop: '10px', paddingBottom: '10px', 
+          paddingRight: '30px', paddingLeft: '30px'}}   onClick={() => {  navigate('/dashboard/add-chapter')}}
           >
            ADD CHAPTER
          </Button>
         
         
           <Button   variant="contained" 
-          style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px', paddingBottom: '10px', 
-  paddingRight: '30px', paddingLeft: '30px'}}   onClick={() => {  /*navigate('/dashboard/add-lesson')*/}}
+          style={{ backgroundColor: "#000000", paddingTop: '10px', paddingBottom: '10px', 
+  paddingRight: '30px', paddingLeft: '30px'}}   onClick={() => {  navigate('/dashboard/add-lesson')}}
           >
            ADD LESSON
          </Button>
      
      
-      </div>
+  </div>*/}
            
           </Grid>
    

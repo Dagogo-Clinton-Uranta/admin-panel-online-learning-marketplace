@@ -215,7 +215,7 @@ function AddSubject() {
   style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px', paddingBottom: '10px', 
   paddingRight: '30px', paddingLeft: '30px'}}
 >
-    SUBMIT
+   {loading?"loading..." :"SUBMIT"}
   </Button>
 </div>
 </Container>

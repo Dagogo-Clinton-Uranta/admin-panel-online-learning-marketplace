@@ -140,7 +140,7 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
         
             <Button   variant="contained" 
           style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px', paddingBottom: '10px', 
-          paddingRight: '30px', paddingLeft: '30px'}}   onClick={() => {  navigate('/dashboard/add-chapter')}}
+          paddingRight: '30px', paddingLeft: '30px'}}   onClick={() => {  /*navigate('/dashboard/add-chapter')*/}}
           >
            ADD CHAPTER
          </Button>
@@ -148,7 +148,7 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
         
           <Button   variant="contained" 
           style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px', paddingBottom: '10px', 
-          paddingRight: '30px', paddingLeft: '30px'}}   onClick={() => {  navigate('/dashboard/add-lesson')}}
+  paddingRight: '30px', paddingLeft: '30px'}}   onClick={() => {  /*navigate('/dashboard/add-lesson')*/}}
           >
            ADD LESSON
          </Button>

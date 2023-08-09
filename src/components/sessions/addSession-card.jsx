@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AddSessionCard = ({data}) => {
+const AddSessionCard = ({chapterId,category,subject}) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -58,6 +58,7 @@ const AddSessionCard = ({data}) => {
     const { categoryChapters,presentOpenChapter} = useSelector((state) => state.group);
     const { chapterSessions,presentOpenSession} = useSelector((state) => state.group);
   
+    console.log("the chapter xstics passed in are:",chapterId,category,subject)
 
 
   const dummyData = [
@@ -73,12 +74,12 @@ const AddSessionCard = ({data}) => {
   const [sessionsData,setSessionsData] = useState(chapterSessions?chapterSessions:dummyData) 
 
 
-  const sendToAddLesson = (identity)=>{
+  const sendToAddLesson = ()=>{
 
     setWait(true)
     //dispatch(fetchLessonInfo(identity))
 
-   setTimeout(()=> {navigate('/dashboard/add-lesson',{state:{uid:identity}})}, 1000)
+   setTimeout(()=> {navigate('/dashboard/add-lesson',{state:{chapterId:chapterId,category:category,subject:subject}})}, 1000)
   }
 
 
@@ -117,7 +118,7 @@ const AddSessionCard = ({data}) => {
             <Button variant="contained" style={{minHeight: '45px', minWidth: '145px', backgroundColor: 'black', }}
               onClick={() => {
                
-                sendToAddLesson(data.uid)
+                sendToAddLesson()
               }}>
                 {wait?"Please wait...":<span><b style={{fontSize:"1.5rem"}}>+</b> Add Lesson</span>}
             </Button>

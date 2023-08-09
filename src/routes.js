@@ -40,11 +40,14 @@ import EditCourse from './pages/EditCourse';
 import AddSubject from './pages/AddSubject';
 
 import AddSession from './pages/AddSession';
-import AddLesson from './pages/AddLesson';
-import AddChapter from './pages/AddChapter';
+//import AddLesson from './pages/AddLesson';
+import AddLesson from './pages/AddLessonAlso';
+//import AddChapter from './pages/AddChapter';
+import AddChapter from './pages/AddChapterAlso';
 import EditChapter from './pages/EditChapter';
 import AddQuiz from './pages/AddQuiz';
 import StudentListPage from './pages/StudentListPage';
+import EditLesson from './pages/EditLesson';
 
 export default function Router() {
   const routes = useRoutes([
@@ -78,6 +81,7 @@ export default function Router() {
         { path: 'add-subject', element: <AddSubject /> },
         { path: 'edit-course', element: <EditCourse /> },
         { path: 'add-lesson', element: <AddLesson /> },
+        { path: 'edit-lesson', element: <EditLesson /> },
         { path: 'add-chapter', element: <AddChapter /> },
         { path: 'add-quiz', element: <AddQuiz /> },
         { path: 'edit-chapter', element: <EditChapter /> },

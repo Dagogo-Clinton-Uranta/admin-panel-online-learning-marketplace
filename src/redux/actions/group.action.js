@@ -477,11 +477,10 @@ export const fetchLessonInfo = (uid) =>async (dispatch) => {
       body:updateObject.body,
       category:updateObject.category,
       title:updateObject.title,
-      subLevel:updateObject.level,
-      uid:uid
+      subLevel:updateObject.level
+      
     }).then((snapshot) => {
-     //const publicGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
-     
+    
      notifySuccessFxn("updated successfully")
 
  }).catch((error) => {
@@ -494,6 +493,63 @@ export const fetchLessonInfo = (uid) =>async (dispatch) => {
 
 
  };
+
+
+ export const addSubject = (addObject) => async (dispatch) => {
+
+
+  db.collection("sections")
+  .where("title", "==", addObject.title)
+  .where("category", "==", addObject.category)
+  .get()
+  .then((snapshot) => {
+    const existingSubject = snapshot.docs.map((doc) => ({ ...doc.data() }));
+  if (existingSubject.length) {
+   
+    notifyErrorFxn(`This subject already exists,consider changing the subject name`)
+
+  } else {
+     
+    
+    db.collection("sections").add(
+      {
+        body:addObject.body,
+        category:addObject.category,
+        title:addObject.title,
+        subLevel:addObject.level,
+        categoryId:addObject.categoryId
+      }
+    ).then((doc) => {
+       //const publicGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
+       db.collection("sections").doc(doc.id).update({
+      uid:doc.id
+       })
+  
+      console.log("the documents id is",doc.id)
+       notifySuccessFxn(`new subject ${addObject.title} added!`)
+  
+   }).catch((error) => {
+     console.log("Error adding subject:", error);
+     notifyErrorFxn(error)
+  
+  
+   });
+
+
+
+
+
+  }
+}).catch((error) => {
+  console.log("Error adding subject:", error);
+  notifyErrorFxn(error)
+
+
+});
+
+ };
+
+
 
 
  export const updateSubject = (uid,updateObject) => async (dispatch) => {
@@ -520,6 +576,62 @@ export const fetchLessonInfo = (uid) =>async (dispatch) => {
  };
 
  
+
+
+ export const addChapter = (addObject) => async (dispatch) => {
+
+
+  db.collection("chapters")
+  .where("title", "==", addObject.title)
+  .where("category", "==", addObject.category)
+  .where("subject", "==", addObject.subject)
+  .get()
+  .then((snapshot) => {
+    const existingSubject = snapshot.docs.map((doc) => ({ ...doc.data() }));
+  if (existingSubject.length) {
+   
+    notifyErrorFxn(`This chapter already exists,consider changing the chapter name`)
+
+  } else {
+     
+    
+    db.collection("chapters").add(
+      {
+        body:addObject.body,
+        category:addObject.category,
+        title:addObject.title,
+        sectionId:addObject.sectionId,
+        subject:addObject.subject,
+      }
+    ).then((doc) => {
+       //const publicGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
+       db.collection("chapters").doc(doc.id).update({
+      uid:doc.id
+       })
+  
+      console.log("the documents id is",doc.id)
+       notifySuccessFxn(`new chapter ${addObject.title} added!`)
+  
+   }).catch((error) => {
+     console.log("Error adding chapter:", error);
+     notifyErrorFxn(error)
+  
+  
+   });
+
+
+
+
+
+  }
+}).catch((error) => {
+  console.log("Error adding chapter:", error);
+  notifyErrorFxn(error)
+
+
+});
+
+ };
 
  export const updateChapter = (uid,updateObject) => async (dispatch) => {
   console.log("I have reached the chapter land")
@@ -566,6 +678,64 @@ export const fetchLessonInfo = (uid) =>async (dispatch) => {
 
 
  });
+ };
+
+
+ export const addLesson = (addObject) => async (dispatch) => {
+
+
+  db.collection("boneCourses")
+  .where("title", "==", addObject.title)
+  .where("category", "==", addObject.category)
+  .where("section", "==", addObject.subject)
+  .get()
+  .then((snapshot) => {
+    const existingLesson = snapshot.docs.map((doc) => ({ ...doc.data() }));
+  if (existingLesson.length) {
+   
+    notifyErrorFxn(`This lesson already exists,consider changing the lesson name`)
+
+  } else {
+     
+    
+    db.collection("boneCourses").add(
+      {
+        body:addObject.body,
+        category:addObject.category,
+        title:addObject.title,
+        chapterId:addObject.chapterId,
+        duration:addObject.duration,
+        section:addObject.subject,
+        lessonUrl:addObject.lessonUrl
+      }
+    ).then((doc) => {
+       //const publicGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
+       db.collection("boneCourses").doc(doc.id).update({
+      uid:doc.id
+       })
+  
+      console.log("the documents id is",doc.id)
+       notifySuccessFxn(`new lesson ${addObject.title} added!`)
+  
+   }).catch((error) => {
+     console.log("Error adding lesson:", error);
+     notifyErrorFxn(error)
+  
+  
+   });
+
+
+
+
+
+  }
+}).catch((error) => {
+  console.log("Error adding chapter:", error);
+  notifyErrorFxn(error)
+
+
+});
+
  };
 
  

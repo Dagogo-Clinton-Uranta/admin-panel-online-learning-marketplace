@@ -79,7 +79,7 @@ const ChapterCard = ({data,index,user}) => {
   const [sessionsData,setSessionsData] = useState(chapterSessions?chapterSessions:dummyData) 
 
 
-  console.log("THIS IS THIS CHAPTER'S INFO - - -",data)
+  console.log("THIS IS THIS MF CHAPTER'S INFO - - -",data)
   
 
   useEffect(()=>{ 
@@ -167,7 +167,7 @@ const ChapterCard = ({data,index,user}) => {
                   </center>
                 
                   }
-                  <AddSessionCard/>
+                  <AddSessionCard chapterId={data.uid} category={data.category} subject={data.subject}  />
               </Grid>
                 }
               </SlideDown>

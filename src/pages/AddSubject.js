@@ -1,8 +1,8 @@
 import { Container,Grid, TextField, Typography, TextareaAutosize, Button, Paper,Divider,Box} from '@mui/material';
 import { useRef, useState} from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useLocation } from 'react-router-dom';
 import UPLOADIMG from '../assets/images/upload.png';
-import { fetchGroups, fetchMyGroups, uploadUserSettings} from 'src/redux/actions/group.action';
+import { addSubject} from 'src/redux/actions/group.action';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { notifyErrorFxn } from 'src/utils/toast-fxn';
@@ -10,6 +10,9 @@ import users from 'src/_mock/user';
 
 function AddSubject() {
   const navigate = useNavigate();
+  const location = useLocation()
+  console.log("location is",location.state.levelName,location.state.uid)
+
   const [file, setFile] = useState();
   const [file2, setFile2] = useState();
   const [fileSize, setFileSize] = useState();
@@ -22,8 +25,10 @@ function AddSubject() {
   const [confirmPassword,setConfirmPassword] =useState('')
   const [companySize,setCompanySize] =useState('')
 
+
+  const [loading,setLoading] = useState(false)
   const [title,setTitle] = useState('')
-  const [category,setCategory] = useState('')
+  const [level,setLevel] = useState('')
   const [body,setBody] = useState('')
   const [categoryId,setCategoryId] =useState('')
 
@@ -45,45 +50,31 @@ function AddSubject() {
     uid:user.uid
   }
 
+  const addObject ={
+    title,
+    body,
+    level:level,
+    categoryId:location.state.uid,
+    category:location.state.levelName
+  }
 
-
-  const handleselectedFile = event => {
-    console.log("these are the picture deets!",event.target.files[0])
-    setSelectedFile({
-        selectedFile: event.target.files[0],
-        selectedFileName: event.target.files[0].name
-    });
+  const addThisSubject = async(addObject) => {
     
-    setFile(URL.createObjectURL(event.target.files[0]));
-    setFileSize(event.target.files[0].size)
-};
- /* const handleselectedFile2 = event => {
-    console.log("these are the video deets!",event.target.files[0])
-    setSelectedFile2({
-        selectedFile2: event.target.files[0],
-        selectedFileName2: event.target.files[0].name
-    });
-    setFile2(URL.createObjectURL(event.target.files[0]));
-    setFileSize2(event.target.files[0].size)
-};*/
+    if(!title || !body ||!level ||!location.state.levelName||!location.state.uid){
+      notifyErrorFxn("Please make sure to fill in all fields.")
+    }
+    else{
+    
+    setLoading(true)
+    dispatch(addSubject(addObject))
+   
+    // console.log("identity is",identity)
+    // console.log("update this subject is updating.........")
+    setTimeout(()=>{setLoading(false)},1800)
+    }
+  }
+ 
 
-
-
-const uploadMovie = (movieData = 0,image = 0,) => {
-if(!companySize.length && !newPassword.length &&  file === undefined ){
-  console.log("THE EMPTY FIELDS ARE:",file)
-  notifyErrorFxn("Please fill in the field(s) you want to update!")
-}else{
- if( fileSize  > 300000){
-  notifyErrorFxn("Image size too large! please upload a smaller picture.")
- }
- /*else if( fileSize2  > 20000000){
-  notifyErrorFxn("Video size too large! please upload a smaller video.")
- }*/else{
-  dispatch(uploadUserSettings(movieData,image))
- }
-}
-}
 
   return (
     <>
@@ -132,8 +123,8 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
             variant="outlined"
             multiline
             maxRows={2}
-            value= {category}
-            onChange = {(e)=>{setCategory(e.target.value)}}
+            value= {level}
+            onChange = {(e)=>{setLevel(e.target.value)}}
             
             />
             
@@ -220,7 +211,7 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
     CANCEL
   </Button>
  
-  <Button  onClick={() => { uploadMovie(groupData,selectedFile.selectedFile,navigate)}} variant="contained" 
+  <Button  onClick={() => { addThisSubject(addObject)}} variant="contained" 
   style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px', paddingBottom: '10px', 
   paddingRight: '30px', paddingLeft: '30px'}}
 >

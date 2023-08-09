@@ -74,12 +74,12 @@ const useStyles = makeStyles((theme) => ({
   
 
 
-function CategoriesRowCard ({ id, title, body, img}) {
+function CategoriesRowCard ({ uid, title, body, img}) {
     const [isOpen, setIsOpen] = useState(false);
     const [dropDown, setDropDown] = useState(false);
     const [loading,setLoading] = useState(false);
     const classes = useStyles();
-    const [uid, setUid] = useState(null)
+    //const [uid, setUid] = useState(null)
     let today = new Date().toISOString().slice(0, 10);
     const [nTime, setnTime] = useState(null);
     const navigate = useNavigate();
@@ -91,7 +91,7 @@ function CategoriesRowCard ({ id, title, body, img}) {
     const { categoryVideos,presentOpenMenu } = useSelector((state) => state.group);
 
     const { user} = useSelector((state) => state.auth);
-   // console.log("user's info is",user)
+    console.log("category videos ARE HERE! ",categoryVideos)
 
     useEffect(()=>{ 
       //this code is responsible for the right section appearing in the dropdown
@@ -103,9 +103,9 @@ function CategoriesRowCard ({ id, title, body, img}) {
  
    
     const dummyData = [
-     {id: 1, title: "General (16 mins)", desc: "Lorem ipsum dolor sit amet consectetur tesdsjk. Eget cursus..."},
-     {id: 2, title: "Public (11 mins)", desc: "Tetsla ipsum dolor sit amet consectetur tesdsjk. Eget cursus..."},
-     {id: 3, title: "Future (39 mins)", desc: "Lorem ipsum dolor sit amet consectetur tesdsjk. Eget cursus..."},
+     {uid: 1, title: "General (16 mins)", desc: "Lorem ipsum dolor sit amet consectetur tesdsjk. Eget cursus..."},
+     {uid: 2, title: "Public (11 mins)", desc: "Tetsla ipsum dolor sit amet consectetur tesdsjk. Eget cursus..."},
+     {uid: 3, title: "Future (39 mins)", desc: "Lorem ipsum dolor sit amet consectetur tesdsjk. Eget cursus..."},
  ];
 
 
@@ -227,7 +227,7 @@ function CategoriesRowCard ({ id, title, body, img}) {
                   </center>
                   
                   }
-                 <AddSubSectionCard categoryId={"hi"} category={"ji"}/>
+                 <AddSubSectionCard categoryId={uid} topLevelName={title}/>
 
                 
               </Grid>

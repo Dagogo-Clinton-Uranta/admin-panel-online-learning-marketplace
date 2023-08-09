@@ -78,7 +78,7 @@ const SessionCard = ({data,index}) => {
     setWait(true)
     dispatch(fetchLessonInfo(identity))
 
-   setTimeout(()=> {navigate('/dashboard/add-lesson',{state:{uid:identity}})}, 1000)
+   setTimeout(()=> {navigate('/dashboard/edit-lesson',{state:{uid:identity}})}, 1000)
   }
 
 

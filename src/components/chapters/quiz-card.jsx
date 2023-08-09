@@ -49,23 +49,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const QuizCard = () => {
+const QuizCard = (subject,sectionId,category) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [wait,setWait] =useState(false)
+  console.log("add chapter subject",subject)
+ console.log("add chapter category",category)
+ console.log("add chapter section id",sectionId)
 
   const { allSectionVideos,requestedSection } = useSelector((state) => state.group);
     const { categoryChapters,presentOpenChapter} = useSelector((state) => state.group);
     const { chapterSessions,presentOpenSession} = useSelector((state) => state.group);
    
-    const populateEditChapter = (identity)=>{
-
-      setWait(true)
-      dispatch(fetchChapterInfo(identity))
-
-     setTimeout(()=> {navigate('/dashboard/edit-chapter',{state:{uid:identity}})}, 1000)
-    }
+   
 
   const dummyData = [
     {uid: 1, title: "Quiz ", body: "A quiz at the end of this subject. Take this to reinforce the concepts..."},
@@ -74,7 +70,7 @@ const QuizCard = () => {
 ];
 
   
-  const [loading,setLoading] =useState(false)
+  const [wait,setWait] =useState(false)
   const [dropDown, setDropDown] = useState(false);
   const [sessionsData,setSessionsData] = useState(chapterSessions?chapterSessions:dummyData) 
 
@@ -90,22 +86,6 @@ const QuizCard = () => {
 
     },[chapterSessions,presentOpenSession])*/
 
-
-    const fetchSessionsAndDropDown  = (id)=> {
-      console.log("ID BEING PASSED IN IS",id)
- if(!dropDown){
-      setLoading(true)
-      dispatch(fetchChapterSessions(id))
-      dispatch(savePresentOpenSessions(id))
-      console.log(" CHAPTER SESSIONS", sessionsData)
-     setTimeout(()=>{setLoading(false);setDropDown(true)},600)
-     }
-     else{
-       setDropDown(false)
-     }
-
-
-    }
 
 
 
@@ -132,8 +112,11 @@ const QuizCard = () => {
 
             <Button variant="contained" style={{minHeight: '45px', minWidth: '145px', backgroundColor: 'black', }}
               onClick={() => {
-                
-                navigate("/dashboard/add-quiz")
+                setWait(true)
+                setTimeout(()=>{
+                navigate("/dashboard/add-chapter",{state:{sectionId:subject.sectionId,subject:subject.subject,category:subject.category}})
+                }
+                ,1000)
               }}>
                  {wait?"Please wait...":<span><b style={{fontSize:"1.5rem"}}>+</b> Add Chapter</span>}
             </Button>

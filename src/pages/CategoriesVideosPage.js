@@ -24,12 +24,12 @@ export default function CategoriesVideoPage() {
   const navigate = useNavigate()
   const dispatch = useDispatch();
   const { allCategories } = useSelector((state) => state.group);
-   console.log("CATEGORIES ARE NOW:",allCategories)
+   console.log("CATEGORIES ARE ALL:",allCategories)
  
    const dummyData = [
-    {id: 1, imageUrl: '', title: "Finance", body: "lorem ard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in their exact original form, accompani"},
-    {id: 2, imageUrl: '', title: "Legal", body: "lorem ard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in their exact original form, accompani"},
-    {id: 3, imageUrl: '', title: "Insurance", body: "lorem ard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in their exact original form, accompani"}
+    {uid: 1, imageUrl: '', title: "Finance", body: "lorem ard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in their exact original form, accompani"},
+    {uid: 2, imageUrl: '', title: "Legal", body: "lorem ard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in their exact original form, accompani"},
+    {uid: 3, imageUrl: '', title: "Insurance", body: "lorem ard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in their exact original form, accompani"}
 ]
  
  
@@ -59,7 +59,7 @@ const allIncubatorVideos = data?.length ? (
     data.map(dt => {
     return (
       <CategoriesRowCard 
-      id={dt.id}
+      uid={dt.uid}
       title={dt.title} 
       body={dt.body}
       img={dt.imageUrl}

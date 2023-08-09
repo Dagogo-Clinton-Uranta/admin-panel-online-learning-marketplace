@@ -128,13 +128,7 @@ const addOption =(option) => {
 
 <div style={{display:"flex",justifyContent:"space-between",marginBottom:"6rem"}}>
        
-       <Button variant="contained" style={{maxHeight: '45px', minWidth: '145px', backgroundColor: 'black',position:"relative",left:"-5px",top:"5px" }}
-             onClick={() => {
-              
-                 navigate(-1)
-             }}>
-               {"CANCEL"}
-           </Button>
+    
 
        </div>
 
@@ -447,7 +441,16 @@ ADD
 </Container>
 
 <br/><br/><br/><br/>
-<div style={{ display: 'flex', justifyContent: 'center' }}>
+<div style={{ display: 'flex', justifyContent: 'center',gap:"1rem" }}>
+
+<Button  onClick={() => { navigate(-1)}} variant="contained" 
+style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px', paddingBottom: '10px', 
+paddingRight: '30px', paddingLeft: '30px'}}
+>
+CANCEL
+</Button>
+
+
 <Button  onClick={() => { uploadMovie(groupData,selectedFile.selectedFile,navigate)}} variant="contained" 
 style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px', paddingBottom: '10px', 
 paddingRight: '30px', paddingLeft: '30px'}}

@@ -73,7 +73,7 @@ const SubSectionCard = ({data,index,user}) => {
   const [categoryData,setCategoryData] = useState(categoryChapters?categoryChapters:dummyData) 
 
   //console.log("THE VIDEO ID IS",dummyData[0].uid)
-  console.log("I AM RECEIVING from my parent AS - - -",data)
+  console.log(" SUBJECT CARD  CHECK !!!!- - -",data)
   
 
   useEffect(()=>{ 
@@ -158,6 +158,7 @@ const SubSectionCard = ({data,index,user}) => {
     <Grid item xs container direction="column" spacing={6} style={{marginLeft:"0px",marginTop:"0px",backgroundColor:"#f2ecfe",display:"flex",flexDirection:"column",alignItems:"center" }}>
          <br/><br/>
         {categoryData.length?
+       
         categoryData.map(((dt,i) => {
          return (
 
@@ -172,7 +173,7 @@ const SubSectionCard = ({data,index,user}) => {
            </center>
          
            }
-           <QuizCard/> 
+           <QuizCard subject ={data.title} sectionId={data.uid}  category={data.category} /> 
       
        </Grid>
          }

@@ -1,80 +1,51 @@
 import { Container,Grid, TextField, Typography, TextareaAutosize, Button, Paper,Divider,Box} from '@mui/material';
-import { useRef, useState,useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRef, useState} from 'react';
+import { useNavigate,useLocation } from 'react-router-dom';
 import UPLOADIMG from '../assets/images/upload.png';
-import { fetchGroups, fetchMyGroups, uploadUserSettings,updateChapter} from 'src/redux/actions/group.action';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
+import { addLesson} from 'src/redux/actions/group.action';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { notifyErrorFxn, notifySuccessFxn } from 'src/utils/toast-fxn';
+import { notifyErrorFxn } from 'src/utils/toast-fxn';
 import users from 'src/_mock/user';
 
-
-function EditChapter() {
+function AddLesson() {
   const navigate = useNavigate();
+  const location = useLocation()
+  console.log("location state is",location.state)
+
+
+
   const [file, setFile] = useState();
   const [file2, setFile2] = useState();
   const [fileSize, setFileSize] = useState();
   const [fileSize2, setFileSize2] = useState();
   const [selectedFile, setSelectedFile] = useState({selectedFile: [], selectedFileName: []});
   const [selectedFile2, setSelectedFile2] = useState({selectedFile2: [], selectedFileName2: []});
-
-  const [optionFill,setOptionFill] = useState('');
-
-  const [optionA, setOptionA] = useState(null);
-  const [optionB, setOptionB] = useState(null);
-  const [optionC, setOptionC] = useState(null);
-  const [optionD, setOptionD] = useState(null);
-
   const dispatch = useDispatch();
-
-  const [age, setAge] = useState('');
 
   const [newPassword,setNewPassword] =useState('')
   const [confirmPassword,setConfirmPassword] =useState('')
   const [companySize,setCompanySize] =useState('')
-  const [loading,setLoading] = useState(false)
 
-  const {chapterInfo} = useSelector((state) => state.group)
+  const [loading,setLoading] =useState(false)
+
+  const [title,setTitle] = useState('')
+  const [category,setCategory] = useState(location.state.category)
+  const [body,setBody] = useState('')
+  const [subject,setSubject] = useState(location.state.subject)
+  const [lessonUrl,setLessonUrl] = useState('')
+  const [duration,setDuration] = useState('')
+  
+
   const { user } = useSelector((state) => state.auth);
-  console.log("user details are:",user)
+
+  //console.log("user details are:",user)
 
   /*const [releaseDate,setReleaseDate] =useState('')
   const [director,setDirector] =useState('')
   const [cast,setCast] =useState([])
   const [description,setDescription] =useState('')
   const [trivia,setTrivia] =useState('')*/
-
-
-  const [title,setTitle] =useState(chapterInfo.title)
-  const [body,setBody] =useState(chapterInfo.body)
-  const [instructor,setInstructor] =useState([])
-  const [category,setCategory] =useState(chapterInfo.category)
-  const [subLevel,setSubLevel] =useState(chapterInfo.uid)
-  const [subject,setSubject] =useState(chapterInfo.subject)
-  const [chapterUrl,setChapterUrl] =useState(chapterInfo.chapterUrl?chapterInfo.chapterUrl:"")
-
-  useEffect(()=>{
-
-    console.log("INFO FOR THE SELECTED SUBJECT ARE",chapterInfo)
- 
-   },[])
-
-  const updateObject ={
-    title,
-    category,
-    subject
-  }
-
-  const updateThisChapter= (uid,updateObject) => {
-    setLoading(true)
-    dispatch(updateChapter(uid,updateObject))
-
-    setTimeout(()=>{setLoading(false)},1000)
-   // setTimeout(()=>{},1000)
-   
-  }
   
   const groupData = {
     email:user.email,
@@ -85,73 +56,35 @@ function EditChapter() {
   }
 
 
-  const handleselectedFile = event => {
-    console.log("these are the picture deets!",event.target.files[0])
-    setSelectedFile({
-        selectedFile: event.target.files[0],
-        selectedFileName: event.target.files[0].name
-    });
-    
-    setFile(URL.createObjectURL(event.target.files[0]));
-    setFileSize(event.target.files[0].size)
-};
- /* const handleselectedFile2 = event => {
-    console.log("these are the video deets!",event.target.files[0])
-    setSelectedFile2({
-        selectedFile2: event.target.files[0],
-        selectedFileName2: event.target.files[0].name
-    });
-    setFile2(URL.createObjectURL(event.target.files[0]));
-    setFileSize2(event.target.files[0].size)
-};*/
+  const addObject ={
+    title,
+    body,
+    chapterId:location.state.chapterId,
+    category:location.state.category,
+    subject:location.state.subject,
+    duration:duration,
+    lessonUrl:lessonUrl
+  }
 
 
 
-const uploadMovie = (movieData = 0,image = 0,) => {
-if(!companySize.length && !newPassword.length &&  file === undefined ){
-  console.log("THE EMPTY FIELDS ARE:",file)
-  notifyErrorFxn("Please fill in the field(s) you want to update!")
-}else{
- if( fileSize  > 300000){
-  notifyErrorFxn("Image size too large! please upload a smaller picture.")
- }
- /*else if( fileSize2  > 20000000){
-  notifyErrorFxn("Video size too large! please upload a smaller video.")
- }*/else{
-  dispatch(uploadUserSettings(movieData,image))
- }
-}
-}
+
+  const addThisLesson = async(addObject) => {
+  
+  if(!title || !body ||!category || !lessonUrl||!subject ||!duration ||!location.state.chapterId){
+    notifyErrorFxn("Please make sure to fill in all fields.")
+  }
+  else{
+    setLoading(true)
+    dispatch(addLesson(addObject))
+   
+    // console.log("identity is",identity)
+    // console.log("update this subject is updating.........")
+    setTimeout(()=>{setLoading(false)},1800)
+   }
+  }
 
 
-const addOption =(option) => {
-
-
-
-  if(!optionA){
-  setOptionA(option) 
-  setOptionFill('')
-  return
- }
- else if(optionA && !optionB){
-  setOptionB(option) 
-  setOptionFill('')
-  return
- }
- else if(optionA && optionB && !optionC){
-  setOptionC(option) 
-  setOptionFill('')
-  return
- }
- else if(optionA && optionB && optionC && !optionD){
-  setOptionD(option) 
-  setOptionFill('')
-  return
- }
-
- setOptionFill(null)
-
-}
 
   return (
     <>
@@ -166,12 +99,12 @@ const addOption =(option) => {
 
 
 
-    <h1 style={{position:"relative",fontWeight:"bold",marginBottom:"40px",fontSize:"30px"}}>UPDATE CHAPTER</h1>
+    <h1 style={{position:"relative",fontWeight:"bold",marginBottom:"40px",fontSize:"30px"}}>NEW LESSON/SESSION</h1>
 
     <Grid item xs={12} sx={{ display: 'flex' }}>
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
               <Typography variant="h4" component="p">
-              CHANGE DETAILS BELOW
+              ADD DETAILS BELOW
               </Typography>
               <div style={{height:"2px", width:"80%",borderBottom:"1px solid black",position:"absolute",left:"20rem",top:"18rem"}}></div>
             </Box>
@@ -257,47 +190,17 @@ const addOption =(option) => {
           <Grid item xs={7}>
             <TextField
             fullWidth
-            placeholder=" e.g  Chapitre 1: introduction et Salutations."
+            placeholder=" e.g  Dissociation."
             variant="outlined"
             multiline
             maxRows={2}
             value= {title}
             onChange = {(e)=>{setTitle(e.target.value)}}
-            
             />
             
             
           </Grid>
         </Grid>
-
-
-        <Grid container item xs={12} spacing={2}>
-          <Grid item xs={3}>
-            <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
-             <div >
-             PDF URL
-             </div>
-      
-            </Typography>
-          
-          </Grid>
-
-          <Grid item xs={7}>
-            <TextField
-            fullWidth
-            placeholder=" e.g  www.amazons3.com."
-            variant="outlined"
-            multiline
-            maxRows={2}
-            value= {chapterUrl}
-            onChange = {(e)=>{setChapterUrl(e.target.value)}}
-            
-            />
-            
-            
-          </Grid>
-        </Grid>
-
 
         <Grid container item xs={12} spacing={2}>
           <Grid item xs={3}>
@@ -328,7 +231,59 @@ const addOption =(option) => {
 
 
 
-       
+        <Grid container item xs={12} spacing={2}>
+          <Grid item xs={3}>
+            <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
+             <div >
+             DURATION
+             </div>
+      
+            </Typography>
+          
+          </Grid>
+
+          <Grid item xs={7}>
+            <TextField
+            fullWidth
+            placeholder="e.g 08:55"
+            variant="outlined"
+            multiline
+            
+            value= {duration}
+            onChange = {(e)=>{setDuration(e.target.value)}}
+            
+            />
+            
+            
+          </Grid>
+        </Grid>
+
+
+        <Grid container item xs={12} spacing={2}>
+          <Grid item xs={3}>
+            <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
+             <div >
+             LESSON FILE URL
+             </div>
+      
+            </Typography>
+          
+          </Grid>
+
+          <Grid item xs={7}>
+            <TextField
+            fullWidth
+            placeholder="e,g www.amazons3.com/video.mp4 "
+            variant="outlined"
+            multiline
+            value= {lessonUrl}
+            onChange = {(e)=>{setLessonUrl(e.target.value)}}
+            
+            />
+            
+            
+          </Grid>
+        </Grid>
 
       
 
@@ -348,7 +303,7 @@ const addOption =(option) => {
     CANCEL
   </Button>
  
-  <Button  onClick={() => { updateThisChapter(chapterInfo.uid,updateObject)}} variant="contained" 
+  <Button  onClick={() => { addThisLesson(addObject)}} variant="contained" 
   style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px', paddingBottom: '10px', 
   paddingRight: '30px', paddingLeft: '30px'}}
 >
@@ -360,4 +315,4 @@ const addOption =(option) => {
   );
 }
 
-export default EditChapter;
+export default AddLesson;

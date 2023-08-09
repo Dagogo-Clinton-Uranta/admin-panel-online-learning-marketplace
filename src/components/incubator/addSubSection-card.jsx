@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AddSubSectionCard = ({data}) => {
+const AddSubSectionCard = ({topLevelName,categoryId}) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -73,17 +73,17 @@ const AddSubSectionCard = ({data}) => {
   const [categoryData,setCategoryData] = useState(categoryChapters?categoryChapters:dummyData) 
 
   //console.log("THE VIDEO ID IS",dummyData[0].uid)
-  console.log("I AM RECEIVING from my parent AS - - -",data)
+ 
   
 
  
 
-    const sendToAddSubject = (identity="hi")=>{
+    const sendToAddSubject = (levelName="6eme Annee",identity="hi")=>{
 
       setWait(true)
       //dispatch(fetchSubjectInfo(identity))
 
-     setTimeout(()=> {navigate('/dashboard/add-subject',{state:{uid:identity}})}, 1000)
+     setTimeout(()=> {navigate('/dashboard/add-subject',{state:{uid:identity,levelName:levelName}})}, 1000)
     }
 
 
@@ -104,7 +104,7 @@ const AddSubSectionCard = ({data}) => {
             <Button variant="contained" style={{minHeight: '45px', minWidth: '145px', backgroundColor:'black' }}
               onClick={() => {
              
-               sendToAddSubject("hi")
+               sendToAddSubject(topLevelName,categoryId)
               }}>
                 {wait?"Please Wait...":<span><b style={{fontSize:"1.5rem"}}>+</b> Add Subject</span> }
             </Button>

@@ -124,12 +124,12 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
 
        </div>
 
-    <h1 style={{position:"relative",fontWeight:"bold",marginBottom:"40px",fontSize:"30px"}}>COURSES</h1>
+    <h1 style={{position:"relative",fontWeight:"bold",marginBottom:"40px",fontSize:"30px"}}>SUBJECT</h1>
 
     <Grid item xs={12} sx={{ display: 'flex', flexDirection: 'row',justifyContent:"space-between"}}>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <Typography variant="h4" component="p">
-              EDIT COURSE
+              EDIT SUBJECT
               </Typography>
 
             

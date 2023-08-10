@@ -38,6 +38,7 @@ import ContractorStatsPage from './pages/ContractorStatsPage'
 import AddCourse from './pages/AddCourse';
 import EditCourse from './pages/EditCourse';
 import AddSubject from './pages/AddSubject';
+import AddTeacher from './pages/AddTeacher';
 
 import AddSession from './pages/AddSession';
 //import AddLesson from './pages/AddLesson';
@@ -47,6 +48,8 @@ import AddChapter from './pages/AddChapterAlso';
 import EditChapter from './pages/EditChapter';
 import AddQuiz from './pages/AddQuiz';
 import StudentListPage from './pages/StudentListPage';
+import TeacherListPage from './pages/TeacherListPage';
+
 import EditLesson from './pages/EditLesson';
 
 export default function Router() {
@@ -74,7 +77,7 @@ export default function Router() {
         { path: 'video-details', element: <VideoDetailsPage /> },
         { path: 'docs', element: <DocsPage /> },
         { path: 'courses', element: <CategoriesVideoPage /> },
-       
+        { path: 'teacher-list', element: <TeacherListPage /> },
         
         { path: 'chat', element: <InboxPage /> },
         { path: 'add-course', element: <AddCourse /> },
@@ -85,6 +88,7 @@ export default function Router() {
         { path: 'add-chapter', element: <AddChapter /> },
         { path: 'add-quiz', element: <AddQuiz /> },
         { path: 'edit-chapter', element: <EditChapter /> },
+        { path: 'add-teacher', element: <AddTeacher /> },
         // { path: 'my-cooler', element: <MyCoolersPage /> },
        
        

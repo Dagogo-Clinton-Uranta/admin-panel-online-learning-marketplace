@@ -1,5 +1,5 @@
 import { db } from "../../config/firebase";
-import { fetchJobs,fetchCourses, fetchSingleJob,saveUserCourses } from "../reducers/job.slice";
+import { fetchJobs,fetchTeachers,fetchCourses, fetchSingleJob,saveUserCourses } from "../reducers/job.slice";
 import { useDispatch, useSelector } from "react-redux";
 
 export const getJobs = (uid) => async (dispatch) => {
@@ -9,7 +9,19 @@ export const getJobs = (uid) => async (dispatch) => {
         dispatch(fetchJobs(jobs));
 }).catch((error) => {
         var errorMessage = error.message;
-        console.log('Error fetching courses', errorMessage);
+        console.log('Error fetching students', errorMessage);
+});
+
+};
+
+export const getTeachers = (uid) => async (dispatch) => {
+    db.collection('teachers').get().then((snapshot) => {
+        const allTeachers = snapshot.docs.map((doc) => ({id: doc.id, ...doc.data() }));
+        // console.log('Jobs: ', jobs);
+        dispatch(fetchTeachers(allTeachers));
+}).catch((error) => {
+        var errorMessage = error.message;
+        console.log('Error fetching teachers', errorMessage);
 });
 
 };

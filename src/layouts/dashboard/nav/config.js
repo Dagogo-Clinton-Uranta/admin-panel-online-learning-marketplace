@@ -25,7 +25,7 @@ const navConfig = [
   },
   {
     title: `TEACHERS`,
-   // path: '/dashboard/student-list',
+    path: '/dashboard/teacher-list',
     icon:<FaChalkboardTeacher/>,
     // icon: icon('ic_analytics'),
   },

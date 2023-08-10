@@ -462,6 +462,68 @@ export const fetchLessonInfo = (uid) =>async (dispatch) => {
  };
 
 
+ export const addTeacher = (addObject) => async (dispatch) => {
+
+
+  db.collection("teachers")
+  .where("firstName", "==", addObject.firstName)
+  .where("lastName", "==", addObject.lastName)
+  .get()
+  .then((snapshot) => {
+    const existingTeacher = snapshot.docs.map((doc) => ({ ...doc.data() }));
+  if (existingTeacher.length) {
+   
+    notifyErrorFxn(`This teacher already exists,consider changing the name(s)`)
+
+  } else {
+     
+    
+    db.collection("teachers").add(
+      {
+        bio:addObject.body,
+        firstName:addObject.firstName,
+        lastName:addObject.lastName,
+        level:addObject.level,
+        imageUrl:addObject.imageUrl,
+
+      }
+    ).then((doc) => {
+       //const publicGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
+       db.collection("teachers").doc(doc.id).update({
+      uid:doc.id
+       })
+  
+      console.log("the new  teacher's id is",doc.id)
+       notifySuccessFxn(`new Teacher ${addObject.firstName + " " + addObject.firstName} added!`)
+  
+   }).catch((error) => {
+     console.log("Error adding teacher:", error);
+     notifyErrorFxn(error)
+  
+  
+   });
+
+
+
+
+
+  }
+}).catch((error) => {
+  console.log("Error adding subject:", error);
+  notifyErrorFxn(error)
+
+
+});
+
+ };
+
+
+
+
+
+
+
+
  export const addSubject = (addObject) => async (dispatch) => {
 
 

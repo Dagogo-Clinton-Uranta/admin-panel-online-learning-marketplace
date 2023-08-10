@@ -7,7 +7,7 @@ import { isItLoading, saveAllGroup ,saveEmployeer,
          savePrivateGroup, savePublicGroup, saveSectionVideos,
           saveCategoryVideos,saveCategoryChapters,
         saveChapterSessions,saveSubjectInfo,
-      saveLessonInfo,saveChapterInfo} from '../reducers/group.slice';
+      saveLessonInfo,saveChapterInfo,saveTeacherInfo} from '../reducers/group.slice';
 import firebase from "firebase/app";
 
 export const createGroup = (groupData, user, file, navigate, setLoading, url) => async (dispatch) => {
@@ -436,6 +436,17 @@ export const fetchLessonInfo = (uid) =>async (dispatch) => {
 });
 };
 
+export const fetchTeacherInfo = (uid) =>async (dispatch) => {
+  db.collection("teachers").doc(uid).get().then((doc) => {
+  console.log()
+  
+    dispatch(saveTeacherInfo(doc.data()))
+ }).catch((error) => {
+  console.log("Error fetching a particular TEACHER from sections collection:", error);
+
+});
+};
+
 
  export const updateSubjectNow = (uid,updateObject) => async (dispatch) => {
  
@@ -485,6 +496,7 @@ export const fetchLessonInfo = (uid) =>async (dispatch) => {
         lastName:addObject.lastName,
         level:addObject.level,
         imageUrl:addObject.imageUrl,
+        registeredOn:new Date()
 
       }
     ).then((doc) => {
@@ -494,7 +506,7 @@ export const fetchLessonInfo = (uid) =>async (dispatch) => {
        })
   
       console.log("the new  teacher's id is",doc.id)
-       notifySuccessFxn(`new Teacher ${addObject.firstName + " " + addObject.firstName} added!`)
+       notifySuccessFxn(`new Teacher ${addObject.firstName + " " + addObject.lastName} added!`)
   
    }).catch((error) => {
      console.log("Error adding teacher:", error);
@@ -578,7 +590,30 @@ export const fetchLessonInfo = (uid) =>async (dispatch) => {
 });
 
  };
+ 
 
+ export const updateTeacher = (uid,updateObject) => async (dispatch) => {
+ 
+  db.collection("sections").doc(uid).update(
+    {
+      body:updateObject.body,
+      category:updateObject.category,
+      title:updateObject.title,
+      subLevel:updateObject.subLevel,
+      uid:uid
+    }
+  ).then((snapshot) => {
+     //const publicGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
+   
+     notifySuccessFxn("updated successfully")
+
+ }).catch((error) => {
+   console.log("Error updating document:", error);
+   notifyErrorFxn(error)
+
+
+ });
+ };
 
 
 

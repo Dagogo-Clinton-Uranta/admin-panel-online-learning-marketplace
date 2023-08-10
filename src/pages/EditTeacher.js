@@ -1,49 +1,49 @@
 import { Container,Grid, TextField, Typography, TextareaAutosize, Button, Paper,Divider,Box} from '@mui/material';
-import { useRef, useState} from 'react';
+import { useRef, useState,useEffect } from 'react';
 import { useNavigate,useLocation } from 'react-router-dom';
 import UPLOADIMG from '../assets/images/upload.png';
-import { addTeacher} from 'src/redux/actions/group.action';
-
-import { useDispatch, useSelector } from 'react-redux';
-import { notifyErrorFxn } from 'src/utils/toast-fxn';
-import users from 'src/_mock/user';
-
+import { uploadUserSettings,updateSubject,updateSubjectNow,updateChapter} from 'src/redux/actions/group.action';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 
-function AddTeacher() {
-  const navigate = useNavigate();
-  const location = useLocation()
- // console.log("location is",location.state.levelName,location.state.uid)
+import { useDispatch, useSelector } from 'react-redux';
+import { notifyErrorFxn, notifySuccessFxn } from 'src/utils/toast-fxn';
+import users from 'src/_mock/user';
 
-  const [file, setFile] = useState();
-  const [file2, setFile2] = useState();
-  const [fileSize, setFileSize] = useState();
-  const [fileSize2, setFileSize2] = useState();
-  const [selectedFile, setSelectedFile] = useState({selectedFile: [], selectedFileName: []});
-  const [selectedFile2, setSelectedFile2] = useState({selectedFile2: [], selectedFileName2: []});
+import { updateTeacher} from 'src/redux/actions/group.action';
+
+function EditTeacher() {
+  const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useDispatch();
 
-  const [newPassword,setNewPassword] =useState('')
-  const [confirmPassword,setConfirmPassword] =useState('')
-  const [companySize,setCompanySize] =useState('')
+  let { uid } = location.state;
+  console.log(",uid is....",uid)
+  
+  
+  const {teacherInfo} = useSelector((state) => state.group)
+  const { user } = useSelector((state) => state.auth);
+  //console.log("user details are:",user)
 
 
   const [loading,setLoading] = useState(false)
+  const [level,setLevel] = useState(teacherInfo.level)
+  const [body,setBody] = useState(teacherInfo.bio)
+  const [firstName,setFirstName] =useState(teacherInfo.firstName)
+  const [lastName,setLastName] =useState(teacherInfo.lastName)
+  const [imageUrl,setImageUrl] =useState(teacherInfo.imageUrl)
 
-  const [level,setLevel] = useState('')
-  const [body,setBody] = useState('')
-  const [firstName,setFirstName] =useState('')
-  const [lastName,setLastName] =useState('')
-  const [imageUrl,setImageUrl] =useState('')
+
+  
+
+
+  useEffect(()=>{
+
+    console.log("INFO FOR THE SELECTED TEACHER IS",teacherInfo)
  
+   },[])
 
-  const { user } = useSelector((state) => state.auth);
-
-  console.log("user details are:",user)
-
-
-  const addObject ={
+  const updateObject ={
     firstName,
     lastName,
     body,
@@ -51,54 +51,72 @@ function AddTeacher() {
     imageUrl
   }
 
-  const addThisTeacher = async(addObject) => {
-    
-    if(!firstName||!lastName||!imageUrl || !body ||!level ){
-      notifyErrorFxn("Please make sure to fill in all fields.")
-    }
-    else{
-    
+  const updateThisSubject = async(identity,updateObject) => {
     setLoading(true)
-    dispatch(addTeacher(addObject))
+    dispatch(updateTeacher(identity,updateObject))
    
     // console.log("identity is",identity)
     // console.log("update this subject is updating.........")
     setTimeout(()=>{setLoading(false)},1800)
-    }
+    
   }
- 
+
+
+
+
+
 
 
   return (
     <>
     <Container maxWidth="xl">
 
-
-
     <div style={{display:"flex",justifyContent:"space-between",marginBottom:"6rem"}}>
        
-      
+
+
        </div>
 
+    <h1 style={{position:"relative",fontWeight:"bold",marginBottom:"40px",fontSize:"30px"}}>SUBJECT</h1>
 
-
-    <h1 style={{position:"relative",fontWeight:"bold",marginBottom:"40px",fontSize:"30px"}}>NEW TEACHER</h1>
-
-    <Grid item xs={12} sx={{ display: 'flex' }}>
-            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <Grid item xs={12} sx={{ display: 'flex', flexDirection: 'row',justifyContent:"space-between"}}>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <Typography variant="h4" component="p">
-              ADD DETAILS BELOW
+              EDIT TEACHER
               </Typography>
-              <div style={{height:"2px", width:"80%",borderBottom:"1px solid black",position:"absolute",left:"20rem",top:"18rem"}}></div>
+
+            
             </Box>
-            <br/> <br/> <br/>
-        </Grid>
+
+
+          {/* <div style={{ display: 'flex', justifyContent: 'center', gap:'1rem'}}>
+        
+            <Button   variant="contained" 
+          style={{ backgroundColor: "#000000", paddingTop: '10px', paddingBottom: '10px', 
+          paddingRight: '30px', paddingLeft: '30px'}}   onClick={() => {  navigate('/dashboard/add-chapter')}}
+          >
+           ADD CHAPTER
+         </Button>
+        
+        
+          <Button   variant="contained" 
+          style={{ backgroundColor: "#000000", paddingTop: '10px', paddingBottom: '10px', 
+  paddingRight: '30px', paddingLeft: '30px'}}   onClick={() => {  navigate('/dashboard/add-lesson')}}
+          >
+           ADD LESSON
+         </Button>
+     
+     
+  </div>*/}
+           
+          </Grid>
    
+     <div style={{height:"2px", width:"80%",borderBottom:"1px solid black",position:"absolute",left:"20rem",top:"18rem"}}></div>
+     <br/> <br/> <br/>
 
      <Grid container spacing={2}>
-
-
-         <Grid container item xs={12} spacing={2}>
+        
+     <Grid container item xs={12} spacing={2}>
           <Grid item xs={3}>
             <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
              <div >
@@ -128,7 +146,7 @@ function AddTeacher() {
 
 
        
-       <Grid container item xs={12} spacing={2}>
+        <Grid container item xs={12} spacing={2}>
           <Grid item xs={3}>
             <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
              <div >
@@ -155,8 +173,6 @@ function AddTeacher() {
           </Grid>
         </Grid>
 
-
-
         <Grid container item xs={12} spacing={2}>
           <Grid item xs={3}>
             <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
@@ -181,6 +197,8 @@ function AddTeacher() {
             />
           </Grid>
         </Grid>
+
+
 
         <Grid container item xs={12} spacing={2}>
           <Grid item xs={3}>
@@ -210,7 +228,6 @@ function AddTeacher() {
         </Grid>
 
 
-   
         <Grid container item xs={12} spacing={2}>
           <Grid item xs={3}>
             <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
@@ -235,29 +252,29 @@ function AddTeacher() {
             />
           </Grid>
         </Grid>
-      
-
-
-
+        {/* upload section */}
+        
 
 
       
       </Grid>
       <br/><br/><br/><br/>
-  <div style={{ display: 'flex', justifyContent: 'center',gap:"1rem" }}>
- 
+  <div style={{ display: 'flex', justifyContent: 'center' , gap:"1rem" }}>
   <Button  onClick={() => {navigate(-1) }} variant="contained" 
   style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px', paddingBottom: '10px', 
   paddingRight: '30px', paddingLeft: '30px'}}
 >
     CANCEL
   </Button>
- 
-  <Button  onClick={() => { addThisTeacher(addObject)}} variant="contained" 
+  
+  
+  
+  
+  <Button  onClick={() => {updateThisSubject(uid,updateObject)}} variant="contained" 
   style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px', paddingBottom: '10px', 
   paddingRight: '30px', paddingLeft: '30px'}}
 >
-   {loading?"loading..." :"SUBMIT"}
+   {loading?"Loading...": "SUBMIT"}
   </Button>
 </div>
 </Container>
@@ -265,4 +282,4 @@ function AddTeacher() {
   );
 }
 
-export default AddTeacher;
+export default EditTeacher;

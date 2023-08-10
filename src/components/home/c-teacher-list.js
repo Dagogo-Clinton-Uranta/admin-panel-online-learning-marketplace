@@ -32,6 +32,7 @@ import { notifyErrorFxn, notifySuccessFxn } from 'src/utils/toast-fxn';
 import { useDispatch, useSelector } from "react-redux";
 
 import { deleteSingleJob } from "../../redux/actions/job.action";
+import {fetchTeacherInfo} from 'src/redux/actions/group.action'
 
 function TablePaginationActions(props) {
   const theme = useTheme();
@@ -149,6 +150,7 @@ export default function TeacherList({teachers}) {
   const navigate = useNavigate();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [wait,setWait] =useState(false)
 
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - teacherList.length) : 0;
@@ -162,7 +164,11 @@ export default function TeacherList({teachers}) {
     setPage(0);
   };
   const viewTeachersFxn = (id) => {
-    navigate(`/dashboard/student-stats/`,{ state: { id:id } });
+   
+    setWait(true)
+    dispatch(fetchTeacherInfo(id))
+
+   setTimeout(()=> {navigate('/dashboard/edit-teacher',{state:{uid:id}})}, 1500)
   };
 
   const deleteTeacherFxn = (id) => {
@@ -297,7 +303,7 @@ export default function TeacherList({teachers}) {
                     sx={{ mt: 7, mb: 2 }}
                     onClick={() => viewTeachersFxn(row.uid.trim())}
                   >
-                    VIEW
+                   VIEW
                   </Button>
                 </TableCell>
 

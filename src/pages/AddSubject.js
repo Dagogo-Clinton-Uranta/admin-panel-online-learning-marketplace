@@ -16,19 +16,15 @@ function AddSubject() {
   const location = useLocation()
   console.log("location is",location.state.levelName,location.state.uid)
 
-  const [file, setFile] = useState();
-  const [file2, setFile2] = useState();
-  const [fileSize, setFileSize] = useState();
-  const [fileSize2, setFileSize2] = useState();
-  const [selectedFile, setSelectedFile] = useState({selectedFile: [], selectedFileName: []});
-  const [selectedFile2, setSelectedFile2] = useState({selectedFile2: [], selectedFileName2: []});
+  const { teachers } = useSelector((state) => state.jobs);
+
   const dispatch = useDispatch();
 
   const [newPassword,setNewPassword] =useState('')
   const [confirmPassword,setConfirmPassword] =useState('')
   const [companySize,setCompanySize] =useState('')
 
-
+ const [teachersArr,setTeacherArr]=useState([...teachers.map((item)=>(item.firstName + " " + item.lastName))])
   const [loading,setLoading] = useState(false)
   const [title,setTitle] = useState('')
   const [level,setLevel] = useState('')
@@ -219,11 +215,10 @@ function AddSubject() {
             setInstructor(event.target.value);
           }}
         >
-          <MenuItem value={'Sidiki Keita - Socrate'}>Sidiki Keita - Socrate</MenuItem>
-          <MenuItem value={'Alpha Amadou Diallo'}></MenuItem>
-          <MenuItem value={'Souleymane Koulibaly'}>Souleymane Koulibaly</MenuItem>
-          <MenuItem value={'Younoussa Camara'}>Younoussa Camara</MenuItem>
-          <MenuItem value={'Marc Aurel Touré'}>Marc Aurel Touré</MenuItem>
+        {teachersArr.map((item)=>(
+            <MenuItem value={item}>{item}</MenuItem>
+        ))}
+       
         </Select>
             
             

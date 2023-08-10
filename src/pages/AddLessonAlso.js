@@ -34,6 +34,7 @@ function AddLesson() {
   const [body,setBody] = useState('')
   const [subject,setSubject] = useState(location.state.subject)
   const [lessonUrl,setLessonUrl] = useState('')
+  const [lessonNumber,setLessonNumber] = useState('')
   const [duration,setDuration] = useState('')
   
 
@@ -63,7 +64,8 @@ function AddLesson() {
     category:location.state.category,
     subject:location.state.subject,
     duration:duration,
-    lessonUrl:lessonUrl
+    lessonUrl:lessonUrl,
+    lessonNumber:lessonNumber
   }
 
 
@@ -71,7 +73,7 @@ function AddLesson() {
 
   const addThisLesson = async(addObject) => {
   
-  if(!title || !body ||!category || !lessonUrl||!subject ||!duration ||!location.state.chapterId){
+  if(!title || !body ||!category || !lessonUrl||!subject ||!duration ||!location.state.chapterId||!lessonNumber){
     notifyErrorFxn("Please make sure to fill in all fields.")
   }
   else{
@@ -201,6 +203,38 @@ function AddLesson() {
             
           </Grid>
         </Grid>
+
+
+
+        <Grid container item xs={12} spacing={2}>
+          <Grid item xs={3}>
+            <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
+             <div >
+             LESSON NUMBER
+             </div>
+      
+            </Typography>
+          
+          </Grid>
+
+          <Grid item xs={7}>
+            <TextField
+            type="number"
+            fullWidth
+            placeholder="please input only a number e.g 1,2,17 etc "
+            variant="outlined"
+            multiline
+            maxRows={2}
+            value= {lessonNumber}
+            onChange = {(e)=>{setLessonNumber(e.target.value)}}
+            
+            />
+            
+            
+          </Grid>
+        </Grid>
+
+
 
         <Grid container item xs={12} spacing={2}>
           <Grid item xs={3}>

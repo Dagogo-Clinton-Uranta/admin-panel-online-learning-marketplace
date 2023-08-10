@@ -54,6 +54,7 @@ function EditChapter() {
   const [subLevel,setSubLevel] =useState(chapterInfo.uid)
   const [subject,setSubject] =useState(chapterInfo.subject)
   const [chapterUrl,setChapterUrl] =useState(chapterInfo.chapterUrl?chapterInfo.chapterUrl:"")
+  const [chapterNumber,setChapterNumber] =useState(chapterInfo.chapterNumber)
 
   useEffect(()=>{
 
@@ -64,7 +65,8 @@ function EditChapter() {
   const updateObject ={
     title,
     category,
-    subject
+    subject,
+    chapterNumber
   }
 
   const updateThisChapter= (uid,updateObject) => {
@@ -263,6 +265,36 @@ const addOption =(option) => {
             maxRows={2}
             value= {title}
             onChange = {(e)=>{setTitle(e.target.value)}}
+            
+            />
+            
+            
+          </Grid>
+        </Grid>
+
+
+
+        <Grid container item xs={12} spacing={2}>
+          <Grid item xs={3}>
+            <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
+             <div >
+             CHAPTER NUMBER
+             </div>
+      
+            </Typography>
+          
+          </Grid>
+
+          <Grid item xs={7}>
+            <TextField
+            type="number"
+            fullWidth
+            placeholder="please input only a number e.g 1,2,17 etc "
+            variant="outlined"
+            multiline
+            maxRows={2}
+            value= {chapterNumber}
+            onChange = {(e)=>{setChapterNumber(e.target.value)}}
             
             />
             

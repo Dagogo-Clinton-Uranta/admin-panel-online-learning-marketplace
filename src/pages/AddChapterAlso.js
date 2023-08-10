@@ -33,7 +33,7 @@ function AddChapter() {
   const [category,setCategory] = useState(location.state.category)
   const [body,setBody] = useState('')
   const [subject,setSubject] = useState(location.state.subject)
-  const [level,setLevel] = useState('')
+  const [chapterNumber,setChapterNumber] = useState('')
   
 
   const { user } = useSelector((state) => state.auth);
@@ -58,6 +58,7 @@ function AddChapter() {
   const addObject ={
     title,
     body,
+    chapterNumber,
     sectionId:location.state.sectionId,
     category:location.state.category,
     subject:location.state.subject
@@ -194,6 +195,35 @@ console.log("whala")
             maxRows={2}
             value= {title}
             onChange = {(e)=>{setTitle(e.target.value)}}
+            
+            />
+            
+            
+          </Grid>
+        </Grid>
+
+
+        <Grid container item xs={12} spacing={2}>
+          <Grid item xs={3}>
+            <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
+             <div >
+             CHAPTER NUMBER
+             </div>
+      
+            </Typography>
+          
+          </Grid>
+
+          <Grid item xs={7}>
+            <TextField
+            type="number"
+            fullWidth
+            placeholder="please input only a number e.g 1,2,17 etc "
+            variant="outlined"
+            multiline
+            maxRows={2}
+            value= {chapterNumber}
+            onChange = {(e)=>{setChapterNumber(e.target.value)}}
             
             />
             

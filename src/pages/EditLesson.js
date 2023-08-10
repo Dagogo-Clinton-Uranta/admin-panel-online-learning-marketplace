@@ -36,6 +36,7 @@ function EditLesson() {
   const [category,setCategory] = useState(lessonInfo.category)
   const [lessonUrl,setLessonUrl] = useState(lessonInfo.lessonUrl)
   const [duration,setDuration] = useState(lessonInfo.duration)
+  const [lessonNumber,setLessonNumber] = useState(lessonInfo.lessonNumber)
   
   
   useEffect(()=>{
@@ -55,7 +56,8 @@ function EditLesson() {
     category:lessonInfo.category,
     section:lessonInfo.section,
     duration:duration,
-    lessonUrl:lessonUrl
+    lessonUrl:lessonUrl,
+    lessonNumber:lessonNumber
   }
 
 
@@ -211,6 +213,36 @@ function EditLesson() {
             rows={8}
             value= {body}
             onChange = {(e)=>{setBody(e.target.value)}}
+            
+            />
+            
+            
+          </Grid>
+        </Grid>
+
+
+
+        <Grid container item xs={12} spacing={2}>
+          <Grid item xs={3}>
+            <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
+             <div >
+             LESSON NUMBER
+             </div>
+      
+            </Typography>
+          
+          </Grid>
+
+          <Grid item xs={7}>
+            <TextField
+            type="number"
+            fullWidth
+            placeholder="please input only a number e.g 1,2,17 etc "
+            variant="outlined"
+            multiline
+            maxRows={2}
+            value= {lessonNumber}
+            onChange = {(e)=>{setLessonNumber(e.target.value)}}
             
             />
             

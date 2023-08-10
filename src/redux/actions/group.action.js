@@ -336,7 +336,7 @@ export const fetchGroups = (adminID) => async (dispatch) => {
      const allSectionChapters = snapshot.docs.map((doc) => ({ ...doc.data() }));
      const sortFunction = (array)=>{
       if (array.length){
-        return  array.sort((a,b)=>(Number(a.title.substring(7,8)) - Number(b.title.substring(7,8)) ))
+        return  array.sort((a,b)=>(Number(a.chapterNumber) - Number(b.chapterNumber)))
        }else{
         return []
        }
@@ -375,7 +375,7 @@ export const fetchGroups = (adminID) => async (dispatch) => {
      const sortFunction = (array)=>{
       if (array.length){
        
-        return  array.sort((a,b)=>(Number(a.title.substring(8,9)) - Number(b.title.substring(8,9))   ))
+        return  array.sort((a,b)=>(Number(a.lessonNumber) - Number(b.lessonNumber) ))
        }else{
         return []
        }

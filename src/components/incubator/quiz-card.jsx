@@ -9,7 +9,7 @@ import {fetchSubjectChapters, updateVideoAndUserWatchlists,fetchSubjectInfo} fro
 import { useNavigate } from 'react-router-dom';
 
 import { setRequestedSection,savePresentOpenChapter } from 'src/redux/reducers/group.slice';
-import { fetchVideoSection } from 'src/redux/actions/group.action';
+
 
 
 import {SlideDown} from 'react-slidedown'

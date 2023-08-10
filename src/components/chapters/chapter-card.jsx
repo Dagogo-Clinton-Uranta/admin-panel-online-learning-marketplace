@@ -5,7 +5,7 @@ import { Divider, Chip, Grid, Paper, Typography, Box, Avatar, Button, ButtonBase
   ToggleButton, ToggleButtonGroup, Hidden  } from '@mui/material';
 import { useDispatch,useSelector } from 'react-redux';
 import {fetchChapterSessions, fetchSubjectChapters, updateVideoAndUserWatchlists,fetchChapterInfo} from 'src/redux/actions/group.action'
-import { fetchVideoSubsection } from 'src/redux/actions/group.action';
+
 import { useNavigate } from 'react-router-dom';
 
 import { setRequestedSection,savePresentOpenChapter,savePresentOpenSessions } from 'src/redux/reducers/group.slice';
@@ -16,6 +16,7 @@ import {SlideDown} from 'react-slidedown'
 import 'react-slidedown/lib/slidedown.css'
 import SessionCard from '../sessions/session-card';
 import AddSessionCard from '../sessions/addSession-card';
+import AddSessionQuizCard from '../sessions/addSessionQuiz-card';
 
 
 
@@ -168,6 +169,7 @@ const ChapterCard = ({data,index,user}) => {
                 
                   }
                   <AddSessionCard chapterId={data.uid} category={data.category} subject={data.subject}  />
+                  <AddSessionQuizCard chapterId={data.uid} category={data.category} subject={data.subject}  />
               </Grid>
                 }
               </SlideDown>

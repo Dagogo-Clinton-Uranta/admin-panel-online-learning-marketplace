@@ -1,6 +1,6 @@
 import { Container,Grid, TextField, Typography, TextareaAutosize, Button, Paper,Divider,Box} from '@mui/material';
 import { useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useLocation } from 'react-router-dom';
 import UPLOADIMG from '../assets/images/upload.png';
 import { fetchGroups, fetchMyGroups, uploadUserSettings} from 'src/redux/actions/group.action';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
@@ -10,15 +10,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { notifyErrorFxn } from 'src/utils/toast-fxn';
 import users from 'src/_mock/user';
 
+import { addLesson} from 'src/redux/actions/group.action';
+
 
 function AddQuiz() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [file, setFile] = useState();
-  const [file2, setFile2] = useState();
+
   const [fileSize, setFileSize] = useState();
-  const [fileSize2, setFileSize2] = useState();
-  const [selectedFile, setSelectedFile] = useState({selectedFile: [], selectedFileName: []});
-  const [selectedFile2, setSelectedFile2] = useState({selectedFile2: [], selectedFileName2: []});
+
 
   const [optionFill,setOptionFill] = useState('');
 
@@ -38,40 +39,54 @@ function AddQuiz() {
   const { user } = useSelector((state) => state.auth);
   console.log("user details are:",user)
 
-  /*const [releaseDate,setReleaseDate] =useState('')
-  const [director,setDirector] =useState('')
-  const [cast,setCast] =useState([])
-  const [description,setDescription] =useState('')
-  const [trivia,setTrivia] =useState('')*/
+
+
+
+  const [loading,setLoading] =useState(false)
+
+  const [title,setTitle] = useState('')
+  const [category,setCategory] = useState(location.state.category)
+  const [body,setBody] = useState('')
+  const [subject,setSubject] = useState(location.state.subject)
+  const [lessonUrl,setLessonUrl] = useState('')
+  const [lessonNumber,setLessonNumber] = useState('')
+  const [duration,setDuration] = useState('')
   
-  const groupData = {
-    email:user.email,
-    password:user.password,
-    newPassword,
-    companySize,
-    uid:user.uid
+
+
+
+ 
+
+
+  const addObject ={
+    title,
+    body,
+    chapterId:location.state.chapterId,
+    category:location.state.category,
+    subject:location.state.subject,
+    duration:duration,
+    lessonUrl:lessonUrl,
+    lessonNumber:lessonNumber
   }
 
 
-  const handleselectedFile = event => {
-    console.log("these are the picture deets!",event.target.files[0])
-    setSelectedFile({
-        selectedFile: event.target.files[0],
-        selectedFileName: event.target.files[0].name
-    });
-    
-    setFile(URL.createObjectURL(event.target.files[0]));
-    setFileSize(event.target.files[0].size)
-};
- /* const handleselectedFile2 = event => {
-    console.log("these are the video deets!",event.target.files[0])
-    setSelectedFile2({
-        selectedFile2: event.target.files[0],
-        selectedFileName2: event.target.files[0].name
-    });
-    setFile2(URL.createObjectURL(event.target.files[0]));
-    setFileSize2(event.target.files[0].size)
-};*/
+
+
+  const addThisLesson = async(addObject) => {
+  
+  if(!title || !body ||!category || !lessonUrl||!subject ||!duration ||!location.state.chapterId||!lessonNumber){
+    notifyErrorFxn("Please make sure to fill in all fields.")
+  }
+  else{
+    setLoading(true)
+    dispatch(addLesson(addObject))
+   
+    // console.log("identity is",identity)
+    // console.log("update this subject is updating.........")
+    setTimeout(()=>{setLoading(false)},1800)
+   }
+  }
+
 
 
 
@@ -124,107 +139,38 @@ const addOption =(option) => {
   return (
     <>
 
-<Container maxWidth="xl" sx={{posiiton:"relative"}}>
+<Container maxWidth="xl">
 
-<div style={{display:"flex",justifyContent:"space-between",marginBottom:"6rem"}}>
+
+
+    <div style={{display:"flex",justifyContent:"space-between",marginBottom:"6rem"}}>
        
-    
-
+      
        </div>
 
-<h1 style={{position:"relative",fontWeight:"bold",marginBottom:"40px",fontSize:"30px"}}>ADD QUIZ</h1>
 
 
- <Grid container spacing={2}>
-    
-    <Grid container item xs={12} spacing={2}>
-      <Grid item xs={3}>
-        <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
-         <div >
-         LEVEL
-         </div>
-  
-        </Typography>
-      
-      </Grid>
+    <h1 style={{position:"relative",fontWeight:"bold",marginBottom:"40px",fontSize:"30px"}}>NEW QUIZ</h1>
 
-      <Grid item xs={7}>
-        <TextField
-        fullWidth
-        placeholder=" confirm password"
-        variant="outlined"
-        multiline
-        maxRows={2}
-        value= {"CHEMIE TSE/TSM"}
-        onChange = {(e)=>{setConfirmPassword(e.target.value)}}
-        
-        />
-        
-        
-      </Grid>
-    </Grid>
-
-
-    <Grid container item xs={12} spacing={2}>
-      <Grid item xs={3}>
-        <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
-         <div >
-         SUBJECT
-         </div>
-  
-        </Typography>
-      
-      </Grid>
-
-      <Grid item xs={7}>
-        <TextField
-        fullWidth
-        placeholder=" confirm password"
-        variant="outlined"
-        multiline
-        maxRows={2}
-        value= {"CHEMIE TSE/TSM"}
-        onChange = {(e)=>{setConfirmPassword(e.target.value)}}
-        
-        />
-        
-        
-      </Grid>
-    </Grid>
-
-    
-
-  
-  </Grid>
-  <br/><br/>
-
-</Container>
-
-
-    <Container maxWidth="xl" sx={{posiiton:"relative"}}>
-   
-    
-
-    <Grid item xs={12} sx={{ display: 'flex', flexDirection: 'row',justifyContent:"space-between",position:"relative"}}>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+    <Grid item xs={12} sx={{ display: 'flex' }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
               <Typography variant="h4" component="p">
-              ADD CHAPTER
+              ADD DETAILS BELOW
               </Typography>
-
-            
+              <div style={{height:"2px", width:"80%",borderBottom:"1px solid black",position:"absolute",left:"20rem",top:"18rem"}}></div>
             </Box>
-       <div style={{height:"2px", width:"90%",borderBottom:"1px solid black",position:"absolute",left:"0rem",top:"2rem"}}></div>
-          </Grid>
+            <br/> <br/> <br/>
+        </Grid>
    
-        
-     <br/> <br/> <br/>
 
      <Grid container spacing={2}>
-         <Grid container item xs={12} spacing={2}>
+
+    
+     <Grid container item xs={12} spacing={2}>
           <Grid item xs={3}>
             <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
              <div >
-             CHAPTER NAME
+             SUBJECT
              </div>
       
             </Typography>
@@ -234,12 +180,43 @@ const addOption =(option) => {
           <Grid item xs={7}>
             <TextField
             fullWidth
-            placeholder=" confirm password"
+            placeholder=" Mathematique,Francais, etc."
             variant="outlined"
             multiline
             maxRows={2}
-            value= {"6E ANNEE"}
-            onChange = {(e)=>{setConfirmPassword(e.target.value)}}
+            value= {subject}
+           
+            
+            />
+            
+            
+          </Grid>
+        </Grid>
+
+
+
+
+
+         <Grid container item xs={12} spacing={2}>
+          <Grid item xs={3}>
+            <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
+             <div >
+             LEVEL
+             </div>
+      
+            </Typography>
+          
+          </Grid>
+
+          <Grid item xs={7}>
+            <TextField
+            fullWidth
+            placeholder=" 6eme Annee, 10eme Annee, etc."
+            variant="outlined"
+            multiline
+            maxRows={2}
+            value= {category}
+            
             
             />
             
@@ -254,7 +231,7 @@ const addOption =(option) => {
           <Grid item xs={3}>
             <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
              <div >
-             PDF URL
+             TITLE
              </div>
       
             </Typography>
@@ -264,22 +241,158 @@ const addOption =(option) => {
           <Grid item xs={7}>
             <TextField
             fullWidth
-            placeholder=" confirm password"
+            placeholder=" e.g  Dissociation."
             variant="outlined"
             multiline
             maxRows={2}
-            value= {"CHEMIE TSE/TSM"}
-            onChange = {(e)=>{setConfirmPassword(e.target.value)}}
+            value= {title}
+            onChange = {(e)=>{setTitle(e.target.value)}}
+            />
+            
+            
+          </Grid>
+        </Grid>
+
+
+
+        <Grid container item xs={12} spacing={2}>
+          <Grid item xs={3}>
+            <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
+             <div >
+             LESSON(QUIZ) NUMBER
+             </div>
+      
+            </Typography>
+          
+          </Grid>
+
+          <Grid item xs={7}>
+            <TextField
+            type="number"
+            fullWidth
+            placeholder="follow the order of the lessons previously added"
+            variant="outlined"
+            multiline
+            maxRows={2}
+            value= {lessonNumber}
+            onChange = {(e)=>{setLessonNumber(e.target.value)}}
             
             />
             
             
           </Grid>
         </Grid>
- 
-      </Grid>
-     <br/>
 
+
+
+        <Grid container item xs={12} spacing={2}>
+          <Grid item xs={3}>
+            <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
+             <div >
+             DESCRIPTION
+             </div>
+      
+            </Typography>
+          
+          </Grid>
+
+          <Grid item xs={7}>
+            <TextField
+            fullWidth
+            placeholder=" enter description"
+            variant="outlined"
+            multiline
+            rows={8}
+            value= {body}
+            onChange = {(e)=>{setBody(e.target.value)}}
+            
+            />
+            
+            
+          </Grid>
+        </Grid>
+
+
+
+        <Grid container item xs={12} spacing={2}>
+          <Grid item xs={3}>
+            <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
+             <div >
+             DURATION
+             </div>
+      
+            </Typography>
+          
+          </Grid>
+
+          <Grid item xs={7}>
+            <TextField
+            fullWidth
+            placeholder="e.g 08:55"
+            variant="outlined"
+            multiline
+            
+            value= {duration}
+            onChange = {(e)=>{setDuration(e.target.value)}}
+            
+            />
+            
+            
+          </Grid>
+        </Grid>
+
+
+        <Grid container item xs={12} spacing={2}>
+          <Grid item xs={3}>
+            <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
+             <div >
+             LESSON FILE URL
+             </div>
+      
+            </Typography>
+          
+          </Grid>
+
+          <Grid item xs={7}>
+            <TextField
+            fullWidth
+            placeholder="e,g www.amazons3.com/video.mp4 "
+            variant="outlined"
+            multiline
+            value= {lessonUrl}
+            onChange = {(e)=>{setLessonUrl(e.target.value)}}
+            
+            />
+            
+            
+          </Grid>
+        </Grid>
+
+      
+
+
+
+
+
+      
+      </Grid>
+      <br/><br/><br/><br/>
+  <div style={{ display: 'flex', justifyContent: 'center',gap:"1rem" }}>
+ 
+  <Button  onClick={() => {navigate(-1) }} variant="contained" 
+  style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px', paddingBottom: '10px', 
+  paddingRight: '30px', paddingLeft: '30px'}}
+>
+    CANCEL
+  </Button>
+ 
+  <Button  onClick={() => { addThisLesson(addObject)}} variant="contained" 
+  style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px', paddingBottom: '10px', 
+  paddingRight: '30px', paddingLeft: '30px'}}
+>
+    {loading?"loading...":"SUBMIT"}
+  </Button>
+</div>
 </Container>
 
 
@@ -295,7 +408,7 @@ const addOption =(option) => {
 <Grid item xs={12} sx={{ display: 'flex', flexDirection: 'row',justifyContent:"space-between", marginBottom:"3rem"}}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <Typography variant="h4" component="p">
-          ADD QUIZ
+          ADD QUESTION
           </Typography>
 
         
@@ -320,7 +433,7 @@ const addOption =(option) => {
       <Grid item xs={7}>
         <TextField
         fullWidth
-        placeholder=" confirm password"
+        placeholder=" enter question"
         variant="outlined"
         multiline
         maxRows={2}
@@ -350,7 +463,7 @@ const addOption =(option) => {
       <Grid item xs={7} sx={{display:"flex",justifyContent:"center",gap:"20px"}} >
         <TextField
         sx={{width:"90%"}}
-        placeholder=" confirm password"
+        placeholder=" enter answer"
         variant="outlined"
         multiline
         maxRows={2}
@@ -409,7 +522,7 @@ ADD
       <Grid item xs={7}>
         <TextField
         fullWidth
-        placeholder=" confirm password"
+        placeholder=" enter answer"
         variant="outlined"
         multiline
         maxRows={2}
@@ -431,7 +544,7 @@ ADD
   </Grid>
   <br/><br/>
 <div style={{ display: 'flex', justifyContent: 'center' }}>
-<Button  onClick={() => { uploadMovie(groupData,selectedFile.selectedFile,navigate)}} variant="contained" 
+<Button   variant="contained" 
 style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px', paddingBottom: '10px', 
 paddingRight: '30px', paddingLeft: '30px'}}
 >
@@ -451,7 +564,7 @@ CANCEL
 </Button>
 
 
-<Button  onClick={() => { uploadMovie(groupData,selectedFile.selectedFile,navigate)}} variant="contained" 
+<Button variant="contained" 
 style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px', paddingBottom: '10px', 
 paddingRight: '30px', paddingLeft: '30px'}}
 >

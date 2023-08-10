@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AddSessionCard = ({chapterId,category,subject}) => {
+const AddSessionQuizCard = ({chapterId,category,subject}) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -74,12 +74,12 @@ const AddSessionCard = ({chapterId,category,subject}) => {
   const [sessionsData,setSessionsData] = useState(chapterSessions?chapterSessions:dummyData) 
 
 
-  const sendToAddLesson = ()=>{
+  const sendToAddQuiz = ()=>{
 
     setWait(true)
     //dispatch(fetchLessonInfo(identity))
 
-   setTimeout(()=> {navigate('/dashboard/add-lesson',{state:{chapterId:chapterId,category:category,subject:subject}})}, 1000)
+   setTimeout(()=> {navigate('/dashboard/add-quiz',{state:{chapterId:chapterId,category:category,subject:subject}})}, 1000)
   }
 
 
@@ -111,16 +111,16 @@ const AddSessionCard = ({chapterId,category,subject}) => {
         <div style={{ color: 'black' }}>
           <b>{ /*`${index + 1}.) `data.id*/} {/*data && data.title*/} </b>
         </div>{' '}
-        <span style={{ marginLeft: '20px',color: 'black' }}>{"Add a new Lesson here"}</span>
+        <span style={{ marginLeft: '20px',color: 'black' }}>{"Add a Quiz here"}</span>
       </div>
      
 
             <Button variant="contained" style={{minHeight: '45px', minWidth: '145px', backgroundColor: 'black', }}
               onClick={() => {
                
-                sendToAddLesson()
+                sendToAddQuiz()
               }}>
-                {wait?"Please wait...":<span><b style={{fontSize:"1.5rem"}}>+</b> Add Lesson</span>}
+                {wait?"Please wait...":<span><b style={{fontSize:"1.5rem"}}>+</b> Add Quiz</span>}
             </Button>
           
 
@@ -134,4 +134,4 @@ const AddSessionCard = ({chapterId,category,subject}) => {
   );
 };
 
-export default AddSessionCard;
+export default AddSessionQuizCard;

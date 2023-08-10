@@ -5,7 +5,7 @@ import { Divider, Chip, Grid, Paper, Typography, Box, Avatar, Button, ButtonBase
   ToggleButton, ToggleButtonGroup, Hidden  } from '@mui/material';
 import { useDispatch,useSelector } from 'react-redux';
 import {fetchSubjectChapters, updateVideoAndUserWatchlists} from 'src/redux/actions/group.action'
-import { fetchVideoSubsection } from 'src/redux/actions/group.action';
+
 import { useNavigate } from 'react-router-dom';
 
 import { setRequestedSection,savePresentOpenChapter } from 'src/redux/reducers/group.slice';
@@ -107,14 +107,7 @@ const SubSectionCard = ({data,index,user}) => {
       <Button variant="contained" style={{minHeight: '45px', minWidth: '145px', backgroundColor: 'black', }}
               onClick={() => {
                
-              /*  setLoading(true) 
-                dispatch(setRequestedSection(data.title))
-               dispatch(fetchVideoSubsection(data.title))
-                const makeRequest = async()=>{
-                  console.log("i have set the requested section as",data.title)
-                  dispatch(setRequestedSection(data.title))
-                  dispatch(fetchVideoSubsection(data.title))}
-                makeRequest().then(()=>(setTimeout(()=>{navigate('/dashboard/view-incubator', { state: { title:data.title } })},1300)))*/
+             
                 fetchChaptersAndDropDown(data.uid)
               }}>
                 {loading?"Loading...":"View"}

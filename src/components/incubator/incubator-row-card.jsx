@@ -12,7 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import RectangleIMG from '../../assets/images/incu.jpg';
 import { useNavigate } from 'react-router-dom';
 import { setRequestedSection } from 'src/redux/reducers/group.slice';
-import { fetchVideoSubsection } from 'src/redux/actions/group.action';
+//import { fetchVideoSubsection } from 'src/redux/actions/group.action';
 
 
 const Img = styled('img')({
@@ -123,11 +123,11 @@ function IncubatorRowCard ({ id, title, body, img}) {
                 setLoading(true)
                 dispatch(setRequestedSection(title))
                
-               dispatch(fetchVideoSubsection(title))
+              /* dispatch(fetchVideoSubsection(title))*/
                 const makeRequest = async()=>{
                   console.log("i have set the requested section as",title)
                   dispatch(setRequestedSection(title))
-                  dispatch(fetchVideoSubsection(title))}
+                 /* dispatch(fetchVideoSubsection(title))*/}
                 //use a promise not setTimeout
                 makeRequest().then(()=>(setTimeout(()=>{navigate('/dashboard/view-incubator', { state: { title } })},1300)))
               }}>

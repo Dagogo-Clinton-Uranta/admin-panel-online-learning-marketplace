@@ -477,7 +477,8 @@ export const fetchLessonInfo = (uid) =>async (dispatch) => {
       body:updateObject.body,
       category:updateObject.category,
       title:updateObject.title,
-      subLevel:updateObject.level
+      subLevel:updateObject.level,
+      instructor:updateObject.instructor
       
     }).then((snapshot) => {
     
@@ -517,7 +518,8 @@ export const fetchLessonInfo = (uid) =>async (dispatch) => {
         category:addObject.category,
         title:addObject.title,
         subLevel:addObject.level,
-        categoryId:addObject.categoryId
+        categoryId:addObject.categoryId,
+        instructor:addObject.instructor
       }
     ).then((doc) => {
        //const publicGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));

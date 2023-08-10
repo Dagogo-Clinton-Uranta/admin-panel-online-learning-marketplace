@@ -3,6 +3,8 @@ import { useRef, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import UPLOADIMG from '../assets/images/upload.png';
 import { fetchGroups, fetchMyGroups, uploadUserSettings} from 'src/redux/actions/group.action';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { notifyErrorFxn } from 'src/utils/toast-fxn';
@@ -22,16 +24,15 @@ function AddCourse() {
   const [confirmPassword,setConfirmPassword] =useState('')
   const [companySize,setCompanySize] =useState('')
 
+  const [loading,setLoading] = useState(false)
+
+  const [instructor,setInstructor] = useState(false)
+
   const { user } = useSelector((state) => state.auth);
 
   console.log("user details are:",user)
 
-  /*const [releaseDate,setReleaseDate] =useState('')
-  const [director,setDirector] =useState('')
-  const [cast,setCast] =useState([])
-  const [description,setDescription] =useState('')
-  const [trivia,setTrivia] =useState('')*/
-  
+
   const groupData = {
     email:user.email,
     password:user.password,
@@ -42,25 +43,8 @@ function AddCourse() {
 
 
 
-  const handleselectedFile = event => {
-    console.log("these are the picture deets!",event.target.files[0])
-    setSelectedFile({
-        selectedFile: event.target.files[0],
-        selectedFileName: event.target.files[0].name
-    });
-    
-    setFile(URL.createObjectURL(event.target.files[0]));
-    setFileSize(event.target.files[0].size)
-};
- /* const handleselectedFile2 = event => {
-    console.log("these are the video deets!",event.target.files[0])
-    setSelectedFile2({
-        selectedFile2: event.target.files[0],
-        selectedFileName2: event.target.files[0].name
-    });
-    setFile2(URL.createObjectURL(event.target.files[0]));
-    setFileSize2(event.target.files[0].size)
-};*/
+ 
+
 
 
 
@@ -236,16 +220,23 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
           </Grid>
 
           <Grid item xs={7}>
-            <TextField
-            fullWidth
-            placeholder=" select instructor"
-            variant="outlined"
-            multiline
-            maxRows={2}
-            value= {confirmPassword}
-            onChange = {(e)=>{setConfirmPassword(e.target.value)}}
-            
-            />
+          
+         <Select
+         style={{width:"100%"}}
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={instructor}
+          label="Instructor"
+          onChange={(event) => {
+            setInstructor(event.target.value);
+          }}
+        >
+          <MenuItem value={'Sidiki Keita - Socrate'}>Sidiki Keita - Socrate</MenuItem>
+          <MenuItem value={'Alpha Amadou Diallo'}></MenuItem>
+          <MenuItem value={'Souleymane Koulibaly'}>Souleymane Koulibaly</MenuItem>
+          <MenuItem value={'Younoussa Camara'}>Younoussa Camara</MenuItem>
+          <MenuItem value={'Marc Aurel Touré'}>Marc Aurel Touré</MenuItem>
+        </Select>
             
             
           </Grid>

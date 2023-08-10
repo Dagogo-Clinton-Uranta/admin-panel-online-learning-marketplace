@@ -141,7 +141,7 @@ const SubSectionCard = ({data,index,user}) => {
            
           <center>
            <br/> <br/>
-           No Sessions available for this chapters.
+           No Lessons available for this chapters.
            </center>
          
            }

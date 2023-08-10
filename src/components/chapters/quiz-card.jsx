@@ -96,7 +96,7 @@ const QuizCard = (subject,sectionId,category) => {
         <div style={{ color: 'black' }}>
           <b>{/* `${dummyData[0].uid}.) `*/} {/*dummyData[0].title*/} </b>
         </div>{' '}
-        <span style={{ marginLeft: '20px',color: 'black' }}>{"Add a new chapter or quiz here"}</span>
+        <span style={{ marginLeft: '20px',color: 'black' }}>{"Add a new chapter here"}</span>
       </div>
       <div style={{display:"flex",flexDirection:"column",gap:"10px"}}>
       {/*<Button variant="contained" style={{minHeight: '45px', minWidth: '145px', backgroundColor: 'black', }}

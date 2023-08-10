@@ -62,7 +62,8 @@ function EditCourse() {
     title,
     body,
     level:subLevel,
-    category
+    category,
+    instructor
   }
 
   const updateThisSubject = async(identity,updateObject) => {
@@ -300,9 +301,11 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
             setInstructor(event.target.value);
           }}
         >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          <MenuItem value={'Sidiki Keita - Socrate'}>Sidiki Keita - Socrate</MenuItem>
+          <MenuItem value={'Alpha Amadou Diallo'}></MenuItem>
+          <MenuItem value={'Souleymane Koulibaly'}>Souleymane Koulibaly</MenuItem>
+          <MenuItem value={'Younoussa Camara'}>Younoussa Camara</MenuItem>
+          <MenuItem value={'Marc Aurel Touré'}>Marc Aurel Touré</MenuItem>
         </Select>
             
             

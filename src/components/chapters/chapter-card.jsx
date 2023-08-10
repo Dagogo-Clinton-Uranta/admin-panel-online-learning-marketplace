@@ -163,7 +163,7 @@ const ChapterCard = ({data,index,user}) => {
                   
                  <center>
                   <br/> <br/>
-                  No Sessions available for this Chapter.
+                  No Lessons available for this Chapter.
                   </center>
                 
                   }

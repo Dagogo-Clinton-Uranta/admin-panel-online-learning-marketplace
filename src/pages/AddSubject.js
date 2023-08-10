@@ -8,6 +8,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { notifyErrorFxn } from 'src/utils/toast-fxn';
 import users from 'src/_mock/user';
 
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+
 function AddSubject() {
   const navigate = useNavigate();
   const location = useLocation()
@@ -31,6 +34,7 @@ function AddSubject() {
   const [level,setLevel] = useState('')
   const [body,setBody] = useState('')
   const [categoryId,setCategoryId] =useState('')
+  const [instructor,setInstructor]  = useState('')
 
   const { user } = useSelector((state) => state.auth);
 
@@ -55,7 +59,8 @@ function AddSubject() {
     body,
     level:level,
     categoryId:location.state.uid,
-    category:location.state.levelName
+    category:location.state.levelName,
+    instructor
   }
 
   const addThisSubject = async(addObject) => {
@@ -190,9 +195,42 @@ function AddSubject() {
         </Grid>
 
 
+   
+        <Grid container item xs={12} spacing={2}>
+          <Grid item xs={3}>
+            <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
+             <div >
+             INSTRUCTOR
+             </div>
+      
+            </Typography>
+          
+          </Grid>
 
+          <Grid item xs={7}>
+          
+         <Select
+         style={{width:"100%"}}
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={instructor}
+          label="Instructor"
+          onChange={(event) => {
+            setInstructor(event.target.value);
+          }}
+        >
+          <MenuItem value={'Sidiki Keita - Socrate'}>Sidiki Keita - Socrate</MenuItem>
+          <MenuItem value={'Alpha Amadou Diallo'}></MenuItem>
+          <MenuItem value={'Souleymane Koulibaly'}>Souleymane Koulibaly</MenuItem>
+          <MenuItem value={'Younoussa Camara'}>Younoussa Camara</MenuItem>
+          <MenuItem value={'Marc Aurel Touré'}>Marc Aurel Touré</MenuItem>
+        </Select>
+            
+            
+          </Grid>
+        </Grid>
        
-
+  
       
 
 

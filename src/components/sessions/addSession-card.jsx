@@ -111,7 +111,7 @@ const AddSessionCard = ({chapterId,category,subject}) => {
         <div style={{ color: 'black' }}>
           <b>{ /*`${index + 1}.) `data.id*/} {/*data && data.title*/} </b>
         </div>{' '}
-        <span style={{ marginLeft: '20px',color: 'black' }}>{"Add a new lesson or session here"}</span>
+        <span style={{ marginLeft: '20px',color: 'black' }}>{"Add a new lesson or Quiz here"}</span>
       </div>
      
 

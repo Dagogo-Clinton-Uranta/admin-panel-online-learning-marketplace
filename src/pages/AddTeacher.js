@@ -51,7 +51,7 @@ function AddTeacher() {
     imageUrl
   }
 
-  const addThisTeacher = async(addObject) => {
+  const addThisTeacher = async(addObject,navigate) => {
     
     if(!firstName||!lastName||!imageUrl || !body ||!level ){
       notifyErrorFxn("Please make sure to fill in all fields.")
@@ -59,7 +59,7 @@ function AddTeacher() {
     else{
     
     setLoading(true)
-    dispatch(addTeacher(addObject))
+    dispatch(addTeacher(addObject,navigate))
    
     // console.log("identity is",identity)
     // console.log("update this subject is updating.........")
@@ -253,7 +253,7 @@ function AddTeacher() {
     CANCEL
   </Button>
  
-  <Button  onClick={() => { addThisTeacher(addObject)}} variant="contained" 
+  <Button  onClick={() => { addThisTeacher(addObject,navigate)}} variant="contained" 
   style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px', paddingBottom: '10px', 
   paddingRight: '30px', paddingLeft: '30px'}}
 >

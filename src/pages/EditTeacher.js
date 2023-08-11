@@ -51,9 +51,9 @@ function EditTeacher() {
     imageUrl
   }
 
-  const updateThisSubject = async(identity,updateObject) => {
+  const updateThisSubject = async(identity,updateObject,navigate) => {
     setLoading(true)
-    dispatch(updateTeacher(identity,updateObject))
+    dispatch(updateTeacher(identity,updateObject,navigate))
    
     // console.log("identity is",identity)
     // console.log("update this subject is updating.........")
@@ -270,7 +270,7 @@ function EditTeacher() {
   
   
   
-  <Button  onClick={() => {updateThisSubject(uid,updateObject)}} variant="contained"  disabled={loading}
+  <Button  onClick={() => {updateThisSubject(uid,updateObject,navigate)}} variant="contained"  disabled={loading}
   style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px', paddingBottom: '10px', 
   paddingRight: '30px', paddingLeft: '30px'}}
 >

@@ -525,7 +525,7 @@ export const fetchTeacherInfo = (uid) =>async (dispatch) => {
  };
 
 
- export const addTeacher = (addObject) => async (dispatch) => {
+ export const addTeacher = (addObject,navigate) => async (dispatch) => {
 
 
   db.collection("teachers")
@@ -560,7 +560,7 @@ export const fetchTeacherInfo = (uid) =>async (dispatch) => {
       console.log("the new  teacher's id is",doc.id)
       dispatch(getTeachers())
        notifySuccessFxn(`new Teacher ${addObject.firstName + " " + addObject.lastName} added!`)
-  
+       setTimeout(()=>{navigate('/dashboard/teacher-list')},1000)
    }).catch((error) => {
      console.log("Error adding teacher:", error);
      notifyErrorFxn(error)
@@ -645,7 +645,7 @@ export const fetchTeacherInfo = (uid) =>async (dispatch) => {
  };
  
 
- export const updateTeacher = (uid,updateObject) => async (dispatch) => {
+ export const updateTeacher = (uid,updateObject,navigate) => async (dispatch) => {
  
   db.collection("teachers").doc(uid.trim()).update(
     {
@@ -659,7 +659,7 @@ export const fetchTeacherInfo = (uid) =>async (dispatch) => {
      //const publicGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
      dispatch(getTeachers())
      notifySuccessFxn("updated successfully")
-
+     setTimeout(()=>{navigate('/dashboard/teacher-list')},1000)
  }).catch((error) => {
    console.log("Error updating document:", error);
    notifyErrorFxn(error)

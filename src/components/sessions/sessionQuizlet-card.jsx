@@ -4,7 +4,7 @@ import LockIcon from '@mui/icons-material/Lock';
 import { Divider, Chip, Grid, Paper, Typography, Box, Avatar, Button, ButtonBase, Stack, 
   ToggleButton, ToggleButtonGroup, Hidden  } from '@mui/material';
 import { useDispatch,useSelector } from 'react-redux';
-import {fetchChapterSessions, fetchSubjectChapters, updateVideoAndUserWatchlists,fetchLessonInfo} from 'src/redux/actions/group.action'
+import {fetchQuizInfo} from 'src/redux/actions/group.action'
 import { fetchVideoSubsection } from 'src/redux/actions/group.action';
 import { useNavigate } from 'react-router-dom';
 
@@ -49,58 +49,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AddSessionQuizCard = ({chapterId,category,subject}) => {
+const SessionQuizletCard = ({data,index}) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { allSectionVideos,requestedSection } = useSelector((state) => state.group);
-    const { categoryChapters,presentOpenChapter} = useSelector((state) => state.group);
-    const { chapterSessions,presentOpenSession} = useSelector((state) => state.group);
-  
-    console.log("the chapter xstics passed in are:",chapterId,category,subject)
 
-
-  const dummyData = [
-    {uid: 1, title: "General (16 mins)", desc: "Lorem ipsum dolor sit amet consectetur tesdsjk. Eget cursus..."},
-    {uid: 2, title: "Public (11 mins)", desc: "Tetsla ipsum dolor sit amet consectetur tesdsjk. Eget cursus..."},
-    {uid: 3, title: "Future (39 mins)", desc: "Lorem ipsum dolor sit amet consectetur tesdsjk. Eget cursus..."},
-];
-
-  
-  const [loading,setLoading] =useState(false)
   const [wait,setWait] =useState(false)
-  const [dropDown, setDropDown] = useState(false);
-  const [sessionsData,setSessionsData] = useState(chapterSessions?chapterSessions:dummyData) 
+  
 
 
-  const sendToAddQuiz = ()=>{
+  const populateEditQuiz = (identity)=>{
 
     setWait(true)
-    //dispatch(fetchLessonInfo(identity))
+    dispatch(fetchQuizInfo(identity))
 
-   setTimeout(()=> {navigate('/dashboard/add-quiz',{state:{chapterId:chapterId,category:category,subject:subject}})}, 1000)
+   setTimeout(()=> {navigate('/dashboard/edit-quiz',{state:{uid:identity}})}, 1000)
   }
 
 
-  
 
-
-    const fetchSessionsAndDropDown  = (id)=> {
-      console.log("ID BEING PASSED IN IS",id)
- if(!dropDown){
-      setLoading(true)
-      dispatch(fetchChapterSessions(id))
-      dispatch(savePresentOpenSessions(id))
-     
-     setTimeout(()=>{setLoading(false);setDropDown(true)},600)
-     }
-     else{
-       setDropDown(false)
-     }
-
-
-    }
 
 
 
@@ -109,18 +77,18 @@ const AddSessionQuizCard = ({chapterId,category,subject}) => {
     <div className={classes.row}>
       <div className={classes.text}>
         <div style={{ color: 'black' }}>
-         
+          <b>{ `${data.lessonNumber}.) `/*data.id*/} {data && data.title} </b>
         </div>{' '}
-        <span style={{ marginLeft: '20px',color: 'black' }}>{"Add a Quiz here"}</span>
+        <span style={{ marginLeft: '20px' }}>{data && data.body}</span>
       </div>
      
 
             <Button variant="contained" style={{minHeight: '45px', minWidth: '145px', backgroundColor: 'black', }}
               onClick={() => {
                
-                sendToAddQuiz()
+                populateEditQuiz(data.uid)
               }}>
-                {wait?"Please wait...":<span><b style={{fontSize:"1.5rem"}}>+</b> Add Quiz</span>}
+                {wait?"Please wait...":"Edit"}
             </Button>
           
 
@@ -134,4 +102,4 @@ const AddSessionQuizCard = ({chapterId,category,subject}) => {
   );
 };
 
-export default AddSessionQuizCard;
+export default SessionQuizletCard;

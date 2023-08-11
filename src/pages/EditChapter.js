@@ -16,9 +16,7 @@ function EditChapter() {
   const [file, setFile] = useState();
   const [file2, setFile2] = useState();
   const [fileSize, setFileSize] = useState();
-  const [fileSize2, setFileSize2] = useState();
-  const [selectedFile, setSelectedFile] = useState({selectedFile: [], selectedFileName: []});
-  const [selectedFile2, setSelectedFile2] = useState({selectedFile2: [], selectedFileName2: []});
+  
 
   const [optionFill,setOptionFill] = useState('');
 
@@ -78,82 +76,9 @@ function EditChapter() {
    
   }
   
-  const groupData = {
-    email:user.email,
-    password:user.password,
-    newPassword,
-    companySize,
-    uid:user.uid
-  }
-
-
-  const handleselectedFile = event => {
-    console.log("these are the picture deets!",event.target.files[0])
-    setSelectedFile({
-        selectedFile: event.target.files[0],
-        selectedFileName: event.target.files[0].name
-    });
-    
-    setFile(URL.createObjectURL(event.target.files[0]));
-    setFileSize(event.target.files[0].size)
-};
- /* const handleselectedFile2 = event => {
-    console.log("these are the video deets!",event.target.files[0])
-    setSelectedFile2({
-        selectedFile2: event.target.files[0],
-        selectedFileName2: event.target.files[0].name
-    });
-    setFile2(URL.createObjectURL(event.target.files[0]));
-    setFileSize2(event.target.files[0].size)
-};*/
 
 
 
-const uploadMovie = (movieData = 0,image = 0,) => {
-if(!companySize.length && !newPassword.length &&  file === undefined ){
-  console.log("THE EMPTY FIELDS ARE:",file)
-  notifyErrorFxn("Please fill in the field(s) you want to update!")
-}else{
- if( fileSize  > 300000){
-  notifyErrorFxn("Image size too large! please upload a smaller picture.")
- }
- /*else if( fileSize2  > 20000000){
-  notifyErrorFxn("Video size too large! please upload a smaller video.")
- }*/else{
-  dispatch(uploadUserSettings(movieData,image))
- }
-}
-}
-
-
-const addOption =(option) => {
-
-
-
-  if(!optionA){
-  setOptionA(option) 
-  setOptionFill('')
-  return
- }
- else if(optionA && !optionB){
-  setOptionB(option) 
-  setOptionFill('')
-  return
- }
- else if(optionA && optionB && !optionC){
-  setOptionC(option) 
-  setOptionFill('')
-  return
- }
- else if(optionA && optionB && optionC && !optionD){
-  setOptionD(option) 
-  setOptionFill('')
-  return
- }
-
- setOptionFill(null)
-
-}
 
   return (
     <>

@@ -1,5 +1,5 @@
 import { Container,Grid, TextField, Typography, TextareaAutosize, Button, Paper,Divider,Box} from '@mui/material';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState,useEffect } from 'react';
 import { useNavigate,useLocation } from 'react-router-dom';
 import UPLOADIMG from '../assets/images/upload.png';
 import { fetchGroups, fetchMyGroups, uploadUserSettings} from 'src/redux/actions/group.action';
@@ -10,66 +10,58 @@ import { useDispatch, useSelector } from 'react-redux';
 import { notifyErrorFxn } from 'src/utils/toast-fxn';
 import users from 'src/_mock/user';
 
-import { addQuiz} from 'src/redux/actions/group.action';
+import { updateQuiz} from 'src/redux/actions/group.action';
 
 
-function AddQuiz() {
+function EditQuiz() {
   const navigate = useNavigate();
   const location = useLocation();
-  console.log("location state is",location.state)
-  const [file, setFile] = useState();
-
-  const [fileSize, setFileSize] = useState();
+   
+  const {quizInfo} = useSelector((state) => state.group)
 
 
   const [optionFill,setOptionFill] = useState('');
 
-  const [optionA, setOptionA] = useState(null);
-  const [optionB, setOptionB] = useState(null);
-  const [optionC, setOptionC] = useState(null);
-  const [optionD, setOptionD] = useState(null);
-
-  const [optionsArray,setOptionsArray] = useState([{A:optionA},{B:optionB},{C:optionC},{D:optionD}])
+  const [optionA, setOptionA] = useState(quizInfo.optionsArray[0].A);
+  const [optionB, setOptionB] = useState(quizInfo.optionsArray[1].B);
+  const [optionC, setOptionC] = useState(quizInfo.optionsArray[2].C);
+  const [optionD, setOptionD] = useState(quizInfo.optionsArray[3].D);
 
   const dispatch = useDispatch();
 
+ 
+
 
   const { user } = useSelector((state) => state.auth);
-  console.log("user details are:",user)
+  console.log("what is quizInfo:",quizInfo)
 
 
 
-
+  const [optionsArray,setOptionsArray] = useState(quizInfo.optionsArray)
   const [loading,setLoading] =useState(false)
 
-  const [title,setTitle] = useState('')
-  const [category,setCategory] = useState(location.state.category)
-  const [body,setBody] = useState('')
-  const [subject,setSubject] = useState(location.state.subject)
-  const [quizFileUrl,setQuizFileUrl] = useState('')
-  const [lessonNumber,setLessonNumber] = useState('')
- 
 
-  const [question,setQuestion] = useState('')
-  const [correctAnswer,setCorrectAnswer] = useState('')
-
+  const [level,setLevel] = useState(quizInfo.level)
+  const [title,setTitle] = useState(quizInfo.title)
   
-useEffect(()=>{
+  const [body,setBody] = useState(quizInfo.body)
+  const [subject,setSubject] = useState(quizInfo.subject)
+  const [quizFileUrl,setQuizFileUrl] = useState(quizInfo.quizFileUrl)
+  const [lessonNumber,setLessonNumber] = useState(quizInfo.lessonNumber)
+ 
 
-setOptionsArray([{A:optionA},{B:optionB},{C:optionC},{D:optionD}])
-
-},[optionA,optionB,optionC,optionD])
-
+  const [question,setQuestion] = useState(quizInfo.question)
+  const [correctAnswer,setCorrectAnswer] = useState(quizInfo.correctAnswer)
 
  
 
 
-  const addObject ={
+  const updateObject ={
     title,
     body,
-    chapterId:location.state.chapterId,
-    level:location.state.category,
-    subject:location.state.subject,
+    chapterId:quizInfo.chapterId,
+    level:level,
+    subject:quizInfo.subject,
    
     quizFileUrl:quizFileUrl,
     lessonNumber:lessonNumber,
@@ -81,56 +73,28 @@ setOptionsArray([{A:optionA},{B:optionB},{C:optionC},{D:optionD}])
 
 
 
-  const addThisQuiz = async(addObject) => {
+  const updateThisQuiz = async(id,updateObject) => {
   
-  if(!title || !body ||!category || !quizFileUrl||!subject 
-   ||!location.state.chapterId||!lessonNumber
-    ||!question||!correctAnswer||!optionA||!optionB||!optionC||!optionD
-    ){
-    notifyErrorFxn("Please make sure to fill in all fields.")
-  }
-  else{
+
     setLoading(true)
-    dispatch(addQuiz(addObject))
+    dispatch(updateQuiz(id,updateObject))
    
     // console.log("identity is",identity)
     // console.log("update this subject is updating.........")
     setTimeout(()=>{setLoading(false)},1800)
    }
-  }
+  
 
 
 
+   useEffect(()=>{
+
+    setOptionsArray([{A:optionA},{B:optionB},{C:optionC},{D:optionD}])
+    
+    },[optionA,optionB,optionC,optionD])
+    
 
 
-const addOption =(option) => {
-
-
-
-  if(!optionA){
-  setOptionA(option) 
-  setOptionFill('')
-  return
- }
- else if(optionA && !optionB){
-  setOptionB(option) 
-  setOptionFill('')
-  return
- }
- else if(optionA && optionB && !optionC){
-  setOptionC(option) 
-  setOptionFill('')
-  return
- }
- else if(optionA && optionB && optionC && !optionD){
-  setOptionD(option) 
-  setOptionFill('')
-  return
- }
-
- setOptionFill(null)
-
-}
 
   return (
     <>
@@ -146,12 +110,12 @@ const addOption =(option) => {
 
 
 
-    <h1 style={{position:"relative",fontWeight:"bold",marginBottom:"40px",fontSize:"30px"}}>NEW QUIZ</h1>
+    <h1 style={{position:"relative",fontWeight:"bold",marginBottom:"40px",fontSize:"30px"}}>UPDATE QUIZ</h1>
 
     <Grid item xs={12} sx={{ display: 'flex' }}>
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
               <Typography variant="h4" component="p">
-              ADD DETAILS BELOW
+              CHANGE DETAILS BELOW
               </Typography>
               <div style={{height:"2px", width:"80%",borderBottom:"1px solid black",position:"absolute",left:"20rem",top:"18rem"}}></div>
             </Box>
@@ -211,7 +175,7 @@ const addOption =(option) => {
             variant="outlined"
             multiline
             maxRows={2}
-            value= {category}
+            value= {level}
             
             
             />
@@ -237,7 +201,7 @@ const addOption =(option) => {
           <Grid item xs={7}>
             <TextField
             fullWidth
-            placeholder=" e.g  QCM chapitre 5."
+            placeholder=" e.g  Dissociation."
             variant="outlined"
             multiline
             maxRows={2}
@@ -310,7 +274,7 @@ const addOption =(option) => {
 
 
 
-       
+
 
         <Grid container item xs={12} spacing={2}>
           <Grid item xs={3}>
@@ -346,9 +310,7 @@ const addOption =(option) => {
 
       
       </Grid>
-    
-
-
+   
 </Container>
 
 
@@ -364,7 +326,7 @@ const addOption =(option) => {
 <Grid item xs={12} sx={{ display: 'flex', flexDirection: 'row',justifyContent:"space-between", marginBottom:"3rem"}}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <Typography variant="h4" component="p">
-          ADD QUESTION
+          UPDATE QUESTION
           </Typography>
 
         
@@ -404,63 +366,125 @@ const addOption =(option) => {
 
 
 
-   
-   <Grid container item xs={12} spacing={2}>
+
+    <Grid container item xs={12} spacing={2}>
       <Grid item xs={3}>
         <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
          <div >
-        ANSWER OPTIONS
+        OPTION A
          </div>
   
         </Typography>
       
       </Grid>
 
-      <Grid item xs={7} sx={{display:"flex",justifyContent:"center",gap:"20px"}} >
+      <Grid item xs={7}>
         <TextField
-        sx={{width:"90%"}}
-        placeholder=" enter answer"
+        fullWidth
+        placeholder=" enter question"
         variant="outlined"
         multiline
         maxRows={2}
-        value= {optionFill}
-        onChange = {(e)=>{setOptionFill(e.target.value)}}
+        value= {optionA}
+        onChange = {(e)=>{setOptionA(e.target.value)}}
         
         />
-
-<div style={{ display: 'flex', justifyContent: 'center' }}>
-<Button  onClick={() => { addOption(optionFill)}} variant="contained" 
-style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px', paddingBottom: '10px', 
-paddingRight: '30px', paddingLeft: '30px'}}
->
-ADD
-</Button>
-</div>
         
         
       </Grid>
     </Grid>
 
 
-    <Grid container item xs={12} sx={{paddingTop:"4rem"}} spacing={2}>
+
+    
+    <Grid container item xs={12} spacing={2}>
       <Grid item xs={3}>
         <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
          <div >
-        ANSWERS ADDED
+        OPTION B
          </div>
   
         </Typography>
       
       </Grid>
 
-      <Grid item xs={7} sx={{display:"flex",  flexDirection:"column",justifyContent:"flex-start",gap:"20px"}} >
-       <p>A.){" "}{optionA && optionA}</p>
-       <p>B.){" "}{optionB && optionB}</p>
-       <p>C.){" "}{optionC && optionC}</p>
-       <p>D.){" "}{optionD && optionD}</p> 
+      <Grid item xs={7}>
+        <TextField
+        fullWidth
+        placeholder=" enter question"
+        variant="outlined"
+        multiline
+        maxRows={2}
+        value= {optionB}
+        onChange = {(e)=>{setOptionB(e.target.value)}}
+        
+        />
+        
         
       </Grid>
     </Grid>
+
+
+
+    
+    <Grid container item xs={12} spacing={2}>
+      <Grid item xs={3}>
+        <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
+         <div >
+        OPTION C
+         </div>
+  
+        </Typography>
+      
+      </Grid>
+
+      <Grid item xs={7}>
+        <TextField
+        fullWidth
+        placeholder=" enter question"
+        variant="outlined"
+        multiline
+        maxRows={2}
+        value= {optionC}
+        onChange = {(e)=>{setOptionC(e.target.value)}}
+        
+        />
+        
+        
+      </Grid>
+    </Grid>
+
+
+
+
+
+    <Grid container item xs={12} spacing={2}>
+      <Grid item xs={3}>
+        <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
+         <div >
+        OPTION D
+         </div>
+  
+        </Typography>
+      
+      </Grid>
+
+      <Grid item xs={7}>
+        <TextField
+        fullWidth
+        placeholder=" enter question"
+        variant="outlined"
+        multiline
+        maxRows={2}
+        value= {optionD}
+        onChange = {(e)=>{setOptionD(e.target.value)}}
+        
+        />
+        
+        
+      </Grid>
+    </Grid>
+
 
 
 
@@ -478,7 +502,7 @@ ADD
       <Grid item xs={7}>
         <TextField
         fullWidth
-        placeholder=" enter only letters A,B,C or D"
+        placeholder=" enter answer"
         variant="outlined"
         multiline
         maxRows={2}
@@ -499,6 +523,7 @@ ADD
   
   </Grid>
   <br/><br/>
+
 {/*<div style={{ display: 'flex', justifyContent: 'center' }}>
 <Button   variant="contained" 
 style={{ backgroundColor: "#000000", paddingTop: '10px', paddingBottom: '10px', 
@@ -506,7 +531,7 @@ paddingRight: '30px', paddingLeft: '30px'}}
 >
 ADD
 </Button>
-</div> */}
+</div>*/}
 
 
 </Container>
@@ -521,7 +546,7 @@ ADD
     CANCEL
   </Button>
  
-  <Button  onClick={() => { addThisQuiz(addObject)}} variant="contained" disabled={loading}
+  <Button  onClick={() => { updateThisQuiz(quizInfo.uid,updateObject)}} variant="contained" disabled={loading}
   style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px', paddingBottom: '10px', 
   paddingRight: '30px', paddingLeft: '30px'}}
 >
@@ -532,4 +557,4 @@ ADD
   );
 }
 
-export default AddQuiz;
+export default EditQuiz;

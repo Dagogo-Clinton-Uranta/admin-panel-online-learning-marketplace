@@ -8,6 +8,7 @@ const initialState = {
        categoryVideos:[],
        categoryChapters:[],
        chapterSessions:[],
+       chapterQuizzes:[],
        presentOpenMenu:null,
        presentOpenChapter:null,
        presentOpenSession:null,
@@ -16,6 +17,7 @@ const initialState = {
        chapterInfo:{},
        teacherInfo:{},
        lessonInfo:{},
+       quizInfo:{},
        publicGroups: [], 
        privateGroups: [],
        groupMembers: [], 
@@ -50,6 +52,9 @@ saveCategoryChapters: (state, action) => {
 saveChapterSessions: (state, action) => {
   state.chapterSessions = action.payload;
 },
+saveChapterQuizzes: (state, action) => {
+  state.chapterQuizzes = action.payload;
+},
 savePresentOpenMenu: (state, action) => {
   state.presentOpenMenu = action.payload;
 },
@@ -71,6 +76,9 @@ saveTeacherInfo: (state, action) => {
 },
 saveChapterInfo: (state, action) => {
   state.chapterInfo = action.payload;
+},
+saveQuizInfo: (state, action) => {
+  state.quizInfo = action.payload;
 },
 saveLessonInfo: (state, action) => {
   state.lessonInfo = action.payload;
@@ -110,6 +118,8 @@ export const {
  savePresentOpenChapter,
  savePresentOpenSessions,
  saveChapterSessions,
+ saveChapterQuizzes,
+ saveQuizInfo,
  savePublicGroup,
  saveCategories,
  saveSubjectInfo,

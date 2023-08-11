@@ -52,6 +52,7 @@ import StudentListPage from './pages/StudentListPage';
 import TeacherListPage from './pages/TeacherListPage';
 
 import EditLesson from './pages/EditLesson';
+import EditQuiz from './pages/EditQuiz';
 
 export default function Router() {
   const routes = useRoutes([
@@ -88,6 +89,7 @@ export default function Router() {
         { path: 'edit-lesson', element: <EditLesson /> },
         { path: 'add-chapter', element: <AddChapter /> },
         { path: 'add-quiz', element: <AddQuiz /> },
+        { path: 'edit-quiz', element: <EditQuiz /> },
         { path: 'edit-chapter', element: <EditChapter /> },
         { path: 'add-teacher', element: <AddTeacher /> },
         { path: 'edit-teacher', element: <EditTeacher /> },

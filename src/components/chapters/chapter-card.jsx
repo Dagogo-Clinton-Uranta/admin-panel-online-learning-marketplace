@@ -4,7 +4,7 @@ import LockIcon from '@mui/icons-material/Lock';
 import { Divider, Chip, Grid, Paper, Typography, Box, Avatar, Button, ButtonBase, Stack, 
   ToggleButton, ToggleButtonGroup, Hidden  } from '@mui/material';
 import { useDispatch,useSelector } from 'react-redux';
-import {fetchChapterSessions, fetchSubjectChapters, updateVideoAndUserWatchlists,fetchChapterInfo} from 'src/redux/actions/group.action'
+import {fetchChapterSessions, fetchChapterQuizzes,fetchChapterInfo} from 'src/redux/actions/group.action'
 
 import { useNavigate } from 'react-router-dom';
 
@@ -17,6 +17,7 @@ import 'react-slidedown/lib/slidedown.css'
 import SessionCard from '../sessions/session-card';
 import AddSessionCard from '../sessions/addSession-card';
 import AddSessionQuizCard from '../sessions/addSessionQuiz-card';
+import SessionQuizletCard from '../sessions/sessionQuizlet-card';
 
 
 
@@ -56,9 +57,8 @@ const ChapterCard = ({data,index,user}) => {
   const navigate = useNavigate();
   const [wait,setWait] =useState(false)
 
-  const { allSectionVideos,requestedSection } = useSelector((state) => state.group);
-    const { categoryChapters,presentOpenChapter} = useSelector((state) => state.group);
-    const { chapterSessions,presentOpenSession} = useSelector((state) => state.group);
+ 
+    const { chapterQuizzes,chapterSessions,presentOpenSession} = useSelector((state) => state.group);
    
     const populateEditChapter = (identity)=>{
 
@@ -78,7 +78,7 @@ const ChapterCard = ({data,index,user}) => {
   const [loading,setLoading] =useState(false)
   const [dropDown, setDropDown] = useState(false);
   const [sessionsData,setSessionsData] = useState(chapterSessions?chapterSessions:dummyData) 
-
+  const [quizzesData,setQuizzesData] = useState(chapterQuizzes)
 
   console.log("THIS IS THIS MF CHAPTER'S INFO - - -",data)
   
@@ -97,8 +97,10 @@ const ChapterCard = ({data,index,user}) => {
  if(!dropDown){
       setLoading(true)
       dispatch(fetchChapterSessions(id))
+      dispatch(fetchChapterQuizzes(id))
       dispatch(savePresentOpenSessions(id))
       console.log(" CHAPTER SESSIONS", sessionsData)
+      console.log(" CHAPTER QUIZZES", quizzesData)
      setTimeout(()=>{setLoading(false);setDropDown(true)},600)
      }
      else{
@@ -147,6 +149,8 @@ const ChapterCard = ({data,index,user}) => {
           
         <SlideDown style={{width:"100%"}}>
             {dropDown &&
+            <>
+             
            <Grid item xs container direction="column" spacing={6} style={{marginLeft:"10px",paddingLeft: '0px', paddingRight: '0px'}}>
                 <br/><br/>
                {sessionsData.length?
@@ -168,9 +172,31 @@ const ChapterCard = ({data,index,user}) => {
                   </center>
                 
                   }
-                  <AddSessionCard chapterId={data.uid} category={data.category} subject={data.subject}  />
-                  <AddSessionQuizCard chapterId={data.uid} category={data.category} subject={data.subject}  />
+                 
               </Grid>
+
+
+
+              
+            <Grid item xs container direction="column" spacing={6} style={{marginLeft:"10px",paddingLeft: '0px', paddingRight: '0px'}}>
+            <br/><br/>
+            {quizzesData  &&
+            quizzesData.map(((dt,i) => {
+            
+            return (
+            
+                
+                <SessionQuizletCard data={dt} index={i} />
+            )
+            }))
+            
+    
+              }
+              <AddSessionCard chapterId={data.uid} category={data.category} subject={data.subject}  />
+              <AddSessionQuizCard chapterId={data.uid} category={data.category} subject={data.subject}  />
+            </Grid>
+
+            </>
                 }
               </SlideDown>
             

@@ -6,8 +6,9 @@ import { isItLoading, saveAllGroup ,saveEmployeer,
          saveCategories ,saveGroupMembers, saveMyGroup,
          savePrivateGroup, savePublicGroup, saveSectionVideos,
           saveCategoryVideos,saveCategoryChapters,
-        saveChapterSessions,saveSubjectInfo,
-      saveLessonInfo,saveChapterInfo,saveTeacherInfo} from '../reducers/group.slice';
+        saveChapterSessions,saveChapterQuizzes,
+        saveSubjectInfo,saveLessonInfo,saveQuizInfo,
+        saveChapterInfo,saveTeacherInfo} from '../reducers/group.slice';
 import firebase from "firebase/app";
 
 export const createGroup = (groupData, user, file, navigate, setLoading, url) => async (dispatch) => {
@@ -400,6 +401,43 @@ export const fetchGroups = (adminID) => async (dispatch) => {
  };
 
 
+ export const fetchChapterQuizzes = (chosenChapter)=> async(dispatch) =>{
+
+  //dispatch(isItLoading(true));
+  db.collection("quizzes")
+  .where('chapterId', '==', chosenChapter)
+   .get()
+   .then((snapshot) => {
+     const allChapterQuizzes = snapshot.docs.map((doc) => ({ ...doc.data() }));
+     const sortFunction = (array)=>{
+      if (array.length){
+       
+        return  array.sort((a,b)=>(Number(a.lessonNumber) - Number(b.lessonNumber) ))
+       }else{
+        return []
+       }
+     }
+     
+     const sortedChapterQuizzes = sortFunction(allChapterQuizzes)
+
+
+   if (allChapterQuizzes.length > 0) {
+     //dispatch(isItLoading(false));
+     console.log("ALL quizzes FROM DATABASE(FOR THIS CHAPTER):", sortedChapterQuizzes);
+     dispatch(saveChapterQuizzes(sortedChapterQuizzes));
+   } else {
+      // dispatch(isItLoading(false));
+      dispatch(saveChapterQuizzes(sortedChapterQuizzes));
+       console.log("No quizzes for this chapter!");
+   }
+ }).catch((error) => {
+   console.log("Error getting QUIZZES:", error);
+   dispatch(isItLoading(false));
+ });
+ };
+
+
+
 
 
 
@@ -420,7 +458,7 @@ export const fetchChapterInfo = (uid) =>async (dispatch) => {
   
     dispatch(saveChapterInfo(doc.data()))
  }).catch((error) => {
-  console.log("Error fetching a particular subject from sections collection:", error);
+  console.log("Error fetching a particular chapter from chapters collection:", error);
 
 });
 };
@@ -431,10 +469,22 @@ export const fetchLessonInfo = (uid) =>async (dispatch) => {
   
     dispatch(saveLessonInfo(doc.data()))
  }).catch((error) => {
-  console.log("Error fetching a particular subject from sections collection:", error);
+  console.log("Error fetching a particular lesson from boneCourses collection:", error);
 
 });
 };
+
+export const fetchQuizInfo = (uid) =>async (dispatch) => {
+  db.collection("quizzes").doc(uid).get().then((doc) => {
+
+  
+    dispatch(saveQuizInfo(doc.data()))
+ }).catch((error) => {
+  console.log("Error fetching a particular quiz from quizzes collection:", error);
+
+});
+};
+
 
 export const fetchTeacherInfo = (uid) =>async (dispatch) => {
   db.collection("teachers").doc(uid).get().then((doc) => {
@@ -442,7 +492,7 @@ export const fetchTeacherInfo = (uid) =>async (dispatch) => {
   
     dispatch(saveTeacherInfo(doc.data()))
  }).catch((error) => {
-  console.log("Error fetching a particular TEACHER from sections collection:", error);
+  console.log("Error fetching a particular TEACHER from teachers collection:", error);
 
 });
 };
@@ -809,8 +859,103 @@ export const fetchTeacherInfo = (uid) =>async (dispatch) => {
 
  };
 
+
+ export const addQuiz = (addObject) => async (dispatch) => {
+
+
+  db.collection("quizzes")
+  .where("title", "==", addObject.title)
+  .where("chapterId", "==", addObject.chapterId)
+  .get()
+  .then((snapshot) => {
+    const existingQuiz = snapshot.docs.map((doc) => ({ ...doc.data() }));
+  if (existingQuiz.length) {
+   
+    notifyErrorFxn(`This quiz already exists,consider changing the quiz name`)
+
+  } else {
+     
+    
+    db.collection("quizzes").add(
+      {
+        body:addObject.body,
+        level:addObject.level,
+        title:addObject.title,
+        chapterId:addObject.chapterId,
+
+        subject:addObject.subject,
+        quizFileUrl:addObject.quizFileUrl,
+        lessonNumber:addObject.lessonNumber,
+
+        question:addObject.question,
+        correctAnswer:addObject.correctAnswer,
+        optionsArray:[...addObject.optionsArray]
+      }
+
+    ).then((doc) => {
+       //const publicGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
+       db.collection("quizzes").doc(doc.id).update({
+      uid:doc.id
+       })
+  
+      console.log("the quiz's id is",doc.id)
+       notifySuccessFxn(`new quiz ${addObject.title} added!`)
+  
+   }).catch((error) => {
+     console.log("Error adding quiz:", error);
+     notifyErrorFxn(error)
+  
+  
+   });
+
+
+
+
+
+  }
+}).catch((error) => {
+  console.log("Error adding chapter:", error);
+  notifyErrorFxn(error)
+
+
+});
+
+ };
+
+
  
 
+ export const updateQuiz = (uid,updateObject) => async (dispatch) => {
+ 
+  db.collection("quizzes").doc(uid).update(
+    {
+     
+      quizFileUrl:updateObject.quizFileUrl,
+      title:updateObject.title,
+      subject:updateObject.subject,
+      
+      body:updateObject.body,
+      lessonNumber:updateObject.lessonNumber,
+      question:updateObject.question,
+      correctAnswer:updateObject.correctAnswer,
+      optionsArray:updateObject.optionsArray,
+
+      chapterId:updateObject.chapterId,
+      quizFileUrl:updateObject.quizFileUrl
+    
+    }
+  ).then((snapshot) => {
+     //const publicGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
+     
+     notifySuccessFxn("updated successfully")
+
+ }).catch((error) => {
+   console.log("Error updating document:", error);
+   notifyErrorFxn("Problem Updating subject, please try again")
+
+
+ });
+ };
 
 
 

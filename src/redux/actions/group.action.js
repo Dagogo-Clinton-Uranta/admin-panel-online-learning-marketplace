@@ -11,6 +11,8 @@ import { isItLoading, saveAllGroup ,saveEmployeer,
         saveChapterInfo,saveTeacherInfo} from '../reducers/group.slice';
 import firebase from "firebase/app";
 
+import { getTeachers } from './job.action';
+
 export const createGroup = (groupData, user, file, navigate, setLoading, url) => async (dispatch) => {
   var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
   var today  = new Date();
@@ -556,6 +558,7 @@ export const fetchTeacherInfo = (uid) =>async (dispatch) => {
        })
   
       console.log("the new  teacher's id is",doc.id)
+      dispatch(getTeachers)
        notifySuccessFxn(`new Teacher ${addObject.firstName + " " + addObject.lastName} added!`)
   
    }).catch((error) => {
@@ -644,17 +647,17 @@ export const fetchTeacherInfo = (uid) =>async (dispatch) => {
 
  export const updateTeacher = (uid,updateObject) => async (dispatch) => {
  
-  db.collection("sections").doc(uid).update(
+  db.collection("teachers").doc(uid.trim()).update(
     {
       body:updateObject.body,
-      category:updateObject.category,
-      title:updateObject.title,
-      subLevel:updateObject.subLevel,
-      uid:uid
+      firstName:updateObject.firstName,
+      lastName:updateObject.lastName,
+      imageUrl:updateObject.imageUrl,
+      level:updateObject.level,
     }
   ).then((snapshot) => {
      //const publicGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
-   
+     dispatch(getTeachers)
      notifySuccessFxn("updated successfully")
 
  }).catch((error) => {

@@ -57,7 +57,7 @@ function EditTeacher() {
    
     // console.log("identity is",identity)
     // console.log("update this subject is updating.........")
-    setTimeout(()=>{setLoading(false)},1800)
+    setTimeout(()=>{setLoading(false)},2100)
     
   }
 
@@ -77,7 +77,7 @@ function EditTeacher() {
 
        </div>
 
-    <h1 style={{position:"relative",fontWeight:"bold",marginBottom:"40px",fontSize:"30px"}}>SUBJECT</h1>
+    <h1 style={{position:"relative",fontWeight:"bold",marginBottom:"40px",fontSize:"30px"}}>TEACHER - {firstName + " " + lastName}</h1>
 
     <Grid item xs={12} sx={{ display: 'flex', flexDirection: 'row',justifyContent:"space-between"}}>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -270,7 +270,7 @@ function EditTeacher() {
   
   
   
-  <Button  onClick={() => {updateThisSubject(uid,updateObject)}} variant="contained" 
+  <Button  onClick={() => {updateThisSubject(uid,updateObject)}} variant="contained"  disabled={loading}
   style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px', paddingBottom: '10px', 
   paddingRight: '30px', paddingLeft: '30px'}}
 >

@@ -14,7 +14,7 @@ export const getJobs = (uid) => async (dispatch) => {
 
 };
 
-export const getTeachers = (uid) => async (dispatch) => {
+export const getTeachers = ( ) => async (dispatch) => {
     db.collection('teachers').get().then((snapshot) => {
         const allTeachers = snapshot.docs.map((doc) => ({id: doc.id, ...doc.data() }));
         // console.log('Jobs: ', jobs);
@@ -27,7 +27,7 @@ export const getTeachers = (uid) => async (dispatch) => {
 };
 
 
-export const getCourses = (uid) => async (dispatch) => {
+export const getCourses = ( ) => async (dispatch) => {
     db.collection('courses').get().then((snapshot) => {
         const jobs = snapshot.docs.map((doc) => ({id: doc.id, ...doc.data() }));
         // console.log('Jobs: ', jobs);

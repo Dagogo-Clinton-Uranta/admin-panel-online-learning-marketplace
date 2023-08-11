@@ -558,7 +558,7 @@ export const fetchTeacherInfo = (uid) =>async (dispatch) => {
        })
   
       console.log("the new  teacher's id is",doc.id)
-      dispatch(getTeachers)
+      dispatch(getTeachers())
        notifySuccessFxn(`new Teacher ${addObject.firstName + " " + addObject.lastName} added!`)
   
    }).catch((error) => {
@@ -657,7 +657,7 @@ export const fetchTeacherInfo = (uid) =>async (dispatch) => {
     }
   ).then((snapshot) => {
      //const publicGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
-     dispatch(getTeachers)
+     dispatch(getTeachers())
      notifySuccessFxn("updated successfully")
 
  }).catch((error) => {

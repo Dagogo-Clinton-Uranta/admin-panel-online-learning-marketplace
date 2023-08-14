@@ -33,23 +33,18 @@ function EditCourse() {
 
   const {subjectInfo} = useSelector((state) => state.group)
   const { user } = useSelector((state) => state.auth);
+  const { teachers } = useSelector((state) => state.jobs);
   //console.log("user details are:",user)
 
   const [title,setTitle] =useState(subjectInfo.title)
   const [body,setBody] =useState(subjectInfo.body)
-  const [instructor,setInstructor] =useState([])
+  const [instructor,setInstructor] =useState(subjectInfo.instructor)
   const [category,setCategory] =useState(subjectInfo.category)
   const [subLevel,setSubLevel] =useState(subjectInfo.subLevel)
 
   const [loading,setLoading] = useState(false)
   
-  const groupData = {
-    email:user.email,
-    password:user.password,
-    newPassword,
-    companySize,
-    uid:user.uid
-  }
+  const [teachersArr,setTeacherArr]=useState([...teachers.map((item)=>(item.firstName + " " + item.lastName))])
 
 
   useEffect(()=>{
@@ -77,43 +72,6 @@ function EditCourse() {
   }
 
 
-  const handleselectedFile = event => {
-    console.log("these are the picture deets!",event.target.files[0])
-    setSelectedFile({
-        selectedFile: event.target.files[0],
-        selectedFileName: event.target.files[0].name
-    });
-    
-    setFile(URL.createObjectURL(event.target.files[0]));
-    setFileSize(event.target.files[0].size)
-};
- /* const handleselectedFile2 = event => {
-    console.log("these are the video deets!",event.target.files[0])
-    setSelectedFile2({
-        selectedFile2: event.target.files[0],
-        selectedFileName2: event.target.files[0].name
-    });
-    setFile2(URL.createObjectURL(event.target.files[0]));
-    setFileSize2(event.target.files[0].size)
-};*/
-
-
-
-const uploadMovie = (movieData = 0,image = 0,) => {
-if(!companySize.length && !newPassword.length &&  file === undefined ){
-  console.log("THE EMPTY FIELDS ARE:",file)
-  notifyErrorFxn("Please fill in the field(s) you want to update!")
-}else{
- if( fileSize  > 300000){
-  notifyErrorFxn("Image size too large! please upload a smaller picture.")
- }
- /*else if( fileSize2  > 20000000){
-  notifyErrorFxn("Video size too large! please upload a smaller video.")
- }*/else{
-  dispatch(uploadUserSettings(movieData,image))
- }
-}
-}
 
   return (
     <>
@@ -300,12 +258,9 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
           onChange={(event) => {
             setInstructor(event.target.value);
           }}
-        >
-          <MenuItem value={'Sidiki Keita - Socrate'}>Sidiki Keita - Socrate</MenuItem>
-          <MenuItem value={'Alpha Amadou Diallo'}></MenuItem>
-          <MenuItem value={'Souleymane Koulibaly'}>Souleymane Koulibaly</MenuItem>
-          <MenuItem value={'Younoussa Camara'}>Younoussa Camara</MenuItem>
-          <MenuItem value={'Marc Aurel Touré'}>Marc Aurel Touré</MenuItem>
+        > {teachersArr.map((item)=>(
+          <MenuItem value={item}>{item}</MenuItem>
+      ))}
         </Select>
             
             

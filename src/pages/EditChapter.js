@@ -45,14 +45,14 @@ function EditChapter() {
   const [trivia,setTrivia] =useState('')*/
 
 
-  const [title,setTitle] =useState(chapterInfo.title)
-  const [body,setBody] =useState(chapterInfo.body)
-  const [instructor,setInstructor] =useState([])
-  const [category,setCategory] =useState(chapterInfo.category)
-  const [subLevel,setSubLevel] =useState(chapterInfo.uid)
-  const [subject,setSubject] =useState(chapterInfo.subject)
-  const [chapterUrl,setChapterUrl] =useState(chapterInfo.chapterUrl?chapterInfo.chapterUrl:"")
-  const [chapterNumber,setChapterNumber] =useState(chapterInfo.chapterNumber)
+  const [title,setTitle] =useState(chapterInfo && chapterInfo.title?chapterInfo.title:"")
+  const [body,setBody] =useState(chapterInfo && chapterInfo.body?chapterInfo.body:"")
+  
+  const [category,setCategory] =useState(chapterInfo && chapterInfo.body?chapterInfo.category:"")
+  const [subLevel,setSubLevel] =useState(chapterInfo && chapterInfo.body?chapterInfo.uid:"")
+  const [subject,setSubject] =useState(chapterInfo && chapterInfo.body?chapterInfo.subject:"")
+  const [chapterUrl,setChapterUrl] =useState(chapterInfo && chapterInfo.body?chapterInfo.chapterUrl?chapterInfo.chapterUrl:"":"")
+  const [chapterNumber,setChapterNumber] =useState(chapterInfo && chapterInfo.body?chapterInfo.chapterNumber:"")
 
   useEffect(()=>{
 

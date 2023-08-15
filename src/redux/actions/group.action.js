@@ -507,14 +507,16 @@ export const fetchTeacherInfo = (uid) =>async (dispatch) => {
       category:updateObject.category,
       title:updateObject.title,
       subLevel:updateObject.level,
-      instructor:updateObject.instructor
+      instructor:updateObject.instructor,
+      subjectImageUrl:updateObject.subjectImageUrl
       
     }).then((snapshot) => {
     
      notifySuccessFxn("updated successfully")
+     console.log("subject/ section has been updated oo ");
 
  }).catch((error) => {
-   console.log("Error updating document:", error);
+   console.log("Error updating subject:", error);
    notifyErrorFxn(error)
 
 

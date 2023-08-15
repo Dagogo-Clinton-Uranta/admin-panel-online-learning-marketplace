@@ -1,5 +1,5 @@
 import { Container,Grid, TextField, Typography, TextareaAutosize, Button, Paper,Divider,Box} from '@mui/material';
-import { useRef, useState} from 'react';
+import { useRef, useState,useEffect} from 'react';
 import { useNavigate,useLocation } from 'react-router-dom';
 import UPLOADIMG from '../assets/images/upload.png';
 import { addSubject} from 'src/redux/actions/group.action';
@@ -10,6 +10,7 @@ import users from 'src/_mock/user';
 
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import { getTeachers } from 'src/redux/actions/job.action';
 
 function AddSubject() {
   const navigate = useNavigate();
@@ -20,9 +21,6 @@ function AddSubject() {
 
   const dispatch = useDispatch();
 
-  const [newPassword,setNewPassword] =useState('')
-  const [confirmPassword,setConfirmPassword] =useState('')
-  const [companySize,setCompanySize] =useState('')
 
  const [teachersArr,setTeacherArr]=useState([...teachers.map((item)=>(item.firstName + " " + item.lastName))])
   const [loading,setLoading] = useState(false)
@@ -31,24 +29,15 @@ function AddSubject() {
   const [body,setBody] = useState('')
   const [categoryId,setCategoryId] =useState('')
   const [instructor,setInstructor]  = useState('')
+  const [subjectImageUrl,setSubjectImageUrl] = useState('')
 
   const { user } = useSelector((state) => state.auth);
 
   console.log("user details are:",user)
 
-  /*const [releaseDate,setReleaseDate] =useState('')
-  const [director,setDirector] =useState('')
-  const [cast,setCast] =useState([])
-  const [description,setDescription] =useState('')
-  const [trivia,setTrivia] =useState('')*/
+
   
-  const groupData = {
-    email:user.email,
-    password:user.password,
-    newPassword,
-    companySize,
-    uid:user.uid
-  }
+ 
 
   const addObject ={
     title,
@@ -56,7 +45,8 @@ function AddSubject() {
     level:level,
     categoryId:location.state.uid,
     category:location.state.levelName,
-    instructor
+    instructor,
+    subjectImageUrl
   }
 
   const addThisSubject = async(addObject) => {
@@ -76,6 +66,11 @@ function AddSubject() {
   }
  
 
+  useEffect(()=>{
+
+    dispatch(getTeachers())
+
+  },[])
 
   return (
     <>
@@ -191,6 +186,34 @@ function AddSubject() {
         </Grid>
 
 
+        <Grid container item xs={12} spacing={2}>
+          <Grid item xs={3}>
+            <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
+             <div >
+             IMAGE URL
+             </div>
+      
+            </Typography>
+          
+          </Grid>
+
+          <Grid item xs={7}>
+            <TextField
+            fullWidth
+            placeholder=" e.g www.amazons3/image.jpeg."
+            variant="outlined"
+            multiline
+            maxRows={1}
+            value= {subjectImageUrl}
+            onChange = {(e)=>{setSubjectImageUrl(e.target.value)}}
+            
+            />
+            
+            
+          </Grid>
+        </Grid>
+
+
    
         <Grid container item xs={12} spacing={2}>
           <Grid item xs={3}>
@@ -215,7 +238,7 @@ function AddSubject() {
             setInstructor(event.target.value);
           }}
         >
-        {teachersArr.map((item)=>(
+        {teachersArr.length >0  && teachersArr.map((item)=>(
             <MenuItem value={item}>{item}</MenuItem>
         ))}
        

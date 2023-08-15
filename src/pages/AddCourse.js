@@ -248,6 +248,36 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
           <Grid item xs={3}>
             <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
              <div >
+             PRICE
+             </div>
+      
+            </Typography>
+          
+          </Grid>
+
+          <Grid item xs={7}>
+            <TextField
+            fullWidth
+            placeholder="price in GNF"
+            variant="outlined"
+            multiline
+            maxRows={2}
+            value= {confirmPassword}
+            onChange = {(e)=>{setConfirmPassword(e.target.value)}}
+            
+            />
+            
+            
+          </Grid>
+        </Grid>
+
+
+
+
+        <Grid container item xs={12} spacing={2}>
+          <Grid item xs={3}>
+            <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
+             <div >
              IMAGE URL
              </div>
       
@@ -286,7 +316,7 @@ if(!companySize.length && !newPassword.length &&  file === undefined ){
   </Button>
  
  
-  <Button  onClick={() => { uploadMovie(groupData,selectedFile.selectedFile,navigate)}} variant="contained" 
+  <Button disabled={true} onClick={() => { uploadMovie(groupData,selectedFile.selectedFile,navigate)}} variant="contained" 
   style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px', paddingBottom: '10px', 
   paddingRight: '30px', paddingLeft: '30px'}}
 >

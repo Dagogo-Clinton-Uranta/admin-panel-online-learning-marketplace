@@ -3,6 +3,7 @@ import { useRef, useState,useEffect } from 'react';
 import { useNavigate,useLocation } from 'react-router-dom';
 import UPLOADIMG from '../assets/images/upload.png';
 import { uploadUserSettings,updateSubject,updateSubjectNow,updateChapter} from 'src/redux/actions/group.action';
+import { getTeachers } from 'src/redux/actions/job.action';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 
@@ -17,19 +18,7 @@ function EditCourse() {
 
   let { uid } = location.state;
   console.log(",uid is....",uid)
-  const [file, setFile] = useState();
-  const [file2, setFile2] = useState();
-  const [fileSize, setFileSize] = useState();
-  const [fileSize2, setFileSize2] = useState();
-  const [selectedFile, setSelectedFile] = useState({selectedFile: [], selectedFileName: []});
-  const [selectedFile2, setSelectedFile2] = useState({selectedFile2: [], selectedFileName2: []});
-  
 
-  const [age, setAge] = useState('');
-
-  const [newPassword,setNewPassword] =useState('')
-  const [confirmPassword,setConfirmPassword] =useState('')
-  const [companySize,setCompanySize] =useState('')
 
   const {subjectInfo} = useSelector((state) => state.group)
   const { user } = useSelector((state) => state.auth);
@@ -38,7 +27,8 @@ function EditCourse() {
 
   const [title,setTitle] =useState(subjectInfo.title)
   const [body,setBody] =useState(subjectInfo.body)
-  const [instructor,setInstructor] =useState(subjectInfo.instructor)
+  const [instructor,setInstructor] =useState(subjectInfo.instructor?subjectInfo.instructor:" ")
+  const [subjectImageUrl,setSubjectImageUrl] =useState(subjectInfo.subjectImageUrl)
   const [category,setCategory] =useState(subjectInfo.category)
   const [subLevel,setSubLevel] =useState(subjectInfo.subLevel)
 
@@ -50,7 +40,8 @@ function EditCourse() {
   useEffect(()=>{
 
     console.log("INFO FOR THE SELECTED SUBJECT ARE",subjectInfo)
- 
+    dispatch(getTeachers())
+  
    },[])
 
   const updateObject ={
@@ -58,7 +49,8 @@ function EditCourse() {
     body,
     level:subLevel,
     category,
-    instructor
+    instructor,
+    subjectImageUrl
   }
 
   const updateThisSubject = async(identity,updateObject) => {
@@ -236,6 +228,36 @@ function EditCourse() {
         </Grid>
 
 
+
+        <Grid container item xs={12} spacing={2}>
+          <Grid item xs={3}>
+            <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
+             <div >
+             IMAGE URL
+             </div>
+      
+            </Typography>
+          
+          </Grid>
+
+          <Grid item xs={7}>
+            <TextField
+            fullWidth
+            placeholder=" e.g www.amazons3.com/image.jpeg"
+            variant="outlined"
+            multiline
+            Rows={8}
+            value= {subjectImageUrl}
+
+            onChange = {(e)=>{setSubjectImageUrl(e.target.value)}}
+            
+            />
+            
+            
+          </Grid>
+        </Grid>
+
+
         <Grid container item xs={12} spacing={2}>
           <Grid item xs={3}>
             <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
@@ -253,12 +275,14 @@ function EditCourse() {
          style={{width:"100%"}}
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={instructor}
+          value={instructor ? instructor:" "}
           label="Instructor"
-          onChange={(event) => {
-            setInstructor(event.target.value);
+          onChange={(e) => {
+            setInstructor(e.target.value);
           }}
-        > {teachersArr.map((item)=>(
+        > 
+        
+        {teachersArr.length>0 && teachersArr.map((item)=>(
           <MenuItem value={item}>{item}</MenuItem>
       ))}
         </Select>

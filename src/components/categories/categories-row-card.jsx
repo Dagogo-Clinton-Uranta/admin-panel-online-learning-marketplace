@@ -91,7 +91,7 @@ function CategoriesRowCard ({ uid, title, body, img}) {
     const { categoryVideos,presentOpenMenu } = useSelector((state) => state.group);
 
     const { user} = useSelector((state) => state.auth);
-    console.log("category videos ARE HERE! ",categoryVideos)
+    console.log("category video ARE HERE! ",categoryVideos)
 
     useEffect(()=>{ 
       //this code is responsible for the right section appearing in the dropdown

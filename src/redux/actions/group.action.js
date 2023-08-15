@@ -784,12 +784,13 @@ export const fetchTeacherInfo = (uid) =>async (dispatch) => {
   db.collection("boneCourses").doc(uid).update(
     {
      
-      lessonUrl:updateObject.lessonUrl,
+     
       title:updateObject.title,
       section:updateObject.section,
       duration:updateObject.duration,
       body:updateObject.body,
-      lessonNumber:updateObject.lessonNumber
+      lessonNumber:updateObject.lessonNumber,
+      lessonUrl:updateObject.lessonUrl,
     
     }
   ).then((snapshot) => {

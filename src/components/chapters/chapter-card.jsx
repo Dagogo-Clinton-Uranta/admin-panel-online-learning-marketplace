@@ -80,7 +80,7 @@ const ChapterCard = ({data,index,user}) => {
   const [sessionsData,setSessionsData] = useState(chapterSessions?chapterSessions:dummyData) 
   const [quizzesData,setQuizzesData] = useState(chapterQuizzes)
 
-  console.log("THIS IS THIS MF CHAPTER'S INFO - - -",data)
+  console.log("THIS IS THE CHAPTER'S INFO U ARE LOOKING 4- - -",data)
   
 
   useEffect(()=>{ 

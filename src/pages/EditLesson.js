@@ -26,17 +26,17 @@ function EditLesson() {
  
   
 
-  const [title,setTitle] =useState(lessonInfo.title)
-  const [body,setBody] =useState(lessonInfo.body)
+  const [title,setTitle] =useState(lessonInfo && lessonInfo.title ?lessonInfo.title:" ")
+  const [body,setBody] =useState(lessonInfo && lessonInfo.body ?lessonInfo.body:" ")
   
-  const [instructor,setInstructor] =useState([])
-  const [section,setSection] =useState(lessonInfo.section)
-  const [chapter,setChapter] =useState(lessonInfo.chapter)
 
-  const [category,setCategory] = useState(lessonInfo.category)
-  const [lessonUrl,setLessonUrl] = useState(lessonInfo.lessonUrl)
-  const [duration,setDuration] = useState(lessonInfo.duration)
-  const [lessonNumber,setLessonNumber] = useState(lessonInfo.lessonNumber)
+  const [section,setSection] =useState(lessonInfo && lessonInfo.section ?lessonInfo.section:" ")
+  const [chapter,setChapter] =useState(lessonInfo && lessonInfo.chapter ?lessonInfo.chapter:" ")
+
+  const [category,setCategory] = useState(lessonInfo && lessonInfo.category ?lessonInfo.category:" ")
+  const [lessonUrl,setLessonUrl] = useState(lessonInfo && lessonInfo.Url ?lessonInfo.lessonUrl:" ")
+  const [duration,setDuration] = useState(lessonInfo && lessonInfo.duration ?lessonInfo.duration:" ")
+  const [lessonNumber,setLessonNumber] = useState(lessonInfo && lessonInfo.lessonNumber ?lessonInfo.lessonNumber:" ")
   
   
   useEffect(()=>{
@@ -47,9 +47,6 @@ function EditLesson() {
 
 
   const updateObject ={
-    /*chapter,
-    section,
-    title*/
     title,
     body,
     chapterId:lessonInfo.chapterId,

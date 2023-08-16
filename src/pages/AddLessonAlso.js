@@ -114,7 +114,7 @@ function AddLesson() {
             multiline
             maxRows={2}
             value= {subject}
-           
+            disabled={true}
             
             />
             
@@ -145,7 +145,7 @@ function AddLesson() {
             multiline
             maxRows={2}
             value= {category}
-            
+            disabled={true}
             
             />
             

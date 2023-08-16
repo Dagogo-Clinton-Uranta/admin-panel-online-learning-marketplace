@@ -133,7 +133,7 @@ console.log("whala")
             multiline
             maxRows={2}
             value= {subject}
-           
+            disabled={true}
             
             />
             
@@ -164,7 +164,7 @@ console.log("whala")
             multiline
             maxRows={2}
             value= {category}
-            
+            disabled={true}
             
             />
             

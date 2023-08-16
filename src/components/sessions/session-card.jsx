@@ -57,7 +57,7 @@ const SessionCard = ({data,index}) => {
   const { allSectionVideos,requestedSection } = useSelector((state) => state.group);
     const { categoryChapters,presentOpenChapter} = useSelector((state) => state.group);
     const { chapterSessions,presentOpenSession} = useSelector((state) => state.group);
-  console.log("the UID you're looking for is!",data.uid)
+  console.log("the Lesson UID you're looking for is!",data.uid)
 
 
   const dummyData = [

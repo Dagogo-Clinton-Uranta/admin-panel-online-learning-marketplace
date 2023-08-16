@@ -121,7 +121,7 @@ function AddSubject() {
             maxRows={2}
             value= {level}
             onChange = {(e)=>{setLevel(e.target.value)}}
-            
+            disabled={true}
             />
             
             

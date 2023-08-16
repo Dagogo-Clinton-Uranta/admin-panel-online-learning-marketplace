@@ -94,6 +94,13 @@ const ChapterCard = ({data,index,user}) => {
     },[chapterSessions,presentOpenSession])
 
 
+ 
+    useEffect(()=>{ 
+
+      setSessionsData(chapterSessions)
+    },[chapterSessions])
+
+
     const fetchSessionsAndDropDown  = (id)=> {
       console.log("ID BEING PASSED IN IS",id)
  if(!dropDown){

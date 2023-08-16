@@ -819,7 +819,7 @@ export const fetchTeacherInfo = (uid) =>async (dispatch) => {
   if (doc.exists) {
      chapterId = doc.data().chapterId
       dispatch(fetchChapterSessions(doc.data().chapterId));
-      dispatch(savePresentOpenSessions(null))
+      //dispatch(savePresentOpenSessions(null))
    
       itemToBeDeleted.delete()
     
@@ -829,7 +829,7 @@ export const fetchTeacherInfo = (uid) =>async (dispatch) => {
 })
    
   .then((snapshot) => {
-    //dispatch(savePresentOpenSessions(chapterId))
+    dispatch(fetchChapterSessions(chapterId));
      notifySuccessFxn("deleted successfully")
   
 

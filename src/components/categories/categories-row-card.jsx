@@ -15,7 +15,7 @@ import { Divider, Chip, Grid, Paper, Typography, Box, Avatar, Button, ButtonBase
 import { borderRadius } from '@mui/system';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import RectangleIMG from '../../assets/images/incu.jpg';
+import RectangleIMG from '../../assets/images/incu.png';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';

@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { notifyErrorFxn, notifySuccessFxn } from 'src/utils/toast-fxn';
 import { isItLoading, saveAllGroup ,saveEmployeer,
          saveCategories ,saveGroupMembers, saveMyGroup,
-         savePrivateGroup, savePublicGroup, saveSectionVideos,
+         savePresentOpenSessions, savePublicGroup, saveSectionVideos,
           saveCategoryVideos,saveCategoryChapters,
         saveChapterSessions,saveChapterQuizzes,
         saveSubjectInfo,saveLessonInfo,saveQuizInfo,
@@ -801,6 +801,41 @@ export const fetchTeacherInfo = (uid) =>async (dispatch) => {
  }).catch((error) => {
    console.log("Error updating document:", error);
    notifyErrorFxn("Problem Updating subject, please try again")
+
+
+ });
+ };
+
+
+
+ export const deleteLesson = (uid) => async (dispatch) => {
+  let chapterId
+ let itemToBeDeleted = db.collection("boneCourses").doc(uid)
+
+ 
+
+
+ await itemToBeDeleted.get().then((doc) => {
+  if (doc.exists) {
+     chapterId = doc.data().chapterId
+      dispatch(fetchChapterSessions(doc.data().chapterId));
+      dispatch(savePresentOpenSessions(null))
+   
+      itemToBeDeleted.delete()
+    
+  } else {
+    notifyErrorFxn("Problem Deleting Lesson, please try again")
+  }
+})
+   
+  .then((snapshot) => {
+    //dispatch(savePresentOpenSessions(chapterId))
+     notifySuccessFxn("deleted successfully")
+  
+
+ }).catch((error) => {
+   console.log("Error deleting lesson:", error);
+   notifyErrorFxn(error)
 
 
  });

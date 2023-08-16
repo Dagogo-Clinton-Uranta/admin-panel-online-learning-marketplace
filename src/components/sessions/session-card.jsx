@@ -4,8 +4,8 @@ import LockIcon from '@mui/icons-material/Lock';
 import { Divider, Chip, Grid, Paper, Typography, Box, Avatar, Button, ButtonBase, Stack, 
   ToggleButton, ToggleButtonGroup, Hidden  } from '@mui/material';
 import { useDispatch,useSelector } from 'react-redux';
-import {fetchChapterSessions, fetchSubjectChapters, updateVideoAndUserWatchlists,fetchLessonInfo} from 'src/redux/actions/group.action'
-import { fetchVideoSubsection } from 'src/redux/actions/group.action';
+import {fetchChapterSessions,fetchLessonInfo,deleteLesson} from 'src/redux/actions/group.action'
+
 import { useNavigate } from 'react-router-dom';
 
 import { setRequestedSection,savePresentOpenChapter,savePresentOpenSessions } from 'src/redux/reducers/group.slice';
@@ -57,7 +57,7 @@ const SessionCard = ({data,index}) => {
   const { allSectionVideos,requestedSection } = useSelector((state) => state.group);
     const { categoryChapters,presentOpenChapter} = useSelector((state) => state.group);
     const { chapterSessions,presentOpenSession} = useSelector((state) => state.group);
-  
+  console.log("the UID you're looking for is!",data.uid)
 
 
   const dummyData = [
@@ -69,6 +69,7 @@ const SessionCard = ({data,index}) => {
   
   const [loading,setLoading] =useState(false)
   const [wait,setWait] =useState(false)
+  const [deleting,setDeleting] =useState(false)
   const [dropDown, setDropDown] = useState(false);
   const [sessionsData,setSessionsData] = useState(chapterSessions?chapterSessions:dummyData) 
 
@@ -81,27 +82,18 @@ const SessionCard = ({data,index}) => {
    setTimeout(()=> {navigate('/dashboard/edit-lesson',{state:{uid:identity}})}, 1000)
   }
 
+const removeLesson = (uid)=>{
 
+  if (window.confirm("Are you sure you want to delete this lesson?")){
+
+     setDeleting(true)
+     dispatch(deleteLesson(uid))
+  }
+}
   
 
 
-    const fetchSessionsAndDropDown  = (id)=> {
-      console.log("ID BEING PASSED IN IS",id)
- if(!dropDown){
-      setLoading(true)
-      dispatch(fetchChapterSessions(id))
-      dispatch(savePresentOpenSessions(id))
-     
-     setTimeout(()=>{setLoading(false);setDropDown(true)},600)
-     }
-     else{
-       setDropDown(false)
-     }
-
-
-    }
-
-
+  
 
   return (
     <>
@@ -113,7 +105,7 @@ const SessionCard = ({data,index}) => {
         <span style={{ marginLeft: '20px' }}>{data && data.body}</span>
       </div>
      
-
+         <div style={{display:"flex",justifyContent:"center",marginLeft:"0.5rem",gap:"1rem"}}>
             <Button variant="contained" style={{minHeight: '45px', minWidth: '145px', backgroundColor: 'black', }}
               onClick={() => {
                
@@ -121,7 +113,16 @@ const SessionCard = ({data,index}) => {
               }}>
                 {wait?"Please wait...":"Edit"}
             </Button>
-          
+
+
+            <Button variant="contained" style={{minHeight: '45px', minWidth: '145px', backgroundColor: 'black', }}
+              onClick={() => {
+               
+                removeLesson(data.uid)
+              }}>
+                {deleting?"Deleting...":"Delete"}
+            </Button>
+        </div>
 
            
     </div>

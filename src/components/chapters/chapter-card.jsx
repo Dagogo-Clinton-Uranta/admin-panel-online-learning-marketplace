@@ -89,6 +89,8 @@ const ChapterCard = ({data,index,user}) => {
    
        setTimeout(()=>{setSessionsData(chapterSessions)},600)
 
+     if(presentOpenSession === data.uid){setTimeout(()=>{setDropDown(true)},300)}  
+       
     },[chapterSessions,presentOpenSession])
 
 

@@ -106,7 +106,7 @@ const SubSectionCard = ({data,index,user}) => {
       setWait(true)
       dispatch(fetchSubjectInfo(identity))
 
-     setTimeout(()=> {navigate('/dashboard/edit-course',{state:{uid:identity}})}, 1500)
+     setTimeout(()=> {navigate('/dashboard/edit-subject',{state:{uid:identity}})}, 1500)
     }
 
 

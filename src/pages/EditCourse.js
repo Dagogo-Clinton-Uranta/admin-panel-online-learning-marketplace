@@ -17,7 +17,7 @@ function EditCourse() {
   const dispatch = useDispatch();
 
   let { uid } = location.state;
-  console.log(",uid is....",uid)
+  console.log(",uid came down as....",uid)
 
 
   const {subjectInfo} = useSelector((state) => state.group)
@@ -25,12 +25,12 @@ function EditCourse() {
   const { teachers } = useSelector((state) => state.jobs);
   //console.log("user details are:",user)
 
-  const [title,setTitle] =useState(subjectInfo.title)
-  const [body,setBody] =useState(subjectInfo.body)
+  const [title,setTitle] =useState(subjectInfo.title?subjectInfo.title:" ")
+  const [body,setBody] =useState(subjectInfo.body?subjectInfo.body:" ")
   const [instructor,setInstructor] =useState(subjectInfo.instructor?subjectInfo.instructor:" ")
-  const [subjectImageUrl,setSubjectImageUrl] =useState(subjectInfo.subjectImageUrl)
-  const [category,setCategory] =useState(subjectInfo.category)
-  const [subLevel,setSubLevel] =useState(subjectInfo.subLevel)
+  const [subjectImageUrl,setSubjectImageUrl] =useState(subjectInfo.subjectImageUrl?subjectInfo.imageUrl:" ")
+  const [category,setCategory] =useState(subjectInfo.category?subjectInfo.category:" ")
+  const [subLevel,setSubLevel] =useState(subjectInfo.subLevel?subjectInfo.subLevel:" ")
 
   const [loading,setLoading] = useState(false)
   
@@ -47,7 +47,7 @@ function EditCourse() {
   const updateObject ={
     title,
     body,
-    level:subLevel,
+    //level:subLevel,
     category,
     instructor,
     subjectImageUrl
@@ -131,8 +131,9 @@ function EditCourse() {
             variant="outlined"
             multiline
             maxRows={2}
-            value= {subLevel}
-            onChange = {(e)=>{setSubLevel(e.target.value)}}
+            value= {category}
+            disabled={true}
+            //onChange = {(e)=>{setSubLevel(e.target.value)}}
             
             />
             
@@ -217,9 +218,9 @@ function EditCourse() {
             variant="outlined"
             multiline
             Rows={8}
-            value= {category}
+            value= {subLevel}
 
-            onChange = {(e)=>{setCategory(e.target.value)}}
+            onChange = {(e)=>{setSubLevel(e.target.value)}}
             
             />
             

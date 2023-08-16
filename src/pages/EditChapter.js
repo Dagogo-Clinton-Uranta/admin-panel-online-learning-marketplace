@@ -123,15 +123,14 @@ function EditChapter() {
           <Grid item xs={7}>
             <TextField
             fullWidth
-            placeholder=" Mathematique,Francais, etc."
+            placeholder=" "
             variant="outlined"
             multiline
             maxRows={2}
             value= {subject}
-           
+            disabled={true}
             
             />
-            
             
           </Grid>
         </Grid>
@@ -154,12 +153,12 @@ function EditChapter() {
           <Grid item xs={7}>
             <TextField
             fullWidth
-            placeholder=" 6eme Annee, 10eme Annee, etc."
+            placeholder=" "
             variant="outlined"
             multiline
             maxRows={2}
             value= {category}
-            
+            disabled={true}
             
             />
             
@@ -184,7 +183,7 @@ function EditChapter() {
           <Grid item xs={7}>
             <TextField
             fullWidth
-            placeholder=" e.g  Chapitre 1: introduction et Salutations."
+            placeholder=" "
             variant="outlined"
             multiline
             maxRows={2}
@@ -214,7 +213,7 @@ function EditChapter() {
             <TextField
             type="number"
             fullWidth
-            placeholder="please input only a number e.g 1,2,17 etc "
+            placeholder=" "
             variant="outlined"
             multiline
             maxRows={2}
@@ -242,7 +241,7 @@ function EditChapter() {
           <Grid item xs={7}>
             <TextField
             fullWidth
-            placeholder=" e.g  www.amazons3.com."
+            placeholder=" "
             variant="outlined"
             multiline
             maxRows={2}
@@ -270,7 +269,7 @@ function EditChapter() {
           <Grid item xs={7}>
             <TextField
             fullWidth
-            placeholder=" enter description"
+            placeholder=" "
             variant="outlined"
             multiline
             rows={8}

@@ -84,7 +84,7 @@ export default function Router() {
         { path: 'chat', element: <InboxPage /> },
         { path: 'add-course', element: <AddCourse /> },
         { path: 'add-subject', element: <AddSubject /> },
-        { path: 'edit-course', element: <EditCourse /> },
+        { path: 'edit-subject', element: <EditCourse /> },
         { path: 'add-lesson', element: <AddLesson /> },
         { path: 'edit-lesson', element: <EditLesson /> },
         { path: 'add-chapter', element: <AddChapter /> },

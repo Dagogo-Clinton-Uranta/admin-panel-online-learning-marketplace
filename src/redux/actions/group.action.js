@@ -506,13 +506,13 @@ export const fetchTeacherInfo = (uid) =>async (dispatch) => {
       body:updateObject.body,
       category:updateObject.category,
       title:updateObject.title,
-      subLevel:updateObject.level,
+      //subLevel:updateObject.level,
       instructor:updateObject.instructor,
       subjectImageUrl:updateObject.subjectImageUrl
       
     }).then((snapshot) => {
     
-     notifySuccessFxn("updated successfully")
+     notifySuccessFxn("updated Subject successfully")
      console.log("subject/ section has been updated oo ");
 
  }).catch((error) => {
@@ -660,7 +660,7 @@ export const fetchTeacherInfo = (uid) =>async (dispatch) => {
   ).then((snapshot) => {
      //const publicGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
      dispatch(getTeachers())
-     notifySuccessFxn("updated successfully")
+     notifySuccessFxn("updated Teacher successfully")
      setTimeout(()=>{navigate('/dashboard/teacher-list')},1000)
  }).catch((error) => {
    console.log("Error updating document:", error);
@@ -685,7 +685,7 @@ export const fetchTeacherInfo = (uid) =>async (dispatch) => {
   ).then((snapshot) => {
      //const publicGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
    
-     notifySuccessFxn("updated successfully")
+     notifySuccessFxn("updated Subject successfully")
 
  }).catch((error) => {
    console.log("Error updating document:", error);
@@ -768,7 +768,7 @@ export const fetchTeacherInfo = (uid) =>async (dispatch) => {
   ).then((snapshot) => {
      //const publicGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
    
-     notifySuccessFxn("updated successfully")
+     notifySuccessFxn("updated chapter successfully")
 
  }).catch((error) => {
    console.log("Error updating document:", error);
@@ -796,7 +796,7 @@ export const fetchTeacherInfo = (uid) =>async (dispatch) => {
   ).then((snapshot) => {
      //const publicGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
      
-     notifySuccessFxn("updated successfully")
+     notifySuccessFxn("updated  Lesson successfully")
 
  }).catch((error) => {
    console.log("Error updating document:", error);
@@ -988,11 +988,11 @@ export const fetchTeacherInfo = (uid) =>async (dispatch) => {
   ).then((snapshot) => {
      //const publicGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
      
-     notifySuccessFxn("updated successfully")
+     notifySuccessFxn("updated Quiz successfully")
 
  }).catch((error) => {
-   console.log("Error updating document:", error);
-   notifyErrorFxn("Problem Updating subject, please try again")
+   console.log("Error updating quiz:", error);
+   notifyErrorFxn("Problem Updating quiz, please try again")
 
 
  });

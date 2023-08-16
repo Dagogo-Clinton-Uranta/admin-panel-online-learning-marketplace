@@ -122,7 +122,7 @@ function EditLesson() {
             multiline
             maxRows={2}
             value= {section}
-           
+           disabled={true}
             
             />
             
@@ -153,7 +153,7 @@ function EditLesson() {
             multiline
             maxRows={2}
             value= {category}
-            
+            disabled={true}
             
             />
             

@@ -25,12 +25,12 @@ function EditCourse() {
   const { teachers } = useSelector((state) => state.jobs);
   //console.log("user details are:",user)
 
-  const [title,setTitle] =useState(subjectInfo.title?subjectInfo.title:" ")
-  const [body,setBody] =useState(subjectInfo.body?subjectInfo.body:" ")
-  const [instructor,setInstructor] =useState(subjectInfo.instructor?subjectInfo.instructor:" ")
-  const [subjectImageUrl,setSubjectImageUrl] =useState(subjectInfo.subjectImageUrl?subjectInfo.imageUrl:" ")
-  const [category,setCategory] =useState(subjectInfo.category?subjectInfo.category:" ")
-  const [subLevel,setSubLevel] =useState(subjectInfo.subLevel?subjectInfo.subLevel:" ")
+  const [title,setTitle] =useState(subjectInfo && subjectInfo.title?subjectInfo.title:" ")
+  const [body,setBody] =useState(subjectInfo && subjectInfo.body?subjectInfo.body:" ")
+  const [instructor,setInstructor] =useState(subjectInfo && subjectInfo.instructor?subjectInfo.instructor:" ")
+  const [subjectImageUrl,setSubjectImageUrl] =useState(subjectInfo && subjectInfo.subjectImageUrl?subjectInfo.imageUrl:" ")
+  const [category,setCategory] =useState(subjectInfo && subjectInfo.category?subjectInfo.category:" ")
+  const [subLevel,setSubLevel] =useState(subjectInfo && subjectInfo.subLevel?subjectInfo.subLevel:" ")
 
   const [loading,setLoading] = useState(false)
   

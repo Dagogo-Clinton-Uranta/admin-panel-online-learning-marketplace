@@ -28,7 +28,7 @@ function EditCourse() {
   const [title,setTitle] =useState(subjectInfo && subjectInfo.title?subjectInfo.title:" ")
   const [body,setBody] =useState(subjectInfo && subjectInfo.body?subjectInfo.body:" ")
   const [instructor,setInstructor] =useState(subjectInfo && subjectInfo.instructor?subjectInfo.instructor:" ")
-  const [subjectImageUrl,setSubjectImageUrl] =useState(subjectInfo && subjectInfo.subjectImageUrl?subjectInfo.imageUrl:" ")
+  const [subjectImageUrl,setSubjectImageUrl] =useState(subjectInfo && subjectInfo.subjectImageUrl?subjectInfo.subjectImageUrl:" ")
   const [category,setCategory] =useState(subjectInfo && subjectInfo.category?subjectInfo.category:" ")
   const [subLevel,setSubLevel] =useState(subjectInfo && subjectInfo.subLevel?subjectInfo.subLevel:" ")
 

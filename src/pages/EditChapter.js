@@ -48,11 +48,11 @@ function EditChapter() {
   const [title,setTitle] =useState(chapterInfo && chapterInfo.title?chapterInfo.title:"")
   const [body,setBody] =useState(chapterInfo && chapterInfo.body?chapterInfo.body:"")
   
-  const [category,setCategory] =useState(chapterInfo && chapterInfo.body?chapterInfo.category:"")
-  const [subLevel,setSubLevel] =useState(chapterInfo && chapterInfo.body?chapterInfo.uid:"")
+  const [category,setCategory] =useState(chapterInfo && chapterInfo.category?chapterInfo.category:"")
+  const [subLevel,setSubLevel] =useState(chapterInfo && chapterInfo.uid?chapterInfo.uid:"")
   const [subject,setSubject] =useState(chapterInfo && chapterInfo.body?chapterInfo.subject:"")
-  const [chapterUrl,setChapterUrl] =useState(chapterInfo && chapterInfo.body?chapterInfo.chapterUrl?chapterInfo.chapterUrl:"":"")
-  const [chapterNumber,setChapterNumber] =useState(chapterInfo && chapterInfo.body?chapterInfo.chapterNumber:"")
+  const [chapterPdfUrl,setChapterPdfUrl] =useState(chapterInfo && chapterInfo.chapterPdfUrl?chapterInfo.chapterPdfUrl?chapterInfo.chapterPdfUrl:"":"")
+  const [chapterNumber,setChapterNumber] =useState(chapterInfo && chapterInfo.chapterNumber?chapterInfo.chapterNumber:"")
 
   useEffect(()=>{
 
@@ -64,7 +64,8 @@ function EditChapter() {
     title,
     category,
     subject,
-    chapterNumber
+    chapterNumber,
+    chapterPdfUrl
   }
 
   const updateThisChapter= (uid,updateObject) => {
@@ -245,8 +246,8 @@ function EditChapter() {
             variant="outlined"
             multiline
             maxRows={2}
-            value= {chapterUrl}
-            onChange = {(e)=>{setChapterUrl(e.target.value)}}
+            value= {chapterPdfUrl}
+            onChange = {(e)=>{setChapterPdfUrl(e.target.value)}}
             
             />
             

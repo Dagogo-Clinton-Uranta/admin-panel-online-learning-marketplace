@@ -762,7 +762,8 @@ export const fetchTeacherInfo = (uid) =>async (dispatch) => {
       category:updateObject.category,
       title:updateObject.title,
       subject:updateObject.subject,
-      chapterNumber:updateObject.chapterNumber
+      chapterNumber:updateObject.chapterNumber,
+      chapterPdfUrl:updateObject.chapterPdfUrl,
     
     }
   ).then((snapshot) => {

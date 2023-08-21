@@ -88,10 +88,11 @@ const ChapterCard = ({data,index,user}) => {
     if(presentOpenSession !== data.uid){setTimeout(()=>{setDropDown(false)},300)}
    
        setTimeout(()=>{setSessionsData(chapterSessions)},600)
+       setTimeout(()=>{setQuizzesData(chapterQuizzes)},600)
 
      if(presentOpenSession === data.uid){setTimeout(()=>{setDropDown(true)},300)}  
        
-    },[chapterSessions,presentOpenSession])
+    },[chapterSessions,chapterQuizzes,presentOpenSession])
 
 
  

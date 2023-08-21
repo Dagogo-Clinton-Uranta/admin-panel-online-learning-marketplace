@@ -4,11 +4,11 @@ import LockIcon from '@mui/icons-material/Lock';
 import { Divider, Chip, Grid, Paper, Typography, Box, Avatar, Button, ButtonBase, Stack, 
   ToggleButton, ToggleButtonGroup, Hidden  } from '@mui/material';
 import { useDispatch,useSelector } from 'react-redux';
-import {fetchQuizInfo} from 'src/redux/actions/group.action'
-import { fetchVideoSubsection } from 'src/redux/actions/group.action';
+
+import { fetchQuizInfo,deleteQuiz } from 'src/redux/actions/group.action';
 import { useNavigate } from 'react-router-dom';
 
-import { setRequestedSection,savePresentOpenChapter,savePresentOpenSessions } from 'src/redux/reducers/group.slice';
+
 
 
 
@@ -57,6 +57,16 @@ const SessionQuizletCard = ({data,index}) => {
 
   const [wait,setWait] =useState(false)
   
+  const [deleting,setDeleting] =useState(false)
+
+  const removeQuiz = (uid)=>{
+
+    if (window.confirm("Are you sure you want to delete this Quiz?")){
+  
+       setDeleting(true)
+       dispatch(deleteQuiz(uid))
+    }
+  }
 
 
   const populateEditQuiz = (identity)=>{
@@ -82,7 +92,7 @@ const SessionQuizletCard = ({data,index}) => {
         <span style={{ marginLeft: '20px' }}>{data && data.body}</span>
       </div>
      
-
+         <div style={{display:"flex",justifyContent:"center",marginLeft:"0.5rem",gap:"1rem"}}>
             <Button variant="contained" style={{minHeight: '45px', minWidth: '145px', backgroundColor: 'black', }}
               onClick={() => {
                
@@ -91,7 +101,14 @@ const SessionQuizletCard = ({data,index}) => {
                 {wait?"Please wait...":"Edit"}
             </Button>
           
-
+            <Button variant="contained" style={{minHeight: '45px', minWidth: '145px', backgroundColor: 'black', }}
+              onClick={() => {
+               
+                removeQuiz(data.uid)
+              }}>
+                {deleting?"Deleting...":"Delete"}
+            </Button>
+         </div>  
            
     </div>
     

@@ -4,11 +4,10 @@ import LockIcon from '@mui/icons-material/Lock';
 import { Divider, Chip, Grid, Paper, Typography, Box, Avatar, Button, ButtonBase, Stack, 
   ToggleButton, ToggleButtonGroup, Hidden  } from '@mui/material';
 import { useDispatch,useSelector } from 'react-redux';
-import {fetchChapterSessions,fetchLessonInfo,deleteLesson} from 'src/redux/actions/group.action'
+import {fetchLessonInfo,deleteLesson} from 'src/redux/actions/group.action'
 
 import { useNavigate } from 'react-router-dom';
 
-import { setRequestedSection,savePresentOpenChapter,savePresentOpenSessions } from 'src/redux/reducers/group.slice';
 
 
 

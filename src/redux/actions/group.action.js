@@ -842,6 +842,40 @@ export const fetchTeacherInfo = (uid) =>async (dispatch) => {
  });
  };
 
+ export const deleteQuiz = (uid) => async (dispatch) => {
+  let chapterId
+ let itemToBeDeleted = db.collection("quizzes").doc(uid)
+
+ 
+
+
+ await itemToBeDeleted.get().then((doc) => {
+  if (doc.exists) {
+     chapterId = doc.data().chapterId
+      dispatch(fetchChapterSessions(doc.data().chapterId));
+      //dispatch(savePresentOpenSessions(null))
+   
+      itemToBeDeleted.delete()
+    
+  } else {
+    notifyErrorFxn("Problem Deleting Quiz, please try again")
+  }
+})
+   
+  .then((snapshot) => {
+    dispatch(fetchChapterSessions(chapterId));
+     notifySuccessFxn("deleted Quiz successfully")
+  
+
+ }).catch((error) => {
+   console.log("Error deleting lesson:", error);
+   notifyErrorFxn(error)
+
+
+ });
+ };
+
+
 
  export const addLesson = (addObject) => async (dispatch) => {
 

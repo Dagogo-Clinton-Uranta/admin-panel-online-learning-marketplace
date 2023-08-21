@@ -145,7 +145,7 @@ function EditQuiz() {
             multiline
             maxRows={2}
             value= {subject}
-           
+            disabled={true}
             
             />
             
@@ -176,7 +176,7 @@ function EditQuiz() {
             multiline
             maxRows={2}
             value= {level}
-            
+            disabled={true}
             
             />
             

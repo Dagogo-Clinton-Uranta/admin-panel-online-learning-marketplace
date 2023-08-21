@@ -181,7 +181,7 @@ const addOption =(option) => {
             multiline
             maxRows={2}
             value= {subject}
-           
+            disabled={true}
             
             />
             
@@ -212,7 +212,7 @@ const addOption =(option) => {
             multiline
             maxRows={2}
             value= {category}
-            
+            disabled={true}
             
             />
             

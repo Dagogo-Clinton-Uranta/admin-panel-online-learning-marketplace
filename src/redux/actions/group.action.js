@@ -429,7 +429,7 @@ export const fetchGroups = (adminID) => async (dispatch) => {
      dispatch(saveChapterQuizzes(sortedChapterQuizzes));
    } else {
       // dispatch(isItLoading(false));
-      dispatch(saveChapterQuizzes(sortedChapterQuizzes));
+      dispatch(saveChapterQuizzes([]));
        console.log("No quizzes for this chapter!");
    }
  }).catch((error) => {

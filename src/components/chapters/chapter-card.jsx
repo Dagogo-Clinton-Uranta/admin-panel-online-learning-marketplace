@@ -188,8 +188,10 @@ const ChapterCard = ({data,index,user}) => {
 
               
             <Grid item xs container direction="column" spacing={6} style={{marginLeft:"10px",paddingLeft: '0px', paddingRight: '0px'}}>
+          
             <br/><br/>
-            {quizzesData  &&
+            <center>QUIZZES</center>
+            {quizzesData && quizzesData.length >0 ?
             quizzesData.map(((dt,i) => {
             
             return (
@@ -198,6 +200,14 @@ const ChapterCard = ({data,index,user}) => {
                 <SessionQuizletCard data={dt} index={i} />
             )
             }))
+
+            :
+                  
+            <center>
+             <br/> <br/>
+             No quiz available for this Chapter.
+             </center>
+           
             
     
               }

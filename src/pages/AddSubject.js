@@ -25,7 +25,7 @@ function AddSubject() {
  const [teachersArr,setTeacherArr]=useState([...teachers.map((item)=>(item.firstName + " " + item.lastName))])
   const [loading,setLoading] = useState(false)
   const [title,setTitle] = useState('')
-  const [level,setLevel] = useState('')
+  const [level,setLevel] = useState(location.state && location.state.levelName?location.state.levelName:" cannot change this field")
   const [body,setBody] = useState('')
   const [categoryId,setCategoryId] =useState('')
   const [instructor,setInstructor]  = useState('')
@@ -115,12 +115,12 @@ function AddSubject() {
           <Grid item xs={7}>
             <TextField
             fullWidth
-            placeholder=" 6eme Annee, 10eme Annee, etc."
+            placeholder=" "
             variant="outlined"
             multiline
             maxRows={2}
             value= {level}
-            onChange = {(e)=>{setLevel(e.target.value)}}
+            
             disabled={true}
             />
             

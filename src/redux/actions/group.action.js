@@ -963,9 +963,7 @@ export const fetchTeacherInfo = (uid) =>async (dispatch) => {
         quizFileUrl:addObject.quizFileUrl,
         lessonNumber:addObject.lessonNumber,
 
-        question:addObject.question,
-        correctAnswer:addObject.correctAnswer,
-        optionsArray:[...addObject.optionsArray]
+       questionsArray:addObject.questionsArray
       }
 
     ).then((doc) => {

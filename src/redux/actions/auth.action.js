@@ -1,4 +1,4 @@
-import { db, fb, auth, storage } from '../../config/firebase';
+import { db, fb, auth,provider, storage } from '../../config/firebase';
 import { clearUser, loginFailed, loginSuccess, logoutFxn, signupPending, signupFailed, storeUserData,storeProfileImages } from '../reducers/auth.slice';
 import { v4 as uuidv4 } from 'uuid';
 import { notifyErrorFxn, notifySuccessFxn } from 'src/utils/toast-fxn';
@@ -28,6 +28,32 @@ import { clearGroup } from '../reducers/group.slice';
     });
 
 };
+
+
+export const signInWithGoogle = (user, navigate,) => async (dispatch) => {
+
+  fb.auth().signInWithPopup(provider)
+  .then((userCredential)=>{
+
+    
+    var user = userCredential.user;
+    console.log('Signed In user is: ', user.email);
+    console.log('ALL THE DETAILS THAT COME BACK FROM THE GOOGLE SIGN IN ARE:',userCredential)
+     dispatch(fetchUserData(user.uid, "sigin", navigate));
+
+  }).catch((error) => {
+    console.log( ' PROBLEM REPORT ', error.message);
+    dispatch(loginFailed(error.message));
+   
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    //notifyErrorFxn(errorMessage);
+    
+    console.log('Error Code is: ', errorCode, + ' Msg is: ', errorMessage);
+   
+  });
+
+}
 
 
 export const signup = (user,navigate) => async (dispatch) => {

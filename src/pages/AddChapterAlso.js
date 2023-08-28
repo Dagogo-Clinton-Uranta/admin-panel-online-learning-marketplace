@@ -15,12 +15,7 @@ function AddChapter() {
 
 
 
-  const [file, setFile] = useState();
-  const [file2, setFile2] = useState();
-  const [fileSize, setFileSize] = useState();
-  const [fileSize2, setFileSize2] = useState();
-  const [selectedFile, setSelectedFile] = useState({selectedFile: [], selectedFileName: []});
-  const [selectedFile2, setSelectedFile2] = useState({selectedFile2: [], selectedFileName2: []});
+ 
   const dispatch = useDispatch();
 
   const [newPassword,setNewPassword] =useState('')
@@ -38,21 +33,8 @@ function AddChapter() {
 
   const { user } = useSelector((state) => state.auth);
 
-  //console.log("user details are:",user)
-
-  /*const [releaseDate,setReleaseDate] =useState('')
-  const [director,setDirector] =useState('')
-  const [cast,setCast] =useState([])
-  const [description,setDescription] =useState('')
-  const [trivia,setTrivia] =useState('')*/
-  
-  const groupData = {
-    email:user.email,
-    password:user.password,
-    newPassword,
-    companySize,
-    uid:user.uid
-  }
+ 
+ 
 
 
   const addObject ={

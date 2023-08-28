@@ -7,7 +7,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Grid, Box, Typography, Paper, Button, Stack } from '@mui/material';
 import { useNavigate,Link } from 'react-router-dom';
 //import CJobList from "../components/home/c-job-list";
-import ContractorStatsList from "../components/contractor/contractor-stats-list";
+import LessonStatsList from "../components/contractor/lesson-stats-list";
+import QuizStatsList from "../components/contractor/quiz-stats-list";
 import { getUserCourses } from "../redux/actions/job.action";
 import {Skeleton} from '@mui/material';
 import ReactApexChart from 'react-apexcharts';
@@ -99,8 +100,13 @@ export default function ContractorStatsPage() {
      
 
        {/*jobArr.length &&*/ userCourses ?
-           
-           <ContractorStatsList jobs={userCourses} />
+           <>
+           <LessonStatsList jobs={userCourses} />
+
+           <br/><br/><br/><br/>
+
+           <QuizStatsList jobs={userCourses} />
+           </>
            :
            <center>
            <Box sx={{ width: 300 }}>

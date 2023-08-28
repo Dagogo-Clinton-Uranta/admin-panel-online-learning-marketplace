@@ -52,8 +52,70 @@ function AddQuiz() {
 
   const [question,setQuestion] = useState('')
   const [correctAnswer,setCorrectAnswer] = useState('')
-
   
+//I AM ONLY USING THIS TO INITIALIZE STATE,AFTERWARDS IT IS USELESS
+ /* const questionsArrayHolder = [
+    {
+     correctAnswer:" ",
+     optionA:{optionDesc:" ",optionLeter:" "},
+     optionB:{optionDesc:" ",optionLeter:" "},
+     optionC:{optionDesc:" ",optionLeter:" "},
+     optionD:{optionDesc:" ",optionLeter:" "},
+     questionNumber:1
+    }
+    
+  ]*/
+
+
+  const [questionsArray,setQuestionsArray] = useState([])
+  
+  const expandQuestionsArray = () =>{
+
+     let questionsArrayHolder = [...questionsArray]
+
+     questionsArrayHolder[questionsArrayHolder.length] = {
+     
+      correctAnswer:correctAnswer,
+      optionA:{optionDesc:optionA,optionLeter:"A"},
+      optionB:{optionDesc:optionB,optionLeter:"B"},
+      optionC:{optionDesc:optionC,optionLeter:"C"},
+      optionD:{optionDesc:optionD,optionLeter:"D"},
+      questionNumber:questionsArray.length+1,
+      question:question
+     
+    }
+
+    setQuestionsArray([...questionsArrayHolder])
+    setQuestion('')
+    setOptionA('')
+    setOptionB('')
+    setOptionC('')
+    setOptionD('')
+   setCorrectAnswer('')
+   
+  }
+
+  const clearOptions =()=>{
+    setOptionA('')
+    setOptionB('')
+    setOptionC('')
+    setOptionD('')
+  }
+
+  const shrinkQuestionsArray = () =>{
+if(questionsArray.length > 1){
+ let questionsArrayShrunk = [...questionsArray]
+  questionsArrayShrunk.pop()
+
+    setQuestionsArray(questionsArrayShrunk)
+  }
+    else{
+      notifyErrorFxn("You must have at least 1 question !")
+    }
+  }
+
+
+
 useEffect(()=>{
 
 setOptionsArray([{A:optionA},{B:optionB},{C:optionC},{D:optionD}])
@@ -73,9 +135,8 @@ setOptionsArray([{A:optionA},{B:optionB},{C:optionC},{D:optionD}])
    
     quizFileUrl:quizFileUrl,
     lessonNumber:lessonNumber,
-    question,
-    correctAnswer,
-    optionsArray
+    questionsArray:questionsArray
+    
   }
 
 
@@ -85,9 +146,10 @@ setOptionsArray([{A:optionA},{B:optionB},{C:optionC},{D:optionD}])
   
   if(!title || !body ||!category || !quizFileUrl||!subject 
    ||!location.state.chapterId||!lessonNumber
-    ||!question||!correctAnswer||!optionA||!optionB||!optionC||!optionD
     ){
     notifyErrorFxn("Please make sure to fill in all fields.")
+  }else if(questionsArray.length<1){
+    notifyErrorFxn("You must have at least 1 question in your quiz.")
   }
   else{
     setLoading(true)
@@ -95,7 +157,7 @@ setOptionsArray([{A:optionA},{B:optionB},{C:optionC},{D:optionD}])
    
     // console.log("identity is",identity)
     // console.log("update this subject is updating.........")
-    setTimeout(()=>{setLoading(false)},1800)
+    setTimeout(()=>{setLoading(false)},2800)
    }
   }
 
@@ -338,12 +400,7 @@ const addOption =(option) => {
           </Grid>
         </Grid>
 
-      
-
-
-
-
-
+    
       
       </Grid>
     
@@ -364,7 +421,7 @@ const addOption =(option) => {
 <Grid item xs={12} sx={{ display: 'flex', flexDirection: 'row',justifyContent:"space-between", marginBottom:"3rem"}}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <Typography variant="h4" component="p">
-          ADD QUESTION
+          ADD QUESTION(S)
           </Typography>
 
         
@@ -374,7 +431,25 @@ const addOption =(option) => {
 
  
 
- <Grid container spacing={2}>
+ { questionsArray.map((item,index)=> (
+  <>
+  <Grid style={{position:"relative"}} container spacing={2}>
+
+ <Grid container item xs={12} spacing={2}>
+      <Grid item xs={12}>
+        <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
+         <div style={{fontSize:"1.5rem"}} >
+        QUESTION  {index+1}
+         </div>
+  
+        </Typography>
+      
+      </Grid>
+
+     
+    </Grid>
+
+
      <Grid container item xs={12} spacing={2}>
       <Grid item xs={3}>
         <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
@@ -393,9 +468,9 @@ const addOption =(option) => {
         variant="outlined"
         multiline
         maxRows={2}
-        value= {question}
-        onChange = {(e)=>{setQuestion(e.target.value)}}
-        
+        value= {item.question}
+        //onChange = {(e)=>{setQuestion(e.target.value)}}
+        disabled={true}
         />
         
         
@@ -405,10 +480,10 @@ const addOption =(option) => {
 
 
    
-   <Grid container item xs={12} spacing={2}>
+   {/*<Grid container item xs={12} spacing={2}>
       <Grid item xs={3}>
         <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
-         <div >
+         <div>
         ANSWER OPTIONS
          </div>
   
@@ -430,7 +505,7 @@ const addOption =(option) => {
 
 <div style={{ display: 'flex', justifyContent: 'center' }}>
 <Button  onClick={() => { addOption(optionFill)}} variant="contained" 
-style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px', paddingBottom: '10px', 
+style={{ backgroundColor: "#000000", paddingTop: '10px', paddingBottom: '10px', 
 paddingRight: '30px', paddingLeft: '30px'}}
 >
 ADD
@@ -439,7 +514,7 @@ ADD
         
         
       </Grid>
-    </Grid>
+ </Grid>*/}
 
 
     <Grid container item xs={12} sx={{paddingTop:"4rem"}} spacing={2}>
@@ -454,10 +529,10 @@ ADD
       </Grid>
 
       <Grid item xs={7} sx={{display:"flex",  flexDirection:"column",justifyContent:"flex-start",gap:"20px"}} >
-       <p>A.){" "}{optionA && optionA}</p>
-       <p>B.){" "}{optionB && optionB}</p>
-       <p>C.){" "}{optionC && optionC}</p>
-       <p>D.){" "}{optionD && optionD}</p> 
+       <p>A.){" "}{item.optionA && item.optionA.optionDesc   && item.optionA.optionDesc}</p>
+       <p>B.){" "}{item.optionB && item.optionB.optionDesc   && item.optionB.optionDesc}</p>
+       <p>C.){" "}{item.optionC && item.optionC.optionDesc   && item.optionC.optionDesc}</p>
+       <p>D.){" "}{item.optionD && item.optionD.optionDesc   && item.optionD.optionDesc}</p> 
         
       </Grid>
     </Grid>
@@ -482,9 +557,9 @@ ADD
         variant="outlined"
         multiline
         maxRows={2}
-        value= {correctAnswer}
-        onChange = {(e)=>{setCorrectAnswer(e.target.value)}}
-        
+        value= {item.correctAnswer}
+        //onChange = {(e)=>{setCorrectAnswer(e.target.value)}}
+        disabled={true}
         />
         
         
@@ -493,23 +568,206 @@ ADD
 
 
    
-
+    <div style={{height:"2px", width:"95%",borderBottom:"1px solid black",position:"absolute",left:"0rem",top:"26rem"}}></div>
   
 
+  </Grid> 
+   <br/><br/><br/>
+   </>
+  ))}
+
+ 
+<br/>
+  <div style={{ position:"relative",display: 'flex',flexDirection:"column", width:"16%", justifyContent: 'center',margin:"0 auto",gap:"1rem" ,marginBottom:"6rem"}}>
+ 
+
+  <Button  onClick={() => {shrinkQuestionsArray() }} variant="contained" 
+  style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px', paddingBottom: '10px', 
+  paddingRight: '30px', paddingLeft: '30px'}}
+>
+    DELETE LAST QUESTION
+  </Button>
+ 
+  <div style={{height:"2px", width:"95%",borderBottom:"1px solid black",position:"absolute",left:"0rem",top:"4rem",marginBottom:"6rem"}}></div>
+</div>
+
+<br/><br/>
+</Container>
+
+
+<Grid container style={{position:"relative"}} spacing={2}>
+
+<Grid container item xs={12} spacing={2}>
+     <Grid item xs={12}>
+       <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
+        <div style={{fontSize:"1.5rem"}} >
+       QUESTION TO ADD
+        </div>
+ 
+       </Typography>
+     
+     </Grid>
+
+    
+   </Grid>
+
+
+    <Grid container item xs={12} spacing={2}>
+     <Grid item xs={3}>
+       <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
+        <div >
+       QUESTION
+        </div>
+ 
+       </Typography>
+     
+     </Grid>
+
+     <Grid item xs={7}>
+       <TextField
+       fullWidth
+       placeholder=" enter question"
+       variant="outlined"
+       multiline
+       maxRows={2}
+       value= {question}
+       onChange = {(e)=>{setQuestion(e.target.value)}}
+       
+       />
+       
+       
+     </Grid>
+   </Grid>
+
+
+
   
-  </Grid>
-  <br/><br/>
-{/*<div style={{ display: 'flex', justifyContent: 'center' }}>
-<Button   variant="contained" 
+  <Grid container item xs={12} spacing={2}>
+     <Grid item xs={3}>
+       <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
+        <div>
+       ANSWER OPTIONS
+        </div>
+ 
+       </Typography>
+     
+     </Grid>
+
+     <Grid item xs={7} sx={{display:"flex",justifyContent:"center",gap:"20px"}} >
+       <TextField
+       sx={{width:"90%"}}
+       placeholder=" enter answer"
+       variant="outlined"
+       multiline
+       maxRows={2}
+       value= {optionFill}
+       onChange = {(e)=>{setOptionFill(e.target.value)}}
+       
+       />
+
+<div style={{ display: 'flex', justifyContent: 'center' }}>
+<Button  onClick={() => { addOption(optionFill)}} variant="contained" 
 style={{ backgroundColor: "#000000", paddingTop: '10px', paddingBottom: '10px', 
 paddingRight: '30px', paddingLeft: '30px'}}
 >
 ADD
 </Button>
-</div> */}
+</div>
+       
+       
+     </Grid>
+   </Grid>
 
 
-</Container>
+   <Grid container item xs={12} sx={{paddingTop:"4rem"}} spacing={2}>
+     <Grid item xs={3}>
+       <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
+        <div >
+       ANSWERS ADDED
+        </div>
+ 
+       </Typography>
+     
+     </Grid>
+
+     <Grid item xs={7} sx={{display:"flex",  flexDirection:"column",justifyContent:"flex-start",gap:"20px"}} >
+      <p>A.){" "}{optionA && optionA}</p>
+      <p>B.){" "}{optionB && optionB}</p>
+      <p>C.){" "}{optionC && optionC}</p>
+      <p>D.){" "}{optionD && optionD}</p> 
+       
+     </Grid>
+
+
+   </Grid>
+
+
+    
+   <br/><br/>
+  <div style={{ display: 'flex',flexDirection:"column", width:"16%", justifyContent: 'center',margin:"0 auto",gap:"1rem" }}>
+ 
+
+ <Button  onClick={() => {clearOptions() }} variant="contained" 
+ style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px', paddingBottom: '10px', 
+ paddingRight: '30px', paddingLeft: '30px'}}
+>
+   CLEAR OPTIONS
+ </Button>
+ 
+</div>
+
+<br/><br/><br/><br/><br/><br/>
+
+
+   <Grid container item xs={12} spacing={2}>
+     <Grid item xs={3}>
+       <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
+        <div >
+        CORRECT ANSWER
+        </div>
+ 
+       </Typography>
+     
+     </Grid>
+
+     <Grid item xs={7}>
+       <TextField
+       fullWidth
+       placeholder=" enter only letters A,B,C or D"
+       variant="outlined"
+       multiline
+       maxRows={2}
+       value= {correctAnswer}
+       onChange = {(e)=>{setCorrectAnswer(e.target.value)}}
+       
+       />
+       
+       
+     </Grid>
+   </Grid>
+
+
+  
+
+   <div style={{height:"2px", width:"95%",borderBottom:"1px solid black",position:"absolute",left:"0rem",top:"47rem",marginBottom:"2rem"}}></div>
+
+  
+ </Grid> 
+ 
+
+
+<br/><br/><br/>
+  <div style={{ display: 'flex',flexDirection:"column", width:"16%", justifyContent: 'center',margin:"0 auto",gap:"1rem" }}>
+ 
+
+  <Button  onClick={() => {expandQuestionsArray() }} variant="contained" 
+  style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px', paddingBottom: '10px', 
+  paddingRight: '30px', paddingLeft: '30px'}}
+>
+    ADD THIS QUESTION
+  </Button>
+ 
+</div>
 
 <br/><br/><br/><br/>
   <div style={{ display: 'flex', justifyContent: 'center',gap:"1rem" }}>
@@ -525,7 +783,7 @@ ADD
   style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px', paddingBottom: '10px', 
   paddingRight: '30px', paddingLeft: '30px'}}
 >
-    {loading?"loading...":"SUBMIT"}
+    {loading?"loading...":"SUBMIT QUIZ"}
   </Button>
 </div>
     </>

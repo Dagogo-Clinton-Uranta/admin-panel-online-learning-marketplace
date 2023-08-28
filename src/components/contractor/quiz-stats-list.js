@@ -126,7 +126,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function ContractorStatsList({jobs}) {
+export default function QuizStatsList({jobs}) {
   //search function
   const dispatch = useDispatch();
   const [jobList, setJobList] = useState([{subject:"Mathematiques",courseName:"Dissociation et produit ionique",watchedOn:"July 22, 2023. 4:05pm"},
@@ -228,7 +228,7 @@ export default function ContractorStatsList({jobs}) {
       <br/>
       {
         <>
-        <p style={{fontSize: '26px', marginLeft: '5px', color: 'black'}}><b>Lesson Stats</b></p><br/>
+        <p style={{fontSize: '26px', marginLeft: '5px', color: 'black'}}><b>Quiz Stats</b></p><br/>
       <hr />
         </>
       
@@ -237,9 +237,10 @@ export default function ContractorStatsList({jobs}) {
         <Table sx={{ maxWidth: 1500,tableLayout:"fixed" }} aria-label="custom pagination table">
           <TableHead>
             <TableRow>
-              <StyledTableCell>Subject Watched</StyledTableCell>
-              <StyledTableCell align="right">Course Name</StyledTableCell>
-              <StyledTableCell align="right">Watched On</StyledTableCell>
+              <StyledTableCell>Quiz taken</StyledTableCell>
+              <StyledTableCell align="right">Subject</StyledTableCell>
+              <StyledTableCell align="right">Taken On</StyledTableCell>
+              <StyledTableCell align="right">Result</StyledTableCell>
               
               {/*<StyledTableCell align="right">Industry</StyledTableCell>
               <StyledTableCell align="center">State</StyledTableCell>
@@ -260,6 +261,10 @@ export default function ContractorStatsList({jobs}) {
                 <TableCell component="th" scope="row">
                   {row.subject}
                 </TableCell>
+                <TableCell style={{ width: 140 }} align="right">
+                  {row.courseName}
+                </TableCell>
+
                 <TableCell style={{ width: 140 }} align="right">
                   {row.courseName}
                 </TableCell>

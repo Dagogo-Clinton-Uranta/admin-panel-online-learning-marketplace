@@ -126,7 +126,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function ContractorStatsList({jobs}) {
+export default function LessonStatsList({jobs}) {
   //search function
   const dispatch = useDispatch();
   const [jobList, setJobList] = useState([{subject:"Mathematiques",courseName:"Dissociation et produit ionique",watchedOn:"July 22, 2023. 4:05pm"},
@@ -237,8 +237,9 @@ export default function ContractorStatsList({jobs}) {
         <Table sx={{ maxWidth: 1500,tableLayout:"fixed" }} aria-label="custom pagination table">
           <TableHead>
             <TableRow>
-              <StyledTableCell>Subject Watched</StyledTableCell>
-              <StyledTableCell align="right">Course Name</StyledTableCell>
+              <StyledTableCell>Lesson Watched</StyledTableCell>
+              <StyledTableCell align="right">Subject Name</StyledTableCell>
+              <StyledTableCell align="right">Course</StyledTableCell>
               <StyledTableCell align="right">Watched On</StyledTableCell>
               
               {/*<StyledTableCell align="right">Industry</StyledTableCell>
@@ -259,6 +260,9 @@ export default function ContractorStatsList({jobs}) {
               <TableRow key={row.id}>
                 <TableCell component="th" scope="row">
                   {row.subject}
+                </TableCell>
+                <TableCell style={{ width: 140 }} align="right">
+                  {row.courseName}
                 </TableCell>
                 <TableCell style={{ width: 140 }} align="right">
                   {row.courseName}

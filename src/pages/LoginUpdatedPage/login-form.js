@@ -143,7 +143,7 @@ function LoginForm(props) {
           //color="primary"
           className="w-full mx-auto mt-16"
           aria-label="LOG IN"
-          disabled={_.isEmpty(dirtyFields) || !isValid || isLoading}
+            disabled={_.isEmpty(dirtyFields) || !isValid || isLoading}
           value="legacy"
         >
            {isLoading ? 'Loading...' : 'LOGIN'}

@@ -1,9 +1,9 @@
 import { db } from "../../config/firebase";
-import { fetchJobs,fetchTeachers,fetchCourses, fetchSingleJob,saveUserCourses } from "../reducers/job.slice";
+import { fetchJobs,fetchTeachers,fetchCourses, fetchSingleJob,fetchSingleStudent,saveUserCourses,saveAllLessonsOneStudent,saveAllQuizzesOneStudent } from "../reducers/job.slice";
 import { useDispatch, useSelector } from "react-redux";
 
 export const getJobs = (uid) => async (dispatch) => {
-    db.collection('students').get().then((snapshot) => {
+    db.collection('users').get().then((snapshot) => {
         const jobs = snapshot.docs.map((doc) => ({id: doc.id, ...doc.data() }));
         // console.log('Jobs: ', jobs);
         dispatch(fetchJobs(jobs));
@@ -90,6 +90,50 @@ export const getSingleJob = (id) => async (dispatch) => {
     }
 }).catch((error) => {
     console.log("Error getting document:", error);
+});
+
+};
+
+
+export const getSingleStudent = (id) => async (dispatch) => {
+    var job = db.collection("users").doc(id);
+
+    job.get().then((doc) => {
+    if (doc.exists) {
+        console.log("Document data:", doc.data());
+
+        dispatch(fetchSingleStudent(doc.data()));
+
+        if(doc.data().lessonsWatched && doc.data().lessonsWatched.length >0 ){
+            let allLessonsOneStudent = []
+            doc.data().lessonsWatched.forEach((element) => {
+              var oneLesson  = db.collection("boneCourses").doc(element);
+             
+              oneLesson.get().then((shrew) => {allLessonsOneStudent = [...allLessonsOneStudent,shrew.data()]})
+              
+          })
+
+          setTimeout(()=>{dispatch(saveAllLessonsOneStudent(allLessonsOneStudent))},1000)
+        }
+
+        if(doc.data().quizzesTaken && doc.data().quizzesTaken.length >0 ){
+              let allQuizzesOneStudent = []
+              doc.data().quizzesTaken.forEach((element) => {
+                var oneQuiz  = db.collection("quizzes").doc(element.quizId);
+               
+                oneQuiz.get().then((shrew) => {allQuizzesOneStudent = [...allQuizzesOneStudent,shrew.data()]})
+                
+            })
+
+            setTimeout(()=>{dispatch(saveAllQuizzesOneStudent(allQuizzesOneStudent))},1000)
+        } 
+
+        
+    } else {
+        console.log("No such student!");
+    }
+}).catch((error) => {
+    console.log("Error getting student data:", error);
 });
 
 };

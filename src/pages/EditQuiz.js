@@ -295,7 +295,6 @@ function EditQuiz() {
             multiline
             value= {quizFileUrl}
             onChange = {(e)=>{setQuizFileUrl(e.target.value)}}
-            
             />
             
             

@@ -21,7 +21,7 @@ import { Button, Grid, makeStyles } from "@material-ui/core";
 import { Link, NavLink, useNavigate} from "react-router-dom";
 //import SearchBar from "material-ui-search-bar";
 //import useRequest from "../../hooks/use-request";
-import { fetchJobs } from "../../redux/actions/job.action";
+import { fetchJobs,getSingleStudent } from "../../redux/actions/job.action";
 import Skeleton from '@mui/material/Skeleton';
 import {Typography,CardMedia,} from '@material-ui/core';
 //import CoolerBoxIMG from '../../assets/images/save-money.png';
@@ -130,6 +130,8 @@ export default function CJobList({jobs}) {
   //search function
   const dispatch = useDispatch();
   const [jobList, setJobList] = useState(jobs);
+  const [loading,setLoading] =useState(false)
+
   console.log("all users are:",jobs)
   const [searched, setSearched] = useState("");
   const classes = useStyles();
@@ -161,8 +163,12 @@ export default function CJobList({jobs}) {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-  const viewJobsFxn = (id) => {
-    navigate(`/dashboard/student-stats/`,{ state: { id:id } });
+  const viewStudentFxn = (id) => {
+
+    setLoading(true)
+    dispatch(getSingleStudent(id))
+
+   setTimeout(() =>{navigate(`/dashboard/student-stats/`,{ state: { id:id } })},2500);
   };
 
   const deleteJobFxn = (id) => {
@@ -179,20 +185,6 @@ export default function CJobList({jobs}) {
   }
 }
   
-
-  // const { doRequest, loading } = useRequest({
-  //   url: '/setup/update-field',
-  //   method: 'post',
-  //   onSuccess: (data) => {
-  //     // console.log('data: ', data);
-  //     setLoadingButton(false);
-  //     if (data?.message === 'done') {
-  //       navigate('profile-picture?job=' + jobID);
-  //     } else {
-  //       setErrorMessage(data?.message);
-  //     }
-  //   }
-  // });
 
 
 
@@ -231,7 +223,7 @@ export default function CJobList({jobs}) {
                     // fullWidth
                     variant="contained"
                     style={{
-                      backgroundColor: '#000000' /*"#60A1EC"*/,
+                      backgroundColor: '#000000' ,
                       color: "white",
                       width: "17%",
 
@@ -289,15 +281,15 @@ export default function CJobList({jobs}) {
                     // fullWidth
                     variant="contained"
                     style={{
-                      backgroundColor: '#000000' /*"#60A1EC"*/,
+                      backgroundColor: '#000000',
                       color: "white",
                       width: "70%",
                       fontSize: "15px",
                     }}
                     sx={{ mt: 7, mb: 2 }}
-                    onClick={() => viewJobsFxn(row.uid.trim())}
+                    onClick={() => viewStudentFxn(row.uid.trim())}
                   >
-                    VIEW
+                    {loading?"loading...":"VIEW"}
                   </Button>
                 </TableCell>
 

@@ -114,11 +114,7 @@ TablePaginationActions.propTypes = {
   rowsPerPage: PropTypes.number.isRequired,
 };
 
-const originalJobList = [
-  { id: 1, title: "Java Developer", fulldate: "01/01/2022" },
-  { id: 2, title: "MERN Stack Developer", fulldate: "01/01/2022"},
-  { id: 3, title: "Flutter Developer", fulldate: "01/01/2022"},
-].sort((a, b) => (a.title < b.title ? -1 : 1));
+
 
 const useStyles = makeStyles({
   table: {
@@ -126,16 +122,22 @@ const useStyles = makeStyles({
   },
 });
 
-export default function QuizStatsList({jobs}) {
+export default function QuizStatsList({student,allQuizzes}) {
   //search function
+  console.log("OUR TEST IS HERE",student.quizzesTaken[0].takenOn)
   const dispatch = useDispatch();
-  const [jobList, setJobList] = useState([{subject:"Mathematiques",courseName:"Dissociation et produit ionique",watchedOn:"July 22, 2023. 4:05pm"},
-                                          {subject:"Biologie",courseName:"Dissociation et produit ionique",watchedOn:"July 25, 2023. 12:00pm",}]);
-  console.log("all users are:",jobs)
+  const [jobList, setJobList] = useState(allQuizzes?allQuizzes:
+                                        [{subject:"Mathematiques",courseName:"Dissociation et produit ionique",watchedOn:"July 22, 2023. 4:05pm"},
+                                          {subject:"Biologie",courseName:"Dissociation et produit ionique",watchedOn:"July 25, 2023. 12:00pm"}]
+                                          
+                                        );
+
+
+  console.log("all quizzes are:",allQuizzes)
   const [searched, setSearched] = useState("");
   const classes = useStyles();
   const requestSearch = (searchedVal) => {
-    const filteredRows = jobs?.filter((row) => {
+    const filteredRows = allQuizzes?.filter((row) => {
       return row.title.toLowerCase().includes(searchedVal.toLowerCase());
     });
     setJobList(filteredRows);
@@ -162,7 +164,7 @@ export default function QuizStatsList({jobs}) {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-  const viewJobsFxn = (id) => {
+  const viewallQuizzesFxn = (id) => {
     navigate(`/dashboard/student-stats/`,{ state: { id:id } });
   };
 
@@ -200,7 +202,7 @@ export default function QuizStatsList({jobs}) {
   return (
     <>
         {
-          jobs ? 
+          allQuizzes ? 
           <>
        
 
@@ -216,7 +218,7 @@ export default function QuizStatsList({jobs}) {
             }}
             sx={{ mt: 7, mb: 2 }}
              
-            onClick={() => {console.log("this button is supposed to move you to an add user page")window.location.href = "/company/add-jobs"}}
+            onClick={() => {console.log("this button is supposed to move you to an add user page")window.location.href = "/company/add-allQuizzes"}}
           >
             ADD USER
           </Button>
@@ -256,21 +258,21 @@ export default function QuizStatsList({jobs}) {
                   page * rowsPerPage + rowsPerPage
                 )
               : jobList
-            ).map((row) => (
+            ).map((row,index) => (
               <TableRow key={row.id}>
                 <TableCell component="th" scope="row">
+                  {row.title}
+                </TableCell>
+                <TableCell style={{ width: 140 }} align="right">
                   {row.subject}
                 </TableCell>
+
                 <TableCell style={{ width: 140 }} align="right">
-                  {row.courseName}
+                  {(new Date((student.quizzesTaken[index].takenOn.seconds)*1000)).toDateString()}
                 </TableCell>
 
                 <TableCell style={{ width: 140 }} align="right">
-                  {row.courseName}
-                </TableCell>
-
-                <TableCell style={{ width: 140 }} align="right">
-                  {row.watchedOn}
+                  {"TBD"}
                 </TableCell>
 
                 {/*<TableCell style={{ width: 140 }} align="right">
@@ -295,9 +297,9 @@ export default function QuizStatsList({jobs}) {
                       fontSize: "15px",
                     }}
                     sx={{ mt: 7, mb: 2 }}
-                    onClick={() => viewJobsFxn(row.uid.trim())}
+                    onClick={() => viewallQuizzesFxn(row.uid.trim())}
                   >
-                    VIEW
+                    EXPAND 
                   </Button>
                 </TableCell>
 

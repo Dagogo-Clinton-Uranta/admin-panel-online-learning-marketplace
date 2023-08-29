@@ -114,11 +114,7 @@ TablePaginationActions.propTypes = {
   rowsPerPage: PropTypes.number.isRequired,
 };
 
-const originalJobList = [
-  { id: 1, title: "Java Developer", fulldate: "01/01/2022" },
-  { id: 2, title: "MERN Stack Developer", fulldate: "01/01/2022"},
-  { id: 3, title: "Flutter Developer", fulldate: "01/01/2022"},
-].sort((a, b) => (a.title < b.title ? -1 : 1));
+
 
 const useStyles = makeStyles({
   table: {
@@ -126,16 +122,19 @@ const useStyles = makeStyles({
   },
 });
 
-export default function LessonStatsList({jobs}) {
+export default function LessonStatsList({student,allLessons}) {
   //search function
   const dispatch = useDispatch();
-  const [jobList, setJobList] = useState([{subject:"Mathematiques",courseName:"Dissociation et produit ionique",watchedOn:"July 22, 2023. 4:05pm"},
-                                          {subject:"Biologie",courseName:"Dissociation et produit ionique",watchedOn:"July 25, 2023. 12:00pm",}]);
-  console.log("all users are:",jobs)
+  const [jobList, setJobList] = useState(allLessons?allLessons:
+                                           [{subject:"Mathematiques",courseName:"Dissociation et produit ionique",watchedOn:"July 22, 2023. 4:05pm"},
+                                          {subject:"Biologie",courseName:"Dissociation et produit ionique",watchedOn:"July 25, 2023. 12:00pm",}]
+                                          );
+
+  console.log("all lessons are:",allLessons)
   const [searched, setSearched] = useState("");
   const classes = useStyles();
   const requestSearch = (searchedVal) => {
-    const filteredRows = jobs?.filter((row) => {
+    const filteredRows = allLessons?.filter((row) => {
       return row.title.toLowerCase().includes(searchedVal.toLowerCase());
     });
     setJobList(filteredRows);
@@ -162,7 +161,7 @@ export default function LessonStatsList({jobs}) {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-  const viewJobsFxn = (id) => {
+  const viewallLessonsFxn = (id) => {
     navigate(`/dashboard/student-stats/`,{ state: { id:id } });
   };
 
@@ -200,7 +199,7 @@ export default function LessonStatsList({jobs}) {
   return (
     <>
         {
-          jobs ? 
+          allLessons ? 
           <>
        
 
@@ -216,7 +215,7 @@ export default function LessonStatsList({jobs}) {
             }}
             sx={{ mt: 7, mb: 2 }}
              
-            onClick={() => {console.log("this button is supposed to move you to an add user page")window.location.href = "/company/add-jobs"}}
+            onClick={() => {console.log("this button is supposed to move you to an add user page")window.location.href = "/company/add-allLessons"}}
           >
             ADD USER
           </Button>
@@ -239,8 +238,8 @@ export default function LessonStatsList({jobs}) {
             <TableRow>
               <StyledTableCell>Lesson Watched</StyledTableCell>
               <StyledTableCell align="right">Subject Name</StyledTableCell>
-              <StyledTableCell align="right">Course</StyledTableCell>
-              <StyledTableCell align="right">Watched On</StyledTableCell>
+              <StyledTableCell align="right">level</StyledTableCell>
+              <StyledTableCell align="right">Taken On</StyledTableCell>
               
               {/*<StyledTableCell align="right">Industry</StyledTableCell>
               <StyledTableCell align="center">State</StyledTableCell>
@@ -256,20 +255,20 @@ export default function LessonStatsList({jobs}) {
                   page * rowsPerPage + rowsPerPage
                 )
               : jobList
-            ).map((row) => (
+            ).map((row,index) => (
               <TableRow key={row.id}>
                 <TableCell component="th" scope="row">
-                  {row.subject}
+                  {row.title}
                 </TableCell>
                 <TableCell style={{ width: 140 }} align="right">
-                  {row.courseName}
+                  {row.section}
                 </TableCell>
                 <TableCell style={{ width: 140 }} align="right">
-                  {row.courseName}
+                  {row.category}
                 </TableCell>
 
                 <TableCell style={{ width: 140 }} align="right">
-                  {row.watchedOn}
+                  {(new Date((student.quizzesTaken[index].takenOn.seconds)*1000)).toDateString()}
                 </TableCell>
 
                 {/*<TableCell style={{ width: 140 }} align="right">
@@ -294,9 +293,9 @@ export default function LessonStatsList({jobs}) {
                       fontSize: "15px",
                     }}
                     sx={{ mt: 7, mb: 2 }}
-                    onClick={() => viewJobsFxn(row.uid.trim())}
+                    //onClick={() => viewallLessonsFxn(row.uid.trim())}
                   >
-                    VIEW
+                    EXPAND
                   </Button>
                 </TableCell>
 

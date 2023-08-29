@@ -6,6 +6,9 @@ const initialState = {
   courses:[],
   userCourses:[],
   job: null,
+  student:null,
+  allQuizzesOneStudent:[],
+  allLessonsOneStudent:[],
   error: '',
   message: '',
 };
@@ -34,9 +37,19 @@ const jobSlice = createSlice({
         state.error = '';
         state.message = '';
       },
+      saveAllQuizzesOneStudent: (state, action) => {
+        state.allQuizzesOneStudent = action.payload; 
+      },
+      saveAllLessonsOneStudent: (state, action) => {
+        state.allLessonsOneStudent = action.payload; 
+      },
     fetchSingleJob: (state, action) => {
         state.job = action.payload;
       },
+      fetchSingleStudent: (state, action) => {
+        state.student = action.payload;
+      },
+
 
     initiatePending: (state) => {
       state.isLoading = true;
@@ -57,6 +70,9 @@ export const {
  fetchJobs,
  fetchTeachers,
  fetchSingleJob,
+ saveAllLessonsOneStudent,
+ saveAllQuizzesOneStudent,
+ fetchSingleStudent,
  fetchCourses,
  saveUserCourses,
 } = actions;

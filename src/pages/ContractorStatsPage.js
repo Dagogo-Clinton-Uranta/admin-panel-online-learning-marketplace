@@ -20,8 +20,8 @@ const theme = createTheme();
 
 export default function ContractorStatsPage() {
   const dispatch = useDispatch();
-  const { courses } = useSelector((state) => state.jobs);
-  const { userCourses } = useSelector((state) => state.jobs);
+  const { courses,userCourses,allQuizzesOneStudent,allLessonsOneStudent,student } = useSelector((state) => state.jobs);
+ console.log("oho ! the student i have is !!",student)
 
   const [jobArr, setJobArr] = useState([]);
   const navigate = useNavigate()
@@ -101,11 +101,11 @@ export default function ContractorStatsPage() {
 
        {/*jobArr.length &&*/ userCourses ?
            <>
-           <LessonStatsList jobs={userCourses} />
+           <LessonStatsList student={student}  allLessons={allLessonsOneStudent}/>
 
            <br/><br/><br/><br/>
 
-           <QuizStatsList jobs={userCourses} />
+           <QuizStatsList student={student} allQuizzes = {allQuizzesOneStudent} />
            </>
            :
            <center>

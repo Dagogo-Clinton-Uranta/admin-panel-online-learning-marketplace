@@ -130,7 +130,7 @@ export default function LessonStatsList({student,allLessons}) {
                                           {subject:"Biologie",courseName:"Dissociation et produit ionique",watchedOn:"July 25, 2023. 12:00pm",}]
                                           );
 
-  console.log("all lessons are:",allLessons)
+  console.log("all lessons are!!:",allLessons)
   const [searched, setSearched] = useState("");
   const classes = useStyles();
   const requestSearch = (searchedVal) => {
@@ -268,7 +268,7 @@ export default function LessonStatsList({student,allLessons}) {
                 </TableCell>
 
                 <TableCell style={{ width: 140 }} align="right">
-                  {(new Date((student.quizzesTaken[index].takenOn.seconds)*1000)).toDateString()}
+                  {(new Date((student.lessonsWatched[index].takenOn.seconds)*1000)).toDateString()}
                 </TableCell>
 
                 {/*<TableCell style={{ width: 140 }} align="right">

@@ -289,7 +289,7 @@ export default function CJobList({jobs}) {
                     sx={{ mt: 7, mb: 2 }}
                     onClick={() => viewStudentFxn(row.uid.trim())}
                   >
-                    {loading?"loading...":"VIEW"}
+                    {"VIEW"}
                   </Button>
                 </TableCell>
 

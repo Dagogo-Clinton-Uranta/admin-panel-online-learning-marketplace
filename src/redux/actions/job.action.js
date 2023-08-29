@@ -100,23 +100,32 @@ export const getSingleStudent = (id) => async (dispatch) => {
 
     job.get().then((doc) => {
     if (doc.exists) {
-        console.log("Document data:", doc.data());
+        
 
         dispatch(fetchSingleStudent(doc.data()));
 
-        if(doc.data().lessonsWatched && doc.data().lessonsWatched.length >0 ){
+        if(doc.data().lessonsWatched ){
             let allLessonsOneStudent = []
             doc.data().lessonsWatched.forEach((element) => {
-              var oneLesson  = db.collection("boneCourses").doc(element);
+              var oneLesson  = db.collection("boneCourses").doc(element.lessonId);
              
               oneLesson.get().then((shrew) => {allLessonsOneStudent = [...allLessonsOneStudent,shrew.data()]})
               
           })
+         
+          setTimeout(()=>{
+          if(allLessonsOneStudent.length > 0){
+          dispatch(saveAllLessonsOneStudent(allLessonsOneStudent));console.log("ALL LESSONS for ONE STUDENT", allLessonsOneStudent)
+          }else{
+            dispatch(saveAllLessonsOneStudent([ ]));console.log("ALL LESSONS for ONE STUDENT", allLessonsOneStudent)
+          }
+        }
+        ,2000)
 
-          setTimeout(()=>{dispatch(saveAllLessonsOneStudent(allLessonsOneStudent))},1000)
+
         }
 
-        if(doc.data().quizzesTaken && doc.data().quizzesTaken.length >0 ){
+        if(doc.data().quizzesTaken){                 
               let allQuizzesOneStudent = []
               doc.data().quizzesTaken.forEach((element) => {
                 var oneQuiz  = db.collection("quizzes").doc(element.quizId);
@@ -124,8 +133,16 @@ export const getSingleStudent = (id) => async (dispatch) => {
                 oneQuiz.get().then((shrew) => {allQuizzesOneStudent = [...allQuizzesOneStudent,shrew.data()]})
                 
             })
+            setTimeout(()=>{
+               
+            if(allQuizzesOneStudent.length > 0){
+           dispatch(saveAllQuizzesOneStudent(allQuizzesOneStudent));console.log("ALL QUIZZES for ONE STUDENT", allQuizzesOneStudent)
+            }else{
+               dispatch(saveAllQuizzesOneStudent([ ]));console.log("ALL QUIZZES for ONE STUDENT", allQuizzesOneStudent)
+            }
 
-            setTimeout(()=>{dispatch(saveAllQuizzesOneStudent(allQuizzesOneStudent))},1000)
+              }
+            ,2000)
         } 
 
         
@@ -133,7 +150,7 @@ export const getSingleStudent = (id) => async (dispatch) => {
         console.log("No such student!");
     }
 }).catch((error) => {
-    console.log("Error getting student data:", error);
+    console.log("Error getting the student data:", error);
 });
 
 };

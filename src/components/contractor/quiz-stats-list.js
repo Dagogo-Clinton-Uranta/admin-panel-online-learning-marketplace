@@ -124,7 +124,7 @@ const useStyles = makeStyles({
 
 export default function QuizStatsList({student,allQuizzes}) {
   //search function
-  console.log("OUR TEST IS HERE",student.quizzesTaken[0].takenOn)
+  console.log("OUR TEST IS NOW",student.quizzesTaken[0].takenOn)
   const dispatch = useDispatch();
   const [jobList, setJobList] = useState(allQuizzes?allQuizzes:
                                         [{subject:"Mathematiques",courseName:"Dissociation et produit ionique",watchedOn:"July 22, 2023. 4:05pm"},
@@ -133,7 +133,7 @@ export default function QuizStatsList({student,allQuizzes}) {
                                         );
 
 
-  console.log("all quizzes are:",allQuizzes)
+  console.log("all quizzes are now:",allQuizzes)
   const [searched, setSearched] = useState("");
   const classes = useStyles();
   const requestSearch = (searchedVal) => {

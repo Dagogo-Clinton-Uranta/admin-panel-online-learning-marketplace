@@ -112,18 +112,23 @@ export const getSingleStudent = (id) => async (dispatch) => {
               oneLesson.get().then((shrew) => {allLessonsOneStudent = [...allLessonsOneStudent,shrew.data()]})
               
           })
-         
+          console.log("what i am fetching for  LESSONS is",allLessonsOneStudent )
+          
           setTimeout(()=>{
           if(allLessonsOneStudent.length > 0){
-          dispatch(saveAllLessonsOneStudent(allLessonsOneStudent));console.log("ALL LESSONS for ONE STUDENT", allLessonsOneStudent)
+          dispatch(saveAllLessonsOneStudent(allLessonsOneStudent));console.log("ALL LESSONS ONE STUDENT", allLessonsOneStudent)
           }else{
-            dispatch(saveAllLessonsOneStudent([ ]));console.log("ALL LESSONS for ONE STUDENT", allLessonsOneStudent)
+            dispatch(saveAllLessonsOneStudent([ ]));console.log("ALL LESSONS  ONE STUDENT", allLessonsOneStudent)
           }
         }
         ,2000)
 
 
+        }else{
+            dispatch(saveAllLessonsOneStudent([ ]))
         }
+
+
 
         if(doc.data().quizzesTaken){                 
               let allQuizzesOneStudent = []
@@ -133,17 +138,21 @@ export const getSingleStudent = (id) => async (dispatch) => {
                 oneQuiz.get().then((shrew) => {allQuizzesOneStudent = [...allQuizzesOneStudent,shrew.data()]})
                 
             })
+            console.log("what i am fetching for quizzes is",allQuizzesOneStudent )
+            
             setTimeout(()=>{
                
             if(allQuizzesOneStudent.length > 0){
-           dispatch(saveAllQuizzesOneStudent(allQuizzesOneStudent));console.log("ALL QUIZZES for ONE STUDENT", allQuizzesOneStudent)
+           dispatch(saveAllQuizzesOneStudent(allQuizzesOneStudent));console.log("ALL QUIZZES  ONE STUDENT", allQuizzesOneStudent)
             }else{
-               dispatch(saveAllQuizzesOneStudent([ ]));console.log("ALL QUIZZES for ONE STUDENT", allQuizzesOneStudent)
+               dispatch(saveAllQuizzesOneStudent([ ]));console.log("ALL QUIZZES ONE STUDENT", allQuizzesOneStudent)
             }
 
               }
-            ,2000)
-        } 
+            ,1000)
+        }else{
+            dispatch(saveAllQuizzesOneStudent([ ]))
+        }
 
         
     } else {

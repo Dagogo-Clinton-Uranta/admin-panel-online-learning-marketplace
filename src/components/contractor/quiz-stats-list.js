@@ -124,13 +124,22 @@ const useStyles = makeStyles({
 
 export default function QuizStatsList({student,allQuizzes}) {
   //search function
-  console.log("OUR TEST IS NOW",student.quizzesTaken[0].takenOn)
+
   const dispatch = useDispatch();
-  const [jobList, setJobList] = useState(allQuizzes?allQuizzes:
-                                        [{subject:"Mathematiques",courseName:"Dissociation et produit ionique",watchedOn:"July 22, 2023. 4:05pm"},
-                                          {subject:"Biologie",courseName:"Dissociation et produit ionique",watchedOn:"July 25, 2023. 12:00pm"}]
+  const [jobList, setJobList] = useState(allQuizzes.length> 0?allQuizzes:
+                                        [ ]
                                           
                                         );
+
+
+       useEffect(()=>{
+   
+      setJobList(allQuizzes.length> 0?allQuizzes:
+        [ ]
+          )
+
+     },[allQuizzes])
+                                                      
 
 
   console.log("all quizzes are now:",allQuizzes)
@@ -252,7 +261,8 @@ export default function QuizStatsList({student,allQuizzes}) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {(rowsPerPage > 0
+            { jobList.length>0?
+            ((rowsPerPage > 0
               ? jobList.slice(
                   page * rowsPerPage,
                   page * rowsPerPage + rowsPerPage
@@ -268,7 +278,7 @@ export default function QuizStatsList({student,allQuizzes}) {
                 </TableCell>
 
                 <TableCell style={{ width: 140 }} align="right">
-                  {(new Date((student.quizzesTaken[index].takenOn.seconds)*1000)).toDateString()}
+                  {student.quizzesTaken && (new Date((student.quizzesTaken[index].takenOn.seconds)*1000)).toDateString()}
                 </TableCell>
 
                 <TableCell style={{ width: 140 }} align="right">
@@ -322,7 +332,15 @@ export default function QuizStatsList({student,allQuizzes}) {
                   </Button>
                 </TableCell>*/}
               </TableRow>
-            ))}
+            ))):
+           
+             <TableRow>
+            <TableCell style={{ width: 140 }} align="right">
+                  No quizzes taken for this user
+                </TableCell>
+                </TableRow>
+            
+            }
 
             {/*emptyRows > 0 && (
               <TableRow style={{ height: 53 * emptyRows }}>

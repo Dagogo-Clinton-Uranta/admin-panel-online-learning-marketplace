@@ -125,10 +125,17 @@ const useStyles = makeStyles({
 export default function LessonStatsList({student,allLessons}) {
   //search function
   const dispatch = useDispatch();
-  const [jobList, setJobList] = useState(allLessons?allLessons:
-                                           [{subject:"Mathematiques",courseName:"Dissociation et produit ionique",watchedOn:"July 22, 2023. 4:05pm"},
-                                          {subject:"Biologie",courseName:"Dissociation et produit ionique",watchedOn:"July 25, 2023. 12:00pm",}]
+  const [jobList, setJobList] = useState(allLessons.length > 0?allLessons:
+                                           []
                                           );
+
+     useEffect(()=>{
+   
+      setJobList(allLessons.length > 0?allLessons:
+        [])
+
+     },[allLessons])
+                                          
 
   console.log("all lessons are!!:",allLessons)
   const [searched, setSearched] = useState("");
@@ -249,7 +256,8 @@ export default function LessonStatsList({student,allLessons}) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {(rowsPerPage > 0
+            { jobList.length > 0 ?
+            ((rowsPerPage > 0
               ? jobList.slice(
                   page * rowsPerPage,
                   page * rowsPerPage + rowsPerPage
@@ -268,7 +276,7 @@ export default function LessonStatsList({student,allLessons}) {
                 </TableCell>
 
                 <TableCell style={{ width: 140 }} align="right">
-                  {(new Date((student.lessonsWatched[index].takenOn.seconds)*1000)).toDateString()}
+                  {student.lessonsWatched && (new Date((student.lessonsWatched[index].takenOn.seconds)*1000)).toDateString()}
                 </TableCell>
 
                 {/*<TableCell style={{ width: 140 }} align="right">
@@ -318,7 +326,14 @@ export default function LessonStatsList({student,allLessons}) {
                   </Button>
                 </TableCell>*/}
               </TableRow>
-            ))}
+            )))
+            :
+            <TableRow>
+            <TableCell style={{ width: 140 }} align="right">
+              {"No lessons watched for this user."}
+            </TableCell>
+            </TableRow>
+            }
 
             {/*emptyRows > 0 && (
               <TableRow style={{ height: 53 * emptyRows }}>

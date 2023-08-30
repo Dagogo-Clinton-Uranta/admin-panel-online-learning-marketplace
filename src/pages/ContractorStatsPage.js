@@ -101,11 +101,11 @@ export default function ContractorStatsPage() {
 
        {/*jobArr.length &&*/ userCourses ?
            <>
-           <LessonStatsList student={student}  allLessons={allLessonsOneStudent}/>
+           <LessonStatsList student={student}  allLessons={allLessonsOneStudent.length > 0?allLessonsOneStudent:[]}/>
 
            <br/><br/><br/><br/>
 
-           <QuizStatsList student={student} allQuizzes = {allQuizzesOneStudent} />
+           <QuizStatsList student={student} allQuizzes = {allQuizzesOneStudent.length > 0?allQuizzesOneStudent:[]} />
            </>
            :
            <center>

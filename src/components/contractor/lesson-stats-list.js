@@ -276,7 +276,7 @@ export default function LessonStatsList({student,allLessons}) {
                 </TableCell>
 
                 <TableCell style={{ width: 140 }} align="right">
-                  {student.lessonsWatched && (new Date((student.lessonsWatched[index].takenOn.seconds)*1000)).toDateString()}
+                  {student.lessonsWatched && student.lessonsWatched[index].takenOn && (new Date((student.lessonsWatched[index].takenOn.seconds)*1000)).toDateString()}
                 </TableCell>
 
                 {/*<TableCell style={{ width: 140 }} align="right">

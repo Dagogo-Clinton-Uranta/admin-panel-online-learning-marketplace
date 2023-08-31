@@ -278,7 +278,7 @@ export default function QuizStatsList({student,allQuizzes}) {
                 </TableCell>
 
                 <TableCell style={{ width: 140 }} align="right">
-                  {student.quizzesTaken && (new Date((student.quizzesTaken[index].takenOn.seconds)*1000)).toDateString()}
+                  {student.quizzesTaken && student.quizzesTaken[index].takenOn && (new Date((student.quizzesTaken[index].takenOn.seconds)*1000)).toDateString()}
                 </TableCell>
 
                 <TableCell style={{ width: 140 }} align="right">

@@ -126,7 +126,10 @@ export default function QuizStatsList({student,allQuizzes}) {
   //search function
 
   const dispatch = useDispatch();
-  const [jobList, setJobList] = useState(allQuizzes.length> 0?allQuizzes:
+  const mixedArray =[...( allQuizzes.map((item,i)=>({...item,resultPercentage:student.quizzesTaken[i].resultPercentage,takenOn:student.quizzesTaken[i].takenOn})))]
+  console.log("mixed array is",mixedArray)
+
+  const [jobList, setJobList] = useState(allQuizzes.length> 0 && student.quizzesTaken?mixedArray:
                                         [ ]
                                           
                                         );
@@ -134,7 +137,7 @@ export default function QuizStatsList({student,allQuizzes}) {
 
        useEffect(()=>{
    
-      setJobList(allQuizzes.length> 0?allQuizzes:
+      setJobList(allQuizzes.length> 0?mixedArray:
         [ ]
           )
 
@@ -143,6 +146,7 @@ export default function QuizStatsList({student,allQuizzes}) {
 
 
   console.log("all quizzes are now:",allQuizzes)
+  console.log("the student is:",student)
   const [searched, setSearched] = useState("");
   const classes = useStyles();
   const requestSearch = (searchedVal) => {
@@ -278,12 +282,12 @@ export default function QuizStatsList({student,allQuizzes}) {
                 </TableCell>
 
                 <TableCell style={{ width: 140 }} align="right">
-                  {student.quizzesTaken && student.quizzesTaken[index].takenOn && (new Date((student.quizzesTaken[index].takenOn.seconds)*1000)).toDateString()}
-                  {student.quizzesTaken && student.quizzesTaken[index].registeredOn && (new Date((student.quizzesTaken[index].registeredOn.seconds)*1000)).toDateString()}
+                  { row.takenOn && (new Date((row.takenOn.seconds)*1000)).toDateString()}
+                  
                 </TableCell>
 
                 <TableCell style={{ width: 140 }} align="right">
-                  {"TBD"}
+                  {row.resultPercentage > 50? ("pass" /*`${student.quizzesTaken[index].resultPercentage}%`*/):"TBD"}
                 </TableCell>
 
                 {/*<TableCell style={{ width: 140 }} align="right">

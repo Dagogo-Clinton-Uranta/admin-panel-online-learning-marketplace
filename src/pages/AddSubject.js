@@ -27,6 +27,7 @@ function AddSubject() {
   const [title,setTitle] = useState('')
   const [level,setLevel] = useState(location.state && location.state.levelName?location.state.levelName:" cannot change this field")
   const [body,setBody] = useState('')
+  const [price,setPrice] = useState('')
   const [categoryId,setCategoryId] =useState('')
   const [instructor,setInstructor]  = useState('')
   const [subjectImageUrl,setSubjectImageUrl] = useState('')
@@ -46,6 +47,7 @@ function AddSubject() {
     categoryId:location.state.uid,
     category:location.state.levelName,
     instructor,
+    price,
     subjectImageUrl
   }
 
@@ -249,7 +251,32 @@ function AddSubject() {
         </Grid>
        
   
+        <Grid container item xs={12} spacing={2}>
+          <Grid item xs={3}>
+            <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
+             <div >
+             PRICE (GNF)
+             </div>
       
+            </Typography>
+          
+          </Grid>
+
+          <Grid item xs={7}>
+            <TextField
+            fullWidth
+            placeholder=" 20,000."
+            variant="outlined"
+            multiline
+            maxRows={1}
+            value= {price}
+            onChange = {(e)=>{setPrice(e.target.value)}}
+            
+            />
+            
+            
+          </Grid>
+        </Grid>
 
 
 

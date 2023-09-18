@@ -20,6 +20,7 @@ export default function TeacherListPage() {
   const dispatch = useDispatch();
   const { teachers } = useSelector((state) => state.jobs);
   const [teacherArr, setTeacherArr] = useState([]/*teachers*/);
+
   const navigate = useNavigate()
 
   //const { userDetails, error,message, isLoading } = useSelector((state) => state.loggedIn);

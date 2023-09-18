@@ -27,6 +27,7 @@ function EditCourse() {
 
   const [title,setTitle] =useState(subjectInfo && subjectInfo.title?subjectInfo.title:" ")
   const [body,setBody] =useState(subjectInfo && subjectInfo.body?subjectInfo.body:" ")
+  const [price,setPrice] =useState(subjectInfo && subjectInfo.price?subjectInfo.price:" ")
   const [instructor,setInstructor] =useState(subjectInfo && subjectInfo.instructor?subjectInfo.instructor:" ")
   const [subjectImageUrl,setSubjectImageUrl] =useState(subjectInfo && subjectInfo.subjectImageUrl?subjectInfo.subjectImageUrl:" ")
   const [category,setCategory] =useState(subjectInfo && subjectInfo.category?subjectInfo.category:" ")
@@ -48,6 +49,7 @@ function EditCourse() {
     title,
     body,
     //level:subLevel,
+    price,
     category,
     instructor,
     subjectImageUrl
@@ -227,6 +229,35 @@ function EditCourse() {
             
           </Grid>
         </Grid>
+
+        <Grid container item xs={12} spacing={2}>
+          <Grid item xs={3}>
+            <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
+             <div >
+             PRICE
+             </div>
+      
+            </Typography>
+          
+          </Grid>
+
+          <Grid item xs={7}>
+            <TextField
+            fullWidth
+            placeholder=" change class"
+            variant="outlined"
+            multiline
+            Rows={8}
+            value= {price}
+
+            onChange = {(e)=>{setPrice(e.target.value)}}
+            
+            />
+            
+            
+          </Grid>
+        </Grid>
+
 
 
 

@@ -507,6 +507,7 @@ export const fetchTeacherInfo = (uid) =>async (dispatch) => {
       category:updateObject.category,
       title:updateObject.title,
       //subLevel:updateObject.level,
+      price:updateObject.price,
       instructor:updateObject.instructor,
       subjectImageUrl:updateObject.subjectImageUrl
       
@@ -613,6 +614,7 @@ export const fetchTeacherInfo = (uid) =>async (dispatch) => {
         category:addObject.category,
         title:addObject.title,
         subLevel:addObject.level,
+        price:addObject.price,
         categoryId:addObject.categoryId,
         instructor:addObject.instructor
       }

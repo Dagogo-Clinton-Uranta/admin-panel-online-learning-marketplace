@@ -39,35 +39,13 @@ const navConfig = [
     title: 'COURSES',
     path: '/dashboard/courses',
     icon:<AiOutlineBulb/>,
-    
-   /* children: [
-      {
-        title: 'videos',
-        type: 'item',
-         icon: 'Savings',
-        path: '/dashboard/video',
-      },
-      {
-        title: 'docs',
-        type: 'item',
-         icon: 'LockIcon',
-         path: '/dashboard/docs',
-      },
-    ],*/
   },
-  {/*
-    title: `bids`,
-    path: '/dashboard/chat',
-    icon: icon('ic_msg'),
-    iconLabel: 'msg',
-    icon:<CgToolbox/>
-*/},
-  {/*
-    title: 'settings',
-     path: '#',
-   iconLabel: 'settings',
-   icon:<FiSettings/>
-*/},
+  {
+    title: 'ORDERS',
+   path: '/dashboard/orders',
+    icon:<AiOutlineInbox/>
+    
+},
 ];
 
 export default navConfig;

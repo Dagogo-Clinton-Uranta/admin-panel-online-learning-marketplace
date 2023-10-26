@@ -1,6 +1,7 @@
 import { db } from "../../config/firebase";
 import { fetchJobs,fetchTeachers,fetchCourses, fetchSingleJob,fetchSingleStudent,saveUserCourses,saveAllLessonsOneStudent,saveAllQuizzesOneStudent } from "../reducers/job.slice";
 import { useDispatch, useSelector } from "react-redux";
+import { notifyErrorFxn, notifySuccessFxn } from 'src/utils/toast-fxn';
 
 export const getJobs = (uid) => async (dispatch) => {
     db.collection('users').get().then((snapshot) => {
@@ -38,6 +39,43 @@ export const getCourses = ( ) => async (dispatch) => {
 });
 
 };
+
+export const deleteCourse = (id, navigate) => async (dispatch) => {
+    // try {
+    //     const coursesRef = db.collection('sections');
+    //     const query = coursesRef.where('uid', '==', id);
+    //     const querySnapshot = await query.get();
+
+    //     console.log("Vcourses", querySnapshot);
+
+    //     const courses = [];
+    //     querySnapshot.forEach((doc) => {
+    //         if (doc.exists) {
+    //             const courseData = doc.data();
+    //             courses.push(courseData);
+    //         }
+    //     });
+
+
+    //     console.log("courses", courses);
+    // } catch (error) {
+    //     console.error('Error getting documents: ', error);
+    //     return [];
+    // }
+    const docRef = db.collection('sections').doc(id);
+
+    try {
+        await docRef.delete();
+        console.log('Document successfully deleted', docRef);
+        notifySuccessFxn('Course deleted successfully.✔');
+        navigate('/dashboard/home');
+    } catch (error) {
+        console.error('Error deleting document: ', error);
+        notifyErrorFxn('Error deleting course.❌');
+    }
+}
+
+
 
 
 export const getUserCourses = (uid) => async (dispatch) => {

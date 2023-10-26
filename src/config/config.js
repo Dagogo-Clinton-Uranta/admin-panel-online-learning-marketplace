@@ -3,7 +3,7 @@
 // API
 // ----------------------------------------------------------------------
 
-export const HOST_API = 'https://minimal-assets-api.vercel.app' || '';
+export const HOST_API = '' || '';
 
 export const FIREBASE_API = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,

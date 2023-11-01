@@ -140,15 +140,14 @@ export default function OrdersList({ordersData}) {
     setOrdersList(filteredRows);
   };
 
+  console.log("LIST___", OrdersList);
+
   //search function end
 
   const navigate = useNavigate();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [wait,setWait] =useState(false)
-
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - OrdersList.length) : 0;
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -215,13 +214,13 @@ export default function OrdersList({ordersData}) {
             ).map((row) => (
               <TableRow key={row.id}>
                 <TableCell component="th" scope="row">
-                  {row.course}
+                  {row.courses[0].title}
                 </TableCell>
                 <TableCell style={{ width: 140 }} align="right">
-                  {row.email}
+                  {row.userData.email}
                 </TableCell>
                 <TableCell style={{ width: 140 }} align="right">
-                {row.purchased}
+                {row.createdAt}
                 </TableCell>
 
                
@@ -238,7 +237,7 @@ export default function OrdersList({ordersData}) {
                       fontSize: "15px",
                     }}
                     sx={{ mt: 7, mb: 2 }}
-                    onClick={() => viewTeachersFxn(row.uid.trim())}
+                    // onClick={() => viewTeachersFxn(row.uid.trim())}
                   >
                    VIEW
                   </Button>

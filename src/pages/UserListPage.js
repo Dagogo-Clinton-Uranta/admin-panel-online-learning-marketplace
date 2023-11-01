@@ -6,7 +6,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Grid, Box, Typography, Paper, Button, Stack } from '@mui/material';
 import { useNavigate,Link } from 'react-router-dom';
 import CJobList from "../components/home/c-job-list";
-import { getJobs } from "../redux/actions/job.action";
+import { getJobs, getOrders } from "../redux/actions/job.action";
 import {Skeleton} from '@mui/material';
 import ReactApexChart from 'react-apexcharts';
 
@@ -73,6 +73,7 @@ export default function CJobs() {
  
  
  useEffect(() => {
+  dispatch(getOrders());  
    dispatch(getJobs());  
    setTimeout(setJobArr(jobs), 1000);
   }, [])

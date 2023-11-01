@@ -1,7 +1,37 @@
 import { db } from "../../config/firebase";
-import { fetchJobs,fetchTeachers,fetchCourses, fetchSingleJob,fetchSingleStudent,saveUserCourses,saveAllLessonsOneStudent,saveAllQuizzesOneStudent } from "../reducers/job.slice";
+import { fetchJobs, isLoading, fetchPurchasedCourses, fetchTeachers,fetchCourses, fetchSingleJob,fetchSingleStudent,saveUserCourses,saveAllLessonsOneStudent,saveAllQuizzesOneStudent } from "../reducers/job.slice";
 import { useDispatch, useSelector } from "react-redux";
 import { notifyErrorFxn, notifySuccessFxn } from 'src/utils/toast-fxn';
+
+
+export const getOrders = () => async (dispatch) => {
+    try {
+        dispatch(isLoading(true));
+        const purchasedCoursesSnapshot = await db.collection('purchasedCourses').get();
+        const purchasedCourses = purchasedCoursesSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  
+        // Create an array to store promises for fetching user details
+        const userDetailPromises = purchasedCourses.map((course) => {
+            const uid = course.uid; // Assuming UID is a field in your purchasedCourses documents
+            return db.collection('users').doc(uid).get();
+        });
+
+        // Wait for all user detail fetch promises to resolve
+        const userDetailSnapshots = await Promise.all(userDetailPromises);
+
+        // Merge user data with purchased courses
+        purchasedCourses.forEach((course, index) => {
+            const userData = userDetailSnapshots[index].data();
+            course.userData = userData;
+        });
+
+        console.log("PURCHASED__CORUSES__", purchasedCourses);
+        dispatch(fetchPurchasedCourses({ purchasedCourses }));
+        dispatch(isLoading(false));
+    } catch (error) {
+        console.error('Error fetching purchased courses and user details', error.message);
+    }
+};
 
 export const getJobs = (uid) => async (dispatch) => {
     db.collection('users').get().then((snapshot) => {

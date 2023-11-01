@@ -7,8 +7,10 @@ const initialState = {
   userCourses:[],
   job: null,
   student:null,
+  loading: false,
   allQuizzesOneStudent:[],
   allLessonsOneStudent:[],
+  purchasedCourses:[],
   error: '',
   message: '',
 };
@@ -49,6 +51,12 @@ const jobSlice = createSlice({
       fetchSingleStudent: (state, action) => {
         state.student = action.payload;
       },
+      fetchPurchasedCourses: (state, action) => {
+        state.purchasedCourses = action.payload;
+      },
+      isLoading: (state, action) => {
+        state.loading = action.payload;
+      },
 
 
     initiatePending: (state) => {
@@ -74,7 +82,9 @@ export const {
  saveAllQuizzesOneStudent,
  fetchSingleStudent,
  fetchCourses,
+ fetchPurchasedCourses,
  saveUserCourses,
+ isLoading,
 } = actions;
 
 export default reducer;

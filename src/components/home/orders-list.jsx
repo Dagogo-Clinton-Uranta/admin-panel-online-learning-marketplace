@@ -238,7 +238,7 @@ export default function OrdersList({ordersData}) {
                     }}
                     sx={{ mt: 7, mb: 2 }}
                     // onClick={() => viewTeachersFxn(row.uid.trim())}
-                  >
+                   >
                    VIEW
                   </Button>
                 </TableCell>

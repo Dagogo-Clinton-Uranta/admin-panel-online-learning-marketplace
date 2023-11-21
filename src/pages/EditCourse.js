@@ -1,15 +1,16 @@
-import { Container,Grid, TextField, Typography, TextareaAutosize, Button, Paper,Divider,Box} from '@mui/material';
+import { Container,Grid, TextField, Typography,  TextareaAutosize, Button, Paper,Divider,Box} from '@mui/material';
 import { useRef, useState,useEffect } from 'react';
 import { useNavigate,useLocation } from 'react-router-dom';
 import UPLOADIMG from '../assets/images/upload.png';
 import { uploadUserSettings,updateSubject,updateSubjectNow,updateChapter} from 'src/redux/actions/group.action';
-import { getTeachers } from 'src/redux/actions/job.action';
+import { deleteCourse, getTeachers } from 'src/redux/actions/job.action';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { notifyErrorFxn, notifySuccessFxn } from 'src/utils/toast-fxn';
 import users from 'src/_mock/user';
+import { DeleteOutline } from '@mui/icons-material';
 
 function EditCourse() {
   const navigate = useNavigate();
@@ -44,6 +45,11 @@ function EditCourse() {
     dispatch(getTeachers())
   
    },[])
+
+const deletTheCourse = () => {
+  console.log("subjectInfo", subjectInfo);
+  dispatch(deleteCourse(subjectInfo.uid, navigate));
+}
 
   const updateObject ={
     title,
@@ -109,8 +115,14 @@ function EditCourse() {
      
   </div>*/}
            
-          </Grid>
-   
+           <Button   variant="contained" 
+          style={{ backgroundColor: "transparent", border: '1px solid #161441', color: '#161441', paddingTop: '10px', paddingBottom: '10px', 
+  paddingRight: '30px', paddingLeft: '30px'}}   onClick={() => deletTheCourse()}
+          >
+          <DeleteOutline />  DELETE
+        </Button>
+            </Grid>
+  
      <div style={{height:"2px", width:"80%",borderBottom:"1px solid black",position:"absolute",left:"20rem",top:"18rem"}}></div>
      <br/> <br/> <br/>
 

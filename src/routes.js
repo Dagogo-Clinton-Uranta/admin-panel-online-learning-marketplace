@@ -50,6 +50,7 @@ import EditChapter from './pages/EditChapter';
 import AddQuiz from './pages/AddQuiz';
 import StudentListPage from './pages/StudentListPage';
 import TeacherListPage from './pages/TeacherListPage';
+import OrdersPage from './pages/OrdersPage';
 
 import EditLesson from './pages/EditLesson';
 import EditQuiz from './pages/EditQuiz';
@@ -93,6 +94,7 @@ export default function Router() {
         { path: 'edit-chapter', element: <EditChapter /> },
         { path: 'add-teacher', element: <AddTeacher /> },
         { path: 'edit-teacher', element: <EditTeacher /> },
+        { path: 'orders', element: <OrdersPage /> },
         // { path: 'my-cooler', element: <MyCoolersPage /> },
        
        

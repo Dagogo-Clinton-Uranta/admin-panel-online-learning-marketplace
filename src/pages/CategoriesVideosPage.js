@@ -8,7 +8,7 @@ import LockOpenIcon from '@mui/icons-material/LockOpen';
 import LockIcon from '@mui/icons-material/Lock';
 import HomeBox from '../components/home/home-box';
 import PublicCoolerRowCard from 'src/components/public-cooler/public-cooler-card';
-import { fetchAllCategories } from 'src/redux/actions/group.action';
+import { fetchAllCategories, fetchAllPacks } from 'src/redux/actions/group.action';
 import { useEffect,useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fCurrency } from '../utils/formatNumber';
@@ -23,7 +23,7 @@ export default function CategoriesVideoPage() {
   const theme = useTheme();
   const navigate = useNavigate()
   const dispatch = useDispatch();
-  const { allCategories } = useSelector((state) => state.group);
+  const { allCategories,allPacks } = useSelector((state) => state.group);
    console.log("ALL CATEGORIES ARE HERE:",allCategories)
 
  
@@ -44,11 +44,13 @@ export default function CategoriesVideoPage() {
 
 useEffect(()=>{
   dispatch(fetchAllCategories())
+  dispatch(fetchAllPacks())
 
   setData(allCategories)
+  setPacks(allPacks)
 
  // setTimeout(()=>{setData(allCategories)},1300)
-},[])
+},[allPacks])
 
 useEffect(()=>{
 setData(allCategories)
@@ -75,6 +77,31 @@ const allIncubatorVideos = data?.length ? (
          <center>
          <CircularProgress />
          </center>
+</>
+
+
+const allPackCards = packs?.length ? (
+  packs.map(dt => {
+  return (
+    <CategoriesRowCard 
+    uid={dt.uid}
+    title={dt.title} 
+    category={dt.category}
+    body={dt.body}
+    img={dt.imageUrl}
+    subjectsInPack = {dt.subjectsInPack&& dt.subjectsInPack}
+   
+    />
+  )
+})
+) : 
+<>
+{/*<div className="container">
+    <center><p className="center">No Video Categories yet</p></center>
+</div>*/}
+       <center>
+       <CircularProgress />
+       </center>
 </>
 
 
@@ -120,7 +147,10 @@ const allIncubatorVideos = data?.length ? (
          <CircularProgress />
          </center> 
          :
-        allIncubatorVideos
+         <>
+        {allIncubatorVideos}
+        {allPackCards}
+        </>
         }
   </Container>
       

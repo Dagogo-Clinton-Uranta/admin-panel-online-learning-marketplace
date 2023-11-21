@@ -26,7 +26,7 @@ import AddSubSectionCard from   'src/components/incubator/addSubSection-card';
 import ChapterCard from   'src/components/chapters/chapter-card';
 
 import { setRequestedSection,savePresentOpenMenu } from 'src/redux/reducers/group.slice';
-import { fetchVideoSection } from 'src/redux/actions/group.action';
+import { fetchVideoSection,fetchSubjectsInPackDetails } from 'src/redux/actions/group.action';
 import QuizCard from '../incubator/quiz-card';
 
 
@@ -74,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
   
 
 
-function CategoriesRowCard ({ uid, title, body, img}) {
+function CategoriesRowCard ({ uid, title, body, img,category,subjectsInPack}) {
     const [isOpen, setIsOpen] = useState(false);
     const [dropDown, setDropDown] = useState(false);
     const [loading,setLoading] = useState(false);
@@ -120,12 +120,32 @@ function CategoriesRowCard ({ uid, title, body, img}) {
     const fetchSubSectionAndDropDown  = (title)=> {
       console.log("TITLE BEING PASSED IN IS",title)
  if(!dropDown){
+
       setLoading(true)
+
+      if(subjectsInPack && subjectsInPack.length > 0){
+   
+        dispatch(fetchSubjectsInPackDetails(subjectsInPack))
+          
+      }else{
       dispatch(fetchVideoSection(title))
+      }
+
       dispatch(savePresentOpenMenu(title))
-     const makeRequest = async()=>{
      
-      dispatch(fetchVideoSection(title))}
+      const makeRequest = async()=>{
+     
+        if(subjectsInPack && subjectsInPack.length > 0){
+        
+          dispatch(fetchSubjectsInPackDetails(subjectsInPack))
+
+        }else{
+        dispatch(fetchVideoSection(title))
+        }
+    
+    }
+
+
   
     makeRequest().then(()=>(setTimeout(()=>{setLoading(false);setDropDown(true)},600)))
      }
@@ -227,7 +247,9 @@ function CategoriesRowCard ({ uid, title, body, img}) {
                   </center>
                   
                   }
-                 <AddSubSectionCard categoryId={uid} topLevelName={title}/>
+
+                  {/*YOU GOTTA PASS IN PACKS / AND REPEAT THE SUBJECT FUNCTIONALITY,THIS ONE --->dispatch(fetchVideoSection(title)), PUT IT IN THE SUBSECTION CARD */}
+                 <AddSubSectionCard categoryId={uid} categoryName={category} topLevelName={title} subjectsInPack={subjectsInPack && subjectsInPack} packId={uid}/>
 
                 
               </Grid>

@@ -4,7 +4,7 @@ import LockIcon from '@mui/icons-material/Lock';
 import { Divider, Chip, Grid, Paper, Typography, Box, Avatar, Button, ButtonBase, Stack, 
   ToggleButton, ToggleButtonGroup, Hidden  } from '@mui/material';
 import { useDispatch,useSelector } from 'react-redux';
-import {fetchSubjectChapters, updateVideoAndUserWatchlists,fetchSubjectInfo} from 'src/redux/actions/group.action'
+import {fetchSubjectChapters, updateVideoAndUserWatchlists,fetchSubjectInfo,fetchSubjectsForAdding} from 'src/redux/actions/group.action'
 
 import { useNavigate } from 'react-router-dom';
 
@@ -17,6 +17,8 @@ import 'react-slidedown/lib/slidedown.css'
 import ChapterCard from   'src/components/chapters/chapter-card';
 import { populate } from 'react-redux-firebase';
 import QuizCard from '../chapters/quiz-card';
+import SubSectionCard from './subSection-card';
+import AddSubjectToPackCard from './addSubjectToPackCard';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -49,15 +51,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AddSubSectionCard = ({topLevelName,categoryId}) => {
+const AddSubSectionCard = ({topLevelName,categoryId,categoryName,subjectsInPack,packId}) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { allSectionVideos,requestedSection } = useSelector((state) => state.group);
     const { categoryChapters,presentOpenChapter} = useSelector((state) => state.group);
-   // const { user} = useSelector((state) => state.auth);
-
+    const { user} = useSelector((state) => state.auth);
+   const { subjectsForAdding,categoryVideos,presentOpenMenu } = useSelector((state) => state.group);
 
   const dummyData = [
     {uid: 1, title: "General (16 mins)", desc: "Lorem ipsum dolor sit amet consectetur tesdsjk. Eget cursus..."},
@@ -73,16 +75,47 @@ const AddSubSectionCard = ({topLevelName,categoryId}) => {
 
   //console.log("THE VIDEO ID IS",dummyData[0].uid)
  
-  
+  const [data,setData] = useState(subjectsForAdding?subjectsForAdding:dummyData)
 
+
+  useEffect(()=>{
+    
+    setData(subjectsForAdding)
+
+  },[subjectsForAdding])
+
+      const fetchSubjectsToAddAndDropDown  = (cat) =>{
+
+          if(!dropDown){
+
+            setWait(true)
+
+           
+
+            const makeRequest = async()=>{
+              dispatch(fetchSubjectsForAdding(cat))
+          }
+      
+          makeRequest().then(()=>(setTimeout(()=>{setWait(false);setDropDown(true)},1000)))
+
+          }else{
+            setDropDown(false)
+          }
+
+      }
  
 
     const sendToAddSubject = (levelName="6eme Annee",identity="hi")=>{
 
-      setWait(true)
+      
       //dispatch(fetchSubjectInfo(identity))
-
+      if(subjectsInPack && subjectsInPack.length >0){
+       fetchSubjectsToAddAndDropDown(categoryName)
+      }else{
+        setWait(true)
      setTimeout(()=> {navigate('/dashboard/add-subject',{state:{uid:identity,levelName:levelName}})}, 1000)
+      }
+    
     }
 
 
@@ -105,12 +138,61 @@ const AddSubSectionCard = ({topLevelName,categoryId}) => {
              
                sendToAddSubject(topLevelName,categoryId)
               }}>
-                {wait?"Please Wait...":<span><b style={{fontSize:"1.5rem"}}>+</b> Add Subject</span> }
+                {wait?"Please Wait...":<span><b style={{fontSize:"1.5rem"}}>+</b> Add Subject{subjectsInPack && subjectsInPack.length >0 && ' To Pack'}</span> }
             </Button>
        </div>
            
     </div>
 
+     
+
+    <SlideDown style={{width:"100%"}}>
+            {dropDown &&
+        <>
+        <center style={{fontSize:"1.3em"}}>SELECT A SUBJECT BELOW, TO ADD TO THIS PACK</center>
+     <Grid item xs container direction="column" spacing={6} style={{marginLeft:"10px",paddingLeft: '0px', paddingRight: '0px',transition:" height 5s ease"}}>
+                <br/><br/>
+               {data.length?
+               
+               data.map(((dt,i) => {
+                console.log("dt inside map is",dt)
+                return (
+
+                
+                    <AddSubjectToPackCard data={dt} index={i} user={user.uid} packId={packId}/*categoryId is the same as packId */ packSubjects={subjectsInPack}/>
+                )
+               }))
+               
+               
+               :
+                  <>
+                 <center>
+                  <br/> <br/>
+                  No Subjects available for this sub section.
+                  </center>
+              
+                  </>
+                  }
+
+                     
+            <center style={{fontSize:"1.3em"}}>
+            
+                              
+            <Button variant="contained" style={{minHeight: '45px', minWidth: '145px', backgroundColor:'black' }}
+              onClick={() => {
+             
+                setDropDown(false)
+              }}>
+                {<span>CANCEL &nbsp;  <b style={{fontSize:"1rem"}}>x</b> </span> }
+            </Button>
+            
+                  </center>
+
+                
+        </Grid>
+        </>
+      }
+        </SlideDown>
 
      </>
   );

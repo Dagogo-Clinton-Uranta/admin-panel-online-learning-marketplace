@@ -4,8 +4,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { notifyErrorFxn, notifySuccessFxn } from 'src/utils/toast-fxn';
 import { isItLoading, saveAllGroup ,saveEmployeer,
          saveCategories ,saveGroupMembers, saveMyGroup,
-         savePresentOpenSessions, savePublicGroup, saveSectionVideos,
-          saveCategoryVideos,saveCategoryChapters,
+         savePresentOpenSessions,savePresentOpenMenu ,savePublicGroup, saveSectionVideos,
+          saveCategoryVideos,saveSubjectsForAdding,saveCategoryChapters,
         saveChapterSessions,saveChapterQuizzes,
         saveSubjectInfo,saveLessonInfo,saveQuizInfo,
         saveChapterInfo,saveTeacherInfo, savePacks} from '../reducers/group.slice';
@@ -325,6 +325,77 @@ export const fetchGroups = (adminID) => async (dispatch) => {
    dispatch(isItLoading(false));
  });
  };
+
+ export const fetchSubjectsForAdding = (chosenSection)=> async(dispatch) =>{
+
+  //dispatch(isItLoading(true));
+  db.collection("sections")
+  .where('category', '==', chosenSection)
+   .get()
+   .then((snapshot) => {
+     const allSectionVids = snapshot.docs.map((doc) => ({ ...doc.data() }));
+     const sortFunction = (array)=>{
+      if (array.length){
+        return  array.sort((a,b)=>(a.subLevel - b.subLevel))
+       }else{
+        return []
+       }
+     }
+     
+     const sortedSectionVids = sortFunction(allSectionVids)
+
+
+   if (allSectionVids.length > 0) {
+     //dispatch(isItLoading(false));
+     console.log("ALL sections FROM DATABASE(FOR THIS CATEGORY):", sortedSectionVids);
+     dispatch(saveSubjectsForAdding(sortedSectionVids));
+   } else {
+      // dispatch(isItLoading(false));
+      dispatch(saveSubjectsForAdding(sortedSectionVids));
+       console.log("No sections for this category!");
+   }
+ }).catch((error) => {
+   console.log("Error getting document:", error);
+   dispatch(isItLoading(false));
+ });
+ };
+
+
+
+ export const fetchSubjectsInPackDetails = (subjectsInPack)=> async(dispatch) =>{
+
+  //dispatch(isItLoading(true));
+  db.collection("sections")
+  .where('uid', 'in', subjectsInPack)
+   .get()
+   .then((snapshot) => {
+     const allSectionVids = snapshot.docs.map((doc) => ({ ...doc.data() }));
+     const sortFunction = (array)=>{
+      if (array.length){
+        return  array.sort((a,b)=>(a.subLevel - b.subLevel))
+       }else{
+        return []
+       }
+     }
+     
+     const sortedSectionVids = sortFunction(allSectionVids)
+
+
+   if (allSectionVids.length > 0) {
+     //dispatch(isItLoading(false));
+     console.log("ALL sections FROM DATABASE(FOR THIS PACK ARE--->):", sortedSectionVids);
+     dispatch(saveCategoryVideos(sortedSectionVids));
+   } else {
+      // dispatch(isItLoading(false));
+      dispatch(saveCategoryVideos(sortedSectionVids));
+       console.log("No sections for this category!");
+   }
+ }).catch((error) => {
+   console.log("Error getting document:", error);
+   dispatch(isItLoading(false));
+ });
+ };
+
 
 
 
@@ -1226,3 +1297,38 @@ export const updateVideoAndUserWatchlists = (userId,videoId) => async (dispatch)
 /*===============Add to video watchlist and user watchlict ABOVE ===================== */
 
 
+/*===============Add  a SUBJECT TO A PACK ===================== */
+
+export const addSubjectToPack = (subjectId,packId,packSubjects) => async (dispatch) => {
+  console.log('about to add SUBJECT TO PACK',subjectId.trim())
+
+
+  db.collection("packs").doc(packId.trim()).update({
+    subjectsInPack:firebase.firestore.FieldValue.arrayUnion(subjectId)
+  }).then((docRef) => {
+    console.log(" course Document updated is: ", docRef);
+    notifySuccessFxn("Successfully added to pack!")
+
+    db.collection("packs").doc(packId.trim()).get().then((doc)=>{
+    if(doc.exists){
+      console.log("SUBJECTS IN OUR PACK-->",doc.data().subjectsInPack)
+      dispatch(fetchAllPacks())
+     dispatch( fetchSubjectsInPackDetails(doc.data().subjectsInPack))
+      //dispatch(savePresentOpenMenu(null))
+     
+    }else{
+      notifyErrorFxn("I just updated this doc, now I cant find it?")
+    }
+    })
+   
+    //dispatch(fetchWatchListData)
+    //dispatch(playlistUpdate(true));
+  })
+  .catch((error) => {
+    console.error("Error adding this subject to the pack, please view--> : ", error);
+    notifyErrorFxn("Error adding this subject to the pack, please try again. ")
+    
+  });
+
+
+}

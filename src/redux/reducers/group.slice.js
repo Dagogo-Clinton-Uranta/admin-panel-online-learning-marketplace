@@ -7,6 +7,7 @@ const initialState = {
        allPacks:[],
        allSectionVideos:[],
        categoryVideos:[],
+       subjectsForAdding:[],
        categoryChapters:[],
        chapterSessions:[],
        chapterQuizzes:[],
@@ -46,6 +47,9 @@ const groupSlice = createSlice({
 
 saveCategoryVideos: (state, action) => {
   state.categoryVideos = action.payload;
+},
+saveSubjectsForAdding: (state, action) => {
+  state.subjectsForAdding = action.payload;
 },
 saveCategoryChapters: (state, action) => {
   state.categoryChapters = action.payload;
@@ -118,6 +122,7 @@ export const {
  saveSectionVideos,
  saveCategoryVideos,
  saveCategoryChapters,
+ saveSubjectsForAdding,
  savePresentOpenMenu,
  savePresentOpenChapter,
  savePresentOpenSessions,

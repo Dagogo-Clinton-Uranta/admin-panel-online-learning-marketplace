@@ -2,7 +2,7 @@ import { Container,Grid, TextField, Typography, TextareaAutosize, Button, Paper,
 import { useRef, useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UPLOADIMG from '../assets/images/upload.png';
-import { fetchGroups, fetchMyGroups, uploadUserSettings,updateChapter} from 'src/redux/actions/group.action';
+import { fetchGroups, fetchMyGroups, uploadUserSettings,updateChapter, deleteChapter} from 'src/redux/actions/group.action';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 
@@ -34,7 +34,7 @@ function EditChapter() {
   const [companySize,setCompanySize] =useState('')
   const [loading,setLoading] = useState(false)
 
-  const {chapterInfo} = useSelector((state) => state.group)
+  const {chapterInfo,isLoading} = useSelector((state) => state.group)
   const { user } = useSelector((state) => state.auth);
   console.log("user details are:",user)
 
@@ -78,7 +78,9 @@ function EditChapter() {
   }
   
 
-
+const deleteThisChapter = (uid,navigate) =>{
+  dispatch(deleteChapter(uid,navigate))
+}
 
 
   return (
@@ -93,8 +95,18 @@ function EditChapter() {
        </div>
 
 
+    <div style={{display:"flex",justifyContent:"space-between"}}>
+       <h1 style={{position:"relative",fontWeight:"bold",marginBottom:"40px",fontSize:"30px"}}>UPDATE CHAPTER</h1>
 
-    <h1 style={{position:"relative",fontWeight:"bold",marginBottom:"40px",fontSize:"30px"}}>UPDATE CHAPTER</h1>
+       <Button  onClick={() => { deleteThisChapter(chapterInfo.uid,navigate)}} variant="contained" 
+  style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px', paddingBottom: '10px', marginBottom:"40px",
+  paddingRight: '30px', paddingLeft: '30px'}}
+>
+    {isLoading?"loading...":"DELETE CHAPTER"}
+  </Button>
+    </div>
+
+
 
     <Grid item xs={12} sx={{ display: 'flex' }}>
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>

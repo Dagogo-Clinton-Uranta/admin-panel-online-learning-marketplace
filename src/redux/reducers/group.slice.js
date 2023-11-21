@@ -4,6 +4,7 @@ const initialState = {
        myGroups: [], 
        allGroups: [], 
        allCategories:[],
+       allPacks:[],
        allSectionVideos:[],
        categoryVideos:[],
        categoryChapters:[],
@@ -68,6 +69,9 @@ savePresentOpenSessions: (state, action) => {
     state.allCategories = action.payload;
 },
 
+savePacks: (state, action) => {
+  state.allPacks = action.payload;
+},
 saveSubjectInfo: (state, action) => {
   state.subjectInfo = action.payload;
 },
@@ -122,6 +126,7 @@ export const {
  saveQuizInfo,
  savePublicGroup,
  saveCategories,
+ savePacks,
  saveSubjectInfo,
  saveChapterInfo,
  saveTeacherInfo,

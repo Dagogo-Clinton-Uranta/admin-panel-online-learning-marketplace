@@ -8,7 +8,7 @@ import { isItLoading, saveAllGroup ,saveEmployeer,
           saveCategoryVideos,saveCategoryChapters,
         saveChapterSessions,saveChapterQuizzes,
         saveSubjectInfo,saveLessonInfo,saveQuizInfo,
-        saveChapterInfo,saveTeacherInfo} from '../reducers/group.slice';
+        saveChapterInfo,saveTeacherInfo, savePacks} from '../reducers/group.slice';
 import firebase from "firebase/app";
 
 import { getTeachers } from './job.action';
@@ -439,6 +439,93 @@ export const fetchGroups = (adminID) => async (dispatch) => {
  };
 
 
+  /*======= DELETE A WHOLE CHAPTER ============= */
+
+ export const deleteChapter = (chosenChapter,navigate)=> async(dispatch) =>{
+
+  dispatch(isItLoading(true));
+
+   db.collection("quizzes")
+   .where('chapterId', '==', chosenChapter)
+    .get()
+    .then(async(snapshot) => {
+      const allChapterQuizzes = snapshot.docs.map((doc) => ({ ...doc.data() }));
+    
+    if (allChapterQuizzes.length > 0) {
+    
+    notifyErrorFxn("Could not delete Chapter, please make sure to delete all quizzes within that chapter first")
+    dispatch(isItLoading(false));
+      return
+    }else{
+ 
+        db.collection("boneCourses")
+        .where('chapterId', '==', chosenChapter)
+         .get()
+         .then(async(snapshot) => {
+           const allChapterSessions = snapshot.docs.map((doc) => ({ ...doc.data() }));
+      
+         if (allChapterSessions.length > 0) {
+           
+          notifyErrorFxn("Could not delete Chapter, please make sure to delete all lessons within that chapter first")
+          dispatch(isItLoading(false));
+          return
+          
+         }else{
+        
+          let sectionId
+          let itemToBeDeleted = db.collection("chapters").doc(chosenChapter)
+          
+          
+          
+          
+          await itemToBeDeleted.get().then((doc) => {
+           if (doc.exists) {
+              sectionId = doc.data().sectionId
+               dispatch(fetchSubjectChapters(doc.data().sectionId));
+               //dispatch(savePresentOpenSessions(null))
+            
+               itemToBeDeleted.delete()
+             
+           } else {
+             notifyErrorFxn("Problem Deleting the Chapter, please try again")
+             dispatch(isItLoading(false));
+             return
+           }
+          })
+            
+           .then((snapshot) => {
+             dispatch(fetchSubjectChapters(sectionId));
+              notifySuccessFxn("deleted chapter successfully")
+              dispatch(isItLoading(false));
+              navigate('/dashboard/courses')
+           
+          
+          }).catch((error) => {
+            console.log("Error deleting lesson:", error);
+            notifyErrorFxn(error)
+          
+          
+          });
+         }
+    
+       })
+    
+   
+
+    }
+
+
+  })
+.catch((error) => {
+  notifyErrorFxn("Something went wrong while deleting, please try again")
+  dispatch(isItLoading(false));
+});
+
+
+
+
+ }
+
 
 
 
@@ -842,6 +929,7 @@ export const fetchTeacherInfo = (uid) =>async (dispatch) => {
 
 
  });
+
  };
 
  export const deleteQuiz = (uid) => async (dispatch) => {
@@ -1065,6 +1153,28 @@ export const fetchAllCategories = () => async (dispatch) => {
 
 
 /*===============do fetching of categories ABOVE ===================== */
+
+
+/*========== do group fetching of packs HERE ======================= */
+
+export const fetchAllPacks = () => async (dispatch) => {
+  var categories = db.collection("packs");
+  categories.get().then((snapshot) => {
+    const groupMembers = snapshot.docs.map((doc) => ({ ...doc.data() }));
+    console.log("ALL PACKS ARE:",groupMembers)
+    if (groupMembers.length) {
+    dispatch(savePacks(groupMembers));
+  } else {
+      console.log("No categories in database!");
+  }
+}).catch((error) => {
+  console.log("Error getting categories:", error);
+});
+//return user;
+};
+
+
+/*===============do fetching of packs ABOVE ===================== */
 
 
 /*===============Add to video watchlist and user watchlict BELOW ===================== */

@@ -1312,7 +1312,7 @@ export const addSubjectToPack = (subjectId,packId,packSubjects) => async (dispat
     db.collection("packs").doc(packId.trim()).get().then((doc)=>{
     if(doc.exists){
       console.log("SUBJECTS IN OUR PACK-->",doc.data().subjectsInPack)
-      dispatch(fetchAllPacks())
+      //dispatch(fetchAllPacks()) - I COMMENTED IT OUT CUZ PERHAPS I DONT NEED TO LOAD NEW PACKS EVERY TIME?
      dispatch( fetchSubjectsInPackDetails(doc.data().subjectsInPack))
       //dispatch(savePresentOpenMenu(null))
      

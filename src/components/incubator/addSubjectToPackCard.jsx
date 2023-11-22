@@ -112,7 +112,7 @@ const AddSubjectToPackCard = ({data,index,user,packId,packSubjects}) => {
 
     const addThisSubjectToPack = (subjectId,packId,packSubjects)=>{
    if(window.confirm("would you like to add this subject to the pack ?")){
-       dispatch(addSubjectToPack(subjectId,packId,packSubjects))
+       /*dispatch(addSubjectToPack(subjectId,packId,packSubjects))*/
     }
     }
 

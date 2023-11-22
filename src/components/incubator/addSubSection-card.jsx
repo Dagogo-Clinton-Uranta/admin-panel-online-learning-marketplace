@@ -110,7 +110,7 @@ const AddSubSectionCard = ({topLevelName,categoryId,categoryName,subjectsInPack,
       
       //dispatch(fetchSubjectInfo(identity))
       if(subjectsInPack && subjectsInPack.length >0){
-       fetchSubjectsToAddAndDropDown(categoryName)
+      /* fetchSubjectsToAddAndDropDown(categoryName)*/
       }else{
         setWait(true)
      setTimeout(()=> {navigate('/dashboard/add-subject',{state:{uid:identity,levelName:levelName}})}, 1000)

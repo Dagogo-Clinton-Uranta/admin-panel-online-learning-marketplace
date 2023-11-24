@@ -25,9 +25,12 @@ export default function OrdersPage() {
 
  
  useEffect(() => {
+  if(!(purchasedCourses.length > 0)){
    dispatch(getOrders());  
    console.log("purchasedCourses___", purchasedCourses);
    setCoursesData(purchasedCourses);
+  }
+
   }, [])
 
 

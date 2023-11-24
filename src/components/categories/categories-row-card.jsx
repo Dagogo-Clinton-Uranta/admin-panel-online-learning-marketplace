@@ -100,6 +100,10 @@ function CategoriesRowCard ({ uid, title, body, img,category,subjectsInPack}) {
       setData(categoryVideos)
       },[categoryVideos,presentOpenMenu])
       
+
+      useEffect(()=>{
+        setData(categoryVideos)
+      })
  
    
     const dummyData = [

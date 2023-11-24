@@ -43,17 +43,23 @@ export default function CategoriesVideoPage() {
 
 
 useEffect(()=>{
+if(allCategories.length < 1){
   dispatch(fetchAllCategories())
-  dispatch(fetchAllPacks())
-
   setData(allCategories)
-  setPacks(allPacks)
+}
 
- // setTimeout(()=>{setData(allCategories)},1300)
+if(allPacks.length < 1){
+  dispatch(fetchAllPacks())
+  setPacks(allPacks)
+}
+ 
+  
+
 },[allPacks])
 
 useEffect(()=>{
 setData(allCategories)
+setPacks(allPacks)
 },[allCategories])
 
 

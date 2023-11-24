@@ -125,14 +125,7 @@ const SubSectionCard = ({data,index,user}) => {
       <Button variant="contained" style={{minHeight: '45px', minWidth: '145px', backgroundColor: 'black', }}
               onClick={() => {
                
-              /*  setLoading(true) 
-                dispatch(setRequestedSection(data.title))
-               dispatch(fetchVideoSubsection(data.title))
-                const makeRequest = async()=>{
-                  console.log("i have set the requested section as",data.title)
-                  dispatch(setRequestedSection(data.title))
-                  dispatch(fetchVideoSubsection(data.title))}
-                makeRequest().then(()=>(setTimeout(()=>{navigate('/dashboard/view-incubator', { state: { title:data.title } })},1300)))*/
+            
                 fetchChaptersAndDropDown(data.uid)
               }}>
                 {loading?"Loading...":"View"}

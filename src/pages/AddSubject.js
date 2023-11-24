@@ -22,7 +22,7 @@ function AddSubject() {
   const dispatch = useDispatch();
 
 
- const [teachersArr,setTeacherArr]=useState([...teachers.map((item)=>(item.firstName + " " + item.lastName))])
+ const [teachersArr,setTeachersArr]=useState([...teachers.map((item)=>(item.firstName + " " + item.lastName))])
   const [loading,setLoading] = useState(false)
   const [title,setTitle] = useState('')
   const [level,setLevel] = useState(location.state && location.state.levelName?location.state.levelName:" cannot change this field")
@@ -69,9 +69,10 @@ function AddSubject() {
  
 
   useEffect(()=>{
-
+   if(teachersArr.length <1){
     dispatch(getTeachers())
-
+    setTeachersArr(teachers)
+   }
   },[])
 
   return (

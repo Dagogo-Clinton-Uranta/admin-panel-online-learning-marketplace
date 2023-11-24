@@ -73,7 +73,7 @@ const AddSubjectToPackCard = ({data,index,user,packId,packSubjects}) => {
   const [categoryData,setCategoryData] = useState(categoryChapters?categoryChapters:dummyData) 
 
   //console.log("THE VIDEO ID IS",dummyData[0].uid)
-  console.log(" SUBJECT CARD  CHECK !!!!- - -",data)
+  console.log(" SUBJECT CARD  CHECK !!!!- - ->",data)
   
 
   useEffect(()=>{ 
@@ -112,7 +112,7 @@ const AddSubjectToPackCard = ({data,index,user,packId,packSubjects}) => {
 
     const addThisSubjectToPack = (subjectId,packId,packSubjects)=>{
    if(window.confirm("would you like to add this subject to the pack ?")){
-       /*dispatch(addSubjectToPack(subjectId,packId,packSubjects))*/
+       dispatch(addSubjectToPack(subjectId,packId,packSubjects))
     }
     }
 
@@ -141,7 +141,7 @@ const AddSubjectToPackCard = ({data,index,user,packId,packSubjects}) => {
     </div>
 
 
-     {/*=================THE DROPDOWN ICON (YOU DONT NEED IT IN THIS COMPONENT FOR NOW) =============================*/}
+     {/*=================THE DROPDOWN ICON (YOU DONT NEED IT IN THIS COMPONENT FOR NOW) =============================}
           
      <SlideDown style={{width:"100%"}}>
      {dropDown &&
@@ -169,7 +169,7 @@ const AddSubjectToPackCard = ({data,index,user,packId,packSubjects}) => {
          }
        </SlideDown>
      
-     {/*=================THE DROPDOWN ICON END  (YOU DONT NEED IT IN THIS COMPONENT FOR NOW)  =============================*/}
+     {=================THE DROPDOWN ICON END  (YOU DONT NEED IT IN THIS COMPONENT FOR NOW)  =============================*/}
 
      </>
   );

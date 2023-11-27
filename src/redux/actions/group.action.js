@@ -1332,3 +1332,66 @@ export const addSubjectToPack = (subjectId,packId,packSubjects) => async (dispat
 
 
 }
+
+
+
+export const fetchSubjectsBasedOnStudent = (studentId,email,setReadyList) => async (dispatch) => {
+
+   
+  db.collection("users").doc(studentId).get(
+    ).then((doc) => {
+    console.log("user Document updated is: ", doc.data());
+    
+   dispatch(fetchSubjectsForAdding(doc.data().level))
+  
+
+  }).then(()=>{
+    setReadyList(true)
+  })
+  .catch((error) => {
+    console.error("Error adding video  to USER watch List: ", error);
+    notifyErrorFxn("No student with this ID,please try again")
+    
+  });
+
+}
+
+
+
+export const updatePurchasedCourses = (studentId,newPurchasedCourses,navigate) => async (dispatch) => {
+
+  db.collection("purchasedCourses")
+  .where('uid', '==', studentId)
+   .get()
+   .then((snapshot) => {
+     const allGroups = snapshot.docs.map((doc) => ({ purchaseId:doc.id,...doc.data() }));
+   if (allGroups.length > 0) {
+      console.log("THE PURCHASED COURSE---->",allGroups)
+    db.collection("purchasedCourses").doc(allGroups[0].purchaseId).update({
+    // courses:firebase.firestore.FieldValue.arrayUnion(...newPurchasedCourses)
+       courses:[...allGroups[0].courses,...newPurchasedCourses]
+    }).then(()=>{
+
+      notifySuccessFxn("orders sucessfully added")
+      navigate("/dashboard/orders")
+    })
+
+    
+    
+   } else {
+    db.collection("purchasedCourses").add({
+      courses:newPurchasedCourses,
+      uid:studentId,
+      createdAt:new Date()
+    }).then(()=>{
+      notifySuccessFxn("orders 2 sucessfully added !")
+      navigate("/dashboard/orders")
+    })
+   }
+ }).catch((error) => {
+   console.log("Error getting Order:", error);
+   notifyErrorFxn("Error adding order,please try again:")
+   dispatch(isItLoading(false));
+ });
+
+}

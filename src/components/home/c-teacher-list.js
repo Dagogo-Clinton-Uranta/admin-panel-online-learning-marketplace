@@ -231,7 +231,10 @@ export default function TeacherList({teachers}) {
       </div>*/}
       
       <br/>
-      <p style={{fontSize: '26px', marginLeft: '5px',marginBottom:"1rem", color: 'black',display:"flex",justifyContent:"space-between"}}><b>ALL TEACHERS</b>   <Button
+      <p style={{fontSize: '26px', marginLeft: '5px',marginBottom:"1rem", color: 'black',display:"flex",justifyContent:"space-between"}}><b>ALL TEACHERS</b>  
+      
+      
+                <Button
                    
                    type="button"
                     // fullWidth
@@ -247,7 +250,11 @@ export default function TeacherList({teachers}) {
                     onClick={() => {navigate('/dashboard/add-teacher')}}
                   >
                     ADD TEACHER
-                  </Button></p><br/>
+                  </Button>
+                  
+                  
+                  </p>
+                  <br/>
       <hr />
       <TableContainer component={Paper}>
         <Table sx={{ maxWidth: 1500,tableLayout:"fixed" }} aria-label="custom pagination table">

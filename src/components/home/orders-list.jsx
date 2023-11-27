@@ -190,7 +190,28 @@ export default function OrdersList({ordersData}) {
        
       
       <br/>
-      <p style={{fontSize: '26px', marginLeft: '5px',marginBottom:"1rem", color: 'black',display:"flex",justifyContent:"space-between"}}><b>ALL ORDERS</b></p>
+      <p style={{fontSize: '26px', marginLeft: '5px',marginBottom:"1rem", color: 'black',display:"flex",justifyContent:"space-between"}}>
+        <b>ALL ORDERS</b>
+        
+               <Button
+                   
+                   type="button"
+                    // fullWidth
+                    variant="contained"
+                    style={{
+                      backgroundColor: '#000000' ,
+                      color: "white",
+                      width: "17%",
+
+                      fontSize: "15px",
+                    }}
+                    sx={{ mt: 7, mb: 2 }}
+                    onClick={() => {navigate('/dashboard/add-order')}}
+                  >
+                    ADD ORDER
+                  </Button>
+        
+        </p>
 
       <hr />
       <TableContainer component={Paper}>

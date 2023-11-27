@@ -39,6 +39,8 @@ import AddCourse from './pages/AddCourse';
 import EditCourse from './pages/EditCourse';
 import AddSubject from './pages/AddSubject';
 import AddTeacher from './pages/AddTeacher';
+import AddOrder from './pages/AddOrder';
+
 import EditTeacher from './pages/EditTeacher';
 
 import AddSession from './pages/AddSession';
@@ -93,6 +95,7 @@ export default function Router() {
         { path: 'edit-quiz', element: <EditQuiz /> },
         { path: 'edit-chapter', element: <EditChapter /> },
         { path: 'add-teacher', element: <AddTeacher /> },
+        { path: 'add-order', element: <AddOrder /> },
         { path: 'edit-teacher', element: <EditTeacher /> },
         { path: 'orders', element: <OrdersPage /> },
         // { path: 'my-cooler', element: <MyCoolersPage /> },

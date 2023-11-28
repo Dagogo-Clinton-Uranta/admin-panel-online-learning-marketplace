@@ -235,13 +235,13 @@ export default function OrdersList({ordersData}) {
             ).map((row) => (
               <TableRow key={row && row.id}>
                 <TableCell component="th" scope="row">
-                  {row && row.courses[0].title}
+                  {row &&row.courses && row.courses[0] &&  row.courses[0].title && row.courses[0].title}
                 </TableCell>
                 <TableCell style={{ width: 140 }} align="right">
-                  { row && row.userData && row.userData.email}
+                  { row && row.userData && row.userData.email && row.userData.email}
                 </TableCell>
                 <TableCell style={{ width: 140 }} align="right">
-                {row && row.createdAt}
+                {/*row && row.createdAt*/}
                 </TableCell>
 
                
@@ -271,12 +271,12 @@ export default function OrdersList({ordersData}) {
               <TablePagination
                 rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
                 colSpan={3}
-                count={OrdersList.length}
+                count={OrdersList && OrdersList.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 SelectProps={{
                   inputProps: {
-                    "aria-label": "rows per page",
+                    "aria-label": "rows per page 1",
                   },
                   native: true,
                 }}

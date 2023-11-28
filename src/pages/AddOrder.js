@@ -1,8 +1,8 @@
 import { Container,Grid, TextField, Typography, TextareaAutosize, Button, Paper,Divider,Box} from '@mui/material';
-import { useRef, useState} from 'react';
+import { useRef, useState,useEffect} from 'react';
 import { useNavigate,useLocation } from 'react-router-dom';
 import UPLOADIMG from '../assets/images/upload.png';
-import { addTeacher, fetchSubjectsForAdding,fetchSubjectsBasedOnStudent, updatePurchasedCourses} from 'src/redux/actions/group.action';
+import { addTeacher, fetchSubjectsForAdding,fetchSubjectsBasedOnStudent, updatePurchasedCourses, clearSubjectsBasedOnStudent} from 'src/redux/actions/group.action';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { notifyErrorFxn } from 'src/utils/toast-fxn';
@@ -43,6 +43,11 @@ function AddTeacher() {
   const [subjectsForAddingId,setSubjectsForAddingId] = useState(subjectsForAdding && subjectsForAdding.map((item)=>(item.uid)))
   const [subjectsForAddingTitle,setSubjectsForAddingTitle] = useState(subjectsForAdding && subjectsForAdding.map((item)=>(item.title)))
 
+  /*useEffect(()=>{
+    dispatch(clearSubjectsBasedOnStudent())
+  },[])*/
+
+
 
   console.log("subjects for adding Title details are--->:",subjectsForAddingTitle)
 
@@ -73,8 +78,8 @@ function AddTeacher() {
 
 
 const updateCourses = ()=>{
-  dispatch(updatePurchasedCourses(user.uid,course,navigate))
-  console.log("IT IS THE LORDS WORK")
+  dispatch(updatePurchasedCourses(studentId,email,course,navigate))
+  console.log("UPDATE--- PUCHASED COURSES HAS BEEN TRIGGERED")
 }
 
 const handleClick = ()=>{ }
@@ -89,7 +94,7 @@ const handleClick = ()=>{ }
       setWait(true)
 
       const makeRequest = async()=>{
-        dispatch(fetchSubjectsBasedOnStudent("DIzCCXMrR8YIuLOowUrZPhRUBOq2",email,setReadyList))
+        dispatch(fetchSubjectsBasedOnStudent(studentId,email,setReadyList,setStudentId))
     }
 
     makeRequest().then(()=>(setTimeout(()=>{setWait(false)},1000)))
@@ -202,7 +207,7 @@ const handleDelete1 = (chosenId) => {
        
        
         <Button  onClick={() => { fetchSubjectsToAdd()}} variant="contained" 
-        style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px', paddingBottom: '10px', 
+        style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px',color:"white", paddingBottom: '10px', 
         paddingRight: '30px', paddingLeft: '30px'}}
            >
               {loading?"loading..." :"FETCH COURSES"}
@@ -306,14 +311,14 @@ const handleDelete1 = (chosenId) => {
   <div style={{ display: 'flex', justifyContent: 'center',gap:"1rem" }}>
  
   <Button  onClick={() => {navigate(-1) }} variant="contained" 
-  style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px', paddingBottom: '10px', 
+  style={{ backgroundColor: "#000000"/*"#F97D0B"*/,color:"white", paddingTop: '10px', paddingBottom: '10px', 
   paddingRight: '30px', paddingLeft: '30px'}}
 >
     CANCEL
   </Button>
  
   <Button  onClick={() => { updateCourses(user.uid,course,navigate)}} variant="contained" 
-  style={{ backgroundColor: "#000000"/*"#F97D0B"*/, paddingTop: '10px', paddingBottom: '10px', 
+  style={{ backgroundColor: "#000000"/*"#F97D0B"*/,color:"white", paddingTop: '10px', paddingBottom: '10px', 
   paddingRight: '30px', paddingLeft: '30px'}}
 >
    {loading?"loading..." :"SUBMIT"}

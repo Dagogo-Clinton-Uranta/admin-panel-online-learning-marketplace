@@ -1333,24 +1333,46 @@ export const addSubjectToPack = (subjectId,packId,packSubjects) => async (dispat
 
 }
 
+export const clearSubjectsBasedOnStudent = () => async (dispatch) => {
+  dispatch(saveSubjectsForAdding([]));
+}
 
 
-export const fetchSubjectsBasedOnStudent = (studentId,email,setReadyList) => async (dispatch) => {
-
+export const fetchSubjectsBasedOnStudent = (studentId,email,setReadyList,setStudentId) => async (dispatch) => {
+ let correctId;
    
   db.collection("users").doc(studentId).get(
     ).then((doc) => {
-    console.log("user Document updated is: ", doc.data());
-    
-   dispatch(fetchSubjectsForAdding(doc.data().level))
-  
+   
+    if(doc.exists){
+      console.log("student being searched for is-->>: ", doc.data());
+   dispatch(fetchSubjectsForAdding(doc.data().classOption))
+    }else{
+      
+
+       db.collection("users")
+  .where('email', '==', email)
+   .get()
+   .then((snapshot) => {
+     const allGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
+      correctId = allGroups[0].uid
+      console.log("THE FOUND STUDENT---->",allGroups[0])
+    dispatch(fetchSubjectsForAdding(allGroups[0].classOption))
+ 
+ }).catch((error)=>{
+
+    notifyErrorFxn("No student with this ID or Email,please try again")
+
+ })
+
+    }
 
   }).then(()=>{
     setReadyList(true)
   })
   .catch((error) => {
     console.error("Error adding video  to USER watch List: ", error);
-    notifyErrorFxn("No student with this ID,please try again")
+   // notifyErrorFxn("No student with this ID or Email,please try again")
     
   });
 
@@ -1358,7 +1380,7 @@ export const fetchSubjectsBasedOnStudent = (studentId,email,setReadyList) => asy
 
 
 
-export const updatePurchasedCourses = (studentId,newPurchasedCourses,navigate) => async (dispatch) => {
+export const updatePurchasedCourses = (studentId,email,newPurchasedCourses,navigate) => async (dispatch) => {
 
   db.collection("purchasedCourses")
   .where('uid', '==', studentId)
@@ -1370,12 +1392,47 @@ export const updatePurchasedCourses = (studentId,newPurchasedCourses,navigate) =
     db.collection("purchasedCourses").doc(allGroups[0].purchaseId).update({
     // courses:firebase.firestore.FieldValue.arrayUnion(...newPurchasedCourses)
        courses:[...allGroups[0].courses,...newPurchasedCourses]
+    })
+    
+    
+    
+    
+    
+    db.collection("users").doc(studentId).get().then((doc)=>{
+    if(doc.exists){
+      let newPurchasedCourseIds = newPurchasedCourses.map((item)=>(item.id))
+    db.collection("users").doc(studentId)
+    .update({
+      //purchasedCourses:firebase.firestore.FieldValue.arrayUnion(newPurchasedCourses)
+        purchasedCourses:[...allGroups[0].purchasedCourses,...newPurchasedCourseIds]
+      }) 
+    }else{
+
+      db.collection("users")
+      .where("email","==",email)
+      .get() .then((snapshot) => {
+        const allGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
+         let correctId = allGroups[0].uid
+         let newPurchasedCourseIds = newPurchasedCourses.map((item)=>(item.id))
+         console.log("THE FOUND STUDENT to update his/HER course---->",allGroups[0])
+         db.collection("users").doc(correctId)
+         .update({
+           //purchasedCourses:firebase.firestore.FieldValue.arrayUnion(newPurchasedCourses)
+           purchasedCourses:[...allGroups[0].purchasedCourses,...newPurchasedCourseIds]
+           }) 
+    
+    })
+    }
+
+
     }).then(()=>{
 
       notifySuccessFxn("orders sucessfully added")
       navigate("/dashboard/orders")
     })
 
+
+      
     
     
    } else {
@@ -1383,10 +1440,39 @@ export const updatePurchasedCourses = (studentId,newPurchasedCourses,navigate) =
       courses:newPurchasedCourses,
       uid:studentId,
       createdAt:new Date()
-    }).then(()=>{
-      notifySuccessFxn("orders 2 sucessfully added !")
-      navigate("/dashboard/orders")
     })
+
+    db.collection("users").doc(studentId).get().then((doc)=>{
+      if(doc.exists){
+      db.collection("users").doc(studentId)
+      .update({
+        purchasedCourses:firebase.firestore.FieldValue.arrayUnion(newPurchasedCourses)
+          // courses:[...allGroups[0].courses,...newPurchasedCourses]
+        }) 
+      }else{
+  
+        db.collection("users")
+        .where("email","==",email)
+        .get() .then((snapshot) => {
+          const allGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
+           let correctId = allGroups[0].uid
+           let newPurchasedCourseIds = newPurchasedCourses.map((item)=>(item.id))
+           console.log("THE FOUND STUDENT to update his/HER course---->",allGroups[0])
+           db.collection("users").doc(correctId)
+           .update({
+             //purchasedCourses:firebase.firestore.FieldValue.arrayUnion(newPurchasedCourses)
+             purchasedCourses:[...allGroups[0].purchasedCourses,...newPurchasedCourseIds]
+             }) 
+      
+      })
+      }
+  
+  
+      }).then(()=>{
+  
+        notifySuccessFxn("orders sucessfully added")
+        navigate("/dashboard/orders")
+      })
    }
  }).catch((error) => {
    console.log("Error getting Order:", error);

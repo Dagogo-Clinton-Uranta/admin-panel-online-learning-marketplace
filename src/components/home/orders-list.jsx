@@ -241,7 +241,7 @@ export default function OrdersList({ordersData}) {
                   { row && row.userData && row.userData.email && row.userData.email}
                 </TableCell>
                 <TableCell style={{ width: 140 }} align="right">
-                {/*row && row.createdAt*/}
+                {row && row.createdAt}
                 </TableCell>
 
                

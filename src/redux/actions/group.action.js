@@ -1381,7 +1381,7 @@ export const fetchSubjectsBasedOnStudent = (studentId,email,setReadyList,setStud
 
 
 export const updatePurchasedCourses = (studentId,email,newPurchasedCourses,navigate) => async (dispatch) => {
-
+  let accurateStudentId
   db.collection("purchasedCourses")
   .where('uid', '==', studentId)
    .get()
@@ -1413,6 +1413,7 @@ export const updatePurchasedCourses = (studentId,email,newPurchasedCourses,navig
       .get() .then((snapshot) => {
         const allGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
          let correctId = allGroups[0].uid
+         accurateStudentId = allGroups[0].uid
          let newPurchasedCourseIds = newPurchasedCourses.map((item)=>(item.id))
          console.log("THE FOUND STUDENT to update his/HER course---->",allGroups[0])
          db.collection("users").doc(correctId)
@@ -1436,12 +1437,7 @@ export const updatePurchasedCourses = (studentId,email,newPurchasedCourses,navig
     
     
    } else {
-    db.collection("purchasedCourses").add({
-      courses:newPurchasedCourses,
-      uid:studentId,
-      createdAt:new Date()
-    })
-
+   
     db.collection("users").doc(studentId).get().then((doc)=>{
       if(doc.exists){
       db.collection("users").doc(studentId)
@@ -1449,6 +1445,14 @@ export const updatePurchasedCourses = (studentId,email,newPurchasedCourses,navig
         purchasedCourses:firebase.firestore.FieldValue.arrayUnion(newPurchasedCourses)
           // courses:[...allGroups[0].courses,...newPurchasedCourses]
         }) 
+
+
+        db.collection("purchasedCourses").add({
+          courses:newPurchasedCourses,
+          uid:studentId,
+          createdAt:(new Date().toDateString())
+        })
+    
       }else{
   
         db.collection("users")
@@ -1464,6 +1468,13 @@ export const updatePurchasedCourses = (studentId,email,newPurchasedCourses,navig
              purchasedCourses:[...allGroups[0].purchasedCourses,...newPurchasedCourseIds]
              }) 
       
+
+             db.collection("purchasedCourses").add({
+              courses:newPurchasedCourses,
+              uid:correctId,
+              createdAt:(new Date()).toDateString()
+            })
+        
       })
       }
   

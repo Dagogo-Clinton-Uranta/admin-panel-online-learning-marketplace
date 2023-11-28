@@ -79,7 +79,7 @@ function AddTeacher() {
 
 const updateCourses = ()=>{
   dispatch(updatePurchasedCourses(studentId,email,course,navigate))
-  console.log("UPDATE--- PUCHASED COURSES HAS BEEN TRIGGERED")
+  console.log("UPDATE-- PUCHASED COURSES HAS BEEN TRIGGERED")
 }
 
 const handleClick = ()=>{ }
@@ -254,7 +254,7 @@ const handleDelete1 = (chosenId) => {
         >
        
        {subjectsForAddingTitle && subjectsForAddingTitle.length >0 ? subjectsForAddingTitle.map((kiwi,index)=>(
-  <MenuItem style={{color:"black"}} value={kiwi}>{kiwi}</MenuItem>
+  <MenuItem style={{color:"black",width:"100%",textAlign:"left"}} value={kiwi}>{kiwi}</MenuItem>
 )):
 <MenuItem style={{color:"black"}}  value={null}>{"No courses listed, please click fetch courses!"}</MenuItem>
 }

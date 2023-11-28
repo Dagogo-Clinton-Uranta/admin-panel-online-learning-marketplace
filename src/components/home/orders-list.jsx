@@ -130,7 +130,7 @@ const useStyles = makeStyles({
 export default function OrdersList({ordersData}) {
   //search function
   const dispatch = useDispatch();
-  const [OrdersList, setOrdersList] = useState(ordersData);
+  const [OrdersList, setOrdersList] = useState(ordersData && ordersData);
   const [searched, setSearched] = useState("");
   const classes = useStyles();
   const requestSearch = (searchedVal) => {
@@ -140,7 +140,7 @@ export default function OrdersList({ordersData}) {
     setOrdersList(filteredRows);
   };
 
-  console.log("LIST___", OrdersList);
+  console.log("LIST IS___", OrdersList);
 
   //search function end
 
@@ -233,15 +233,15 @@ export default function OrdersList({ordersData}) {
                 )
               : OrdersList
             ).map((row) => (
-              <TableRow key={row.id}>
+              <TableRow key={row && row.id}>
                 <TableCell component="th" scope="row">
-                  {row.courses[0].title}
+                  {row && row.courses[0].title}
                 </TableCell>
                 <TableCell style={{ width: 140 }} align="right">
-                  {row.userData.email}
+                  { row && row.userData && row.userData.email}
                 </TableCell>
                 <TableCell style={{ width: 140 }} align="right">
-                {row.createdAt}
+                {row && row.createdAt}
                 </TableCell>
 
                

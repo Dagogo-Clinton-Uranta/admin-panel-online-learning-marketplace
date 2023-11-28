@@ -25,11 +25,11 @@ export default function OrdersPage() {
 
  
  useEffect(() => {
-  if(!(purchasedCourses.length > 0)){
+
    dispatch(getOrders());  
-   console.log("purchasedCourses___", purchasedCourses);
+   console.log("purchasedCourses-->___", purchasedCourses);
    setCoursesData(purchasedCourses);
-  }
+ 
 
   }, [])
 
@@ -40,7 +40,7 @@ export default function OrdersPage() {
        }  
      }, [teachers])
 
-  console.log('bonecole teacher data ARE: ', teacherArr);
+  console.log('bonecole teacher data is-->: ', teacherArr);
 
   return (
       
@@ -51,7 +51,7 @@ export default function OrdersPage() {
 
        {!loading ?
            
-           <OrdersList ordersData={coursesData.purchasedCourses
+           <OrdersList ordersData={coursesData && coursesData.purchasedCourses
            } />
            :
            <center>

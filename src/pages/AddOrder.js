@@ -11,6 +11,59 @@ import users from 'src/_mock/user';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { Chip } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
+
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    alignItems: 'center',
+    paddingLeft: '4rem',
+    paddingRight: '4rem',
+    color:"black"
+  },
+  searchInput: {
+    background: '#FFFFFF',
+   
+    border: '1px solid #00000026',
+    padding: '10px',
+    borderRadius: '8px',
+    cursor: 'pointer',
+    // marginRight: theme.spacing(2),
+    width: '100%',
+    minWidth: '100%',
+    '& .MuiInputBase-input': {
+      color: 'grey',
+    },
+    '& .MuiInputBase-input::placeholder': {
+      color: 'grey',
+    },
+    '& .MuiInput-underline:before': {
+      borderBottomColor: 'grey',
+    },
+    '& .MuiInput-underline:hover:not(.Mui-disabled):before': {
+      borderBottomColor: 'grey',
+    },
+    '& .MuiInput-underline:after': {
+      borderBottomColor: 'grey',
+    },
+  },
+
+  select: {
+    '&:before': {
+        borderColor: "black",
+    },
+    '&:after': {
+        borderColor: "black",
+    }
+  },
+  icon: {
+    fill: "black",
+}
+
+
+
+}));
 
 function AddTeacher() {
   const navigate = useNavigate();
@@ -19,7 +72,7 @@ function AddTeacher() {
 
 
   const dispatch = useDispatch();
-
+  const classes = useStyles()
   
 
 
@@ -233,9 +286,9 @@ const handleDelete1 = (chosenId) => {
           <Select
           style={{backgroundColor:"#FFFFFF",borderRadius:"0.1rem",width:"100%"}}
          inputProps={{
-         /* classes: {
+          classes: {
               icon: classes.icon,
-          },*/
+          },
       }}
         
           labelId="demo-simple-select-label"
@@ -254,7 +307,7 @@ const handleDelete1 = (chosenId) => {
         >
        
        {subjectsForAddingTitle && subjectsForAddingTitle.length >0 ? subjectsForAddingTitle.map((kiwi,index)=>(
-  <MenuItem style={{color:"black",width:"100%",textAlign:"left"}} value={kiwi}>{kiwi}</MenuItem>
+  <MenuItem style={{color:"black",width:"100%"}} value={kiwi}>{kiwi}</MenuItem>
 )):
 <MenuItem style={{color:"black"}}  value={null}>{"No courses listed, please click fetch courses!"}</MenuItem>
 }

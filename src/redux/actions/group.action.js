@@ -1,7 +1,7 @@
 import { db, fb, auth, storage } from '../../config/firebase';
 import { clearUser, loginFailed, loginSuccess, logoutFxn, signupFailed, storeUserData } from '../reducers/auth.slice';
 import { v4 as uuidv4 } from 'uuid';
-import { notifyErrorFxn, notifySuccessFxn } from 'src/utils/toast-fxn';
+import { notifyErrorFxn, notifySuccessFxn,notifyInfoFxn } from 'src/utils/toast-fxn';
 import { isItLoading, saveAllGroup ,saveEmployeer,
          saveCategories ,saveGroupMembers, saveMyGroup,
          savePresentOpenSessions,savePresentOpenMenu ,savePublicGroup, saveSectionVideos,
@@ -1358,7 +1358,7 @@ export const fetchSubjectsBasedOnStudent = (studentId,email,setReadyList,setStud
       correctId = allGroups[0].uid
       console.log("THE FOUND STUDENT---->",allGroups[0])
     dispatch(fetchSubjectsForAdding(allGroups[0].classOption))
- 
+    notifyInfoFxn("Courses have been populated, please choose from the dropdown below")
  }).catch((error)=>{
 
     notifyErrorFxn("No student with this ID or Email,please try again")

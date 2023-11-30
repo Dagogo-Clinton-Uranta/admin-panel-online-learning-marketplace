@@ -1442,7 +1442,7 @@ export const updatePurchasedCourses = (studentId,email,newPurchasedCourses,navig
       if(doc.exists){
       db.collection("users").doc(studentId)
       .update({
-        purchasedCourses:firebase.firestore.FieldValue.arrayUnion(newPurchasedCourses)
+        purchasedCourses:firebase.firestore.FieldValue.arrayUnion(...newPurchasedCourses)
           // courses:[...allGroups[0].courses,...newPurchasedCourses]
         }) 
 

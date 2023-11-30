@@ -81,7 +81,7 @@ function AddTeacher() {
 
   const [level,setLevel] = useState('')
   const [body,setBody] = useState('')
-  const [studentId,setStudentId] =useState('')
+  const [studentId,setStudentId] =useState('studentId')
   const [email,setEmail] = useState('')
   const [course,setCourse] = useState('')
   const [readyList,setReadyList] = useState(false)
@@ -141,7 +141,7 @@ const handleClick = ()=>{ }
 
   const fetchSubjectsToAdd = (cat) =>{
 
-    if(!studentId||!email){
+    if(!email){
       notifyErrorFxn("Please make sure to fill in all student fields.")
     }else{
       setWait(true)
@@ -195,7 +195,7 @@ const handleDelete1 = (chosenId) => {
      <Grid container spacing={2}>
 
 
-         <Grid container item xs={12} spacing={2}>
+        {/* <Grid container item xs={12} spacing={2}>
           <Grid item xs={3}>
             <Typography  style={{display:"flex",alignItems:"center",justifyContent:"center"}}variant="p" component="p">
              <div >
@@ -220,7 +220,7 @@ const handleDelete1 = (chosenId) => {
             
             
           </Grid>
-        </Grid>
+        </Grid> */}
 
 
 

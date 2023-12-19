@@ -27,11 +27,11 @@ function EditTeacher() {
 
 
   const [loading,setLoading] = useState(false)
-  const [level,setLevel] = useState(teacherInfo.level)
-  const [body,setBody] = useState(teacherInfo.bio)
-  const [firstName,setFirstName] =useState(teacherInfo.firstName)
-  const [lastName,setLastName] =useState(teacherInfo.lastName)
-  const [imageUrl,setImageUrl] =useState(teacherInfo.imageUrl)
+  const [level,setLevel] = useState(teacherInfo && teacherInfo.level)
+  const [body,setBody] = useState(teacherInfo && teacherInfo.body)
+  const [firstName,setFirstName] =useState(teacherInfo && teacherInfo.firstName)
+  const [lastName,setLastName] =useState(teacherInfo && teacherInfo.lastName)
+  const [imageUrl,setImageUrl] =useState(teacherInfo && teacherInfo.imageUrl)
 
 
   

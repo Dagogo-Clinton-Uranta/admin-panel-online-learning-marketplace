@@ -219,6 +219,7 @@ export default function OrdersList({ordersData}) {
           <TableHead>
             <TableRow>
               <StyledTableCell>Course</StyledTableCell>
+              <StyledTableCell>Affiliate ID</StyledTableCell>
               <StyledTableCell align="right">Email Address</StyledTableCell>
               <StyledTableCell align="right">Purchased</StyledTableCell>
               <StyledTableCell align="right">Action</StyledTableCell>
@@ -236,6 +237,9 @@ export default function OrdersList({ordersData}) {
               <TableRow key={row && row.id}>
                 <TableCell component="th" scope="row">
                   {row &&row.courses && row.courses[0] &&  row.courses[0].title && row.courses[0].title}
+                </TableCell>
+                <TableCell style={{ width: 140 }} align="right">
+                  { row && row.userData && row.userData.affiliateId && row.userData.affiliateId }
                 </TableCell>
                 <TableCell style={{ width: 140 }} align="right">
                   { row && row.userData && row.userData.email && row.userData.email}

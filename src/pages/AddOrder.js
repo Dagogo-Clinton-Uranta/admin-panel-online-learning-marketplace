@@ -93,12 +93,23 @@ function AddTeacher() {
 
   const { user } = useSelector((state) => state.auth);
   const { subjectsForAdding} = useSelector((state) => state.group);
+  const [subjectRequested,setSubjectRequested] = useState(true)
   const [subjectsForAddingId,setSubjectsForAddingId] = useState(subjectsForAdding && subjectsForAdding.map((item)=>(item.uid)))
   const [subjectsForAddingTitle,setSubjectsForAddingTitle] = useState(subjectsForAdding && subjectsForAdding.map((item)=>(item.title)))
 
   /*useEffect(()=>{
     dispatch(clearSubjectsBasedOnStudent())
   },[])*/
+
+
+   useEffect(()=>{
+    setSubjectsForAddingTitle(subjectsForAdding && subjectsForAdding.map((item)=>(item.title)))
+
+    setSubjectsForAddingId(subjectsForAdding && subjectsForAdding.map((item)=>(item.uid)))
+  },[subjectsForAdding])
+
+
+
 
 
 
@@ -144,13 +155,20 @@ const handleClick = ()=>{ }
     if(!email){
       notifyErrorFxn("Please make sure to fill in all student fields.")
     }else{
+      setSubjectRequested(!subjectRequested)
       setWait(true)
 
       const makeRequest = async()=>{
         dispatch(fetchSubjectsBasedOnStudent(studentId,email,setReadyList,setStudentId))
     }
 
-    makeRequest().then(()=>(setTimeout(()=>{setWait(false)},1000)))
+    makeRequest().then(()=>(setTimeout(()=>{setWait(false)
+      setSubjectsForAddingTitle(subjectsForAdding && subjectsForAdding.map((item)=>(item.title)))
+
+      setSubjectsForAddingId(subjectsForAdding && subjectsForAdding.map((item)=>(item.uid)))
+      //window.location.reload()
+    
+    },1000)))
   }
    
 }
@@ -282,7 +300,7 @@ const handleDelete1 = (chosenId) => {
 
           <Grid item xs={7}>
             
-            
+        
           <Select
           style={{backgroundColor:"#FFFFFF",borderRadius:"0.1rem",width:"100%"}}
          inputProps={{
@@ -306,14 +324,14 @@ const handleDelete1 = (chosenId) => {
           }}
         >
        
-       {subjectsForAddingTitle && subjectsForAddingTitle.length >0 ? subjectsForAddingTitle.map((kiwi,index)=>(
+  {subjectsForAdding &&  subjectsForAddingTitle && subjectsForAddingTitle.length >0 ? subjectsForAddingTitle.map((kiwi,index)=>(
   <MenuItem style={{color:"black",width:"100%"}} value={kiwi}>{kiwi}</MenuItem>
 )):
 <MenuItem style={{color:"black"}}  value={null}>{"No courses listed, please click fetch courses!"}</MenuItem>
 }
        
         </Select>
-            
+        
       
           </Grid>
 

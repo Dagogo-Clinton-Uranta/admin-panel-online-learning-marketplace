@@ -351,7 +351,7 @@ export const fetchGroups = (adminID) => async (dispatch) => {
      dispatch(saveSubjectsForAdding(sortedSectionVids));
    } else {
       // dispatch(isItLoading(false));
-      dispatch(saveSubjectsForAdding(sortedSectionVids));
+      dispatch(saveSubjectsForAdding([]));
        console.log("No sections for this category!");
    }
  }).catch((error) => {
@@ -1339,7 +1339,8 @@ export const clearSubjectsBasedOnStudent = () => async (dispatch) => {
 
 
 export const fetchSubjectsBasedOnStudent = (studentId,email,setReadyList,setStudentId) => async (dispatch) => {
- let correctId;
+  dispatch(saveSubjectsForAdding([]));
+  let correctId;
    
   db.collection("users").doc(studentId).get(
     ).then((doc) => {

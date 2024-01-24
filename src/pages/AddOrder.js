@@ -83,7 +83,7 @@ function AddTeacher() {
   const [body,setBody] = useState('')
   const [studentId,setStudentId] =useState('studentId')
   const [email,setEmail] = useState('')
-  const [course,setCourse] = useState('')
+  const [course,setCourse] = useState([])
   const [readyList,setReadyList] = useState(false)
 
 
@@ -96,6 +96,8 @@ function AddTeacher() {
   const [subjectRequested,setSubjectRequested] = useState(true)
   const [subjectsForAddingId,setSubjectsForAddingId] = useState(subjectsForAdding && subjectsForAdding.map((item)=>(item.uid)))
   const [subjectsForAddingTitle,setSubjectsForAddingTitle] = useState(subjectsForAdding && subjectsForAdding.map((item)=>(item.title)))
+  const [changeList,setChangeList] = useState(false)
+
 
   /*useEffect(()=>{
     dispatch(clearSubjectsBasedOnStudent())
@@ -109,6 +111,27 @@ function AddTeacher() {
   },[subjectsForAdding])
 
 
+
+  useEffect(()=>{
+    setSubjectsForAddingTitle(subjectsForAdding && subjectsForAdding.map((item)=>(item.title)))
+
+    setSubjectsForAddingId(subjectsForAdding && subjectsForAdding.map((item)=>(item.uid)))
+
+
+  },[subjectsForAdding])
+
+
+
+  useEffect(()=>{
+  if(email.length === 0 ){setCourse([])
+    
+    
+    setSubjectsForAddingTitle([])
+
+    setSubjectsForAddingId([])
+  
+  }
+},[])
 
 
 
@@ -142,6 +165,7 @@ function AddTeacher() {
 
 
 const updateCourses = ()=>{
+  setChangeList(true)
   dispatch(updatePurchasedCourses(studentId,email,course,navigate))
   console.log("UPDATE-- PUCHASED COURSES HAS BEEN TRIGGERED")
 }
@@ -157,6 +181,8 @@ const handleClick = ()=>{ }
     }else{
       setSubjectRequested(!subjectRequested)
       setWait(true)
+
+      setCourse([])
 
       const makeRequest = async()=>{
         dispatch(fetchSubjectsBasedOnStudent(studentId,email,setReadyList,setStudentId))
@@ -262,7 +288,14 @@ const handleDelete1 = (chosenId) => {
             multiline
             maxRows={2}
             value= {email}
-            onChange = {(e)=>{setEmail(e.target.value)}}
+            onChange = {(e)=>{setEmail(e.target.value);
+             
+              
+                setSubjectsForAddingTitle();
+                setSubjectsForAddingId()
+              
+               }
+             }
             
             />
             
@@ -351,7 +384,7 @@ const handleDelete1 = (chosenId) => {
         
           {course  && 
               <> &nbsp; 
-                {  course.map((item,index)=>(
+                {course &&  course.map((item,index)=>(
              <Chip label={item.title} onClick={handleClick} onDelete={()=>{handleDelete1(item.id)}} />
              ))
             }

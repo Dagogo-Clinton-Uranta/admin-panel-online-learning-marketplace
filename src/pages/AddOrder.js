@@ -95,25 +95,28 @@ function AddTeacher() {
   const { user } = useSelector((state) => state.auth);
   const { subjectsForAdding} = useSelector((state) => state.group);
   const [subjectRequested,setSubjectRequested] = useState(true)
-  const [subjectsForAddingId,setSubjectsForAddingId] = useState()
-  const [subjectsForAddingTitle,setSubjectsForAddingTitle] = useState()
+  const [subjectsForAddingId,setSubjectsForAddingId] = useState([])
+  const [subjectsForAddingTitle,setSubjectsForAddingTitle] = useState([])
   const [changeList,setChangeList] = useState(false)
 
 
-  /*useEffect(()=>{
-    dispatch(clearSubjectsBasedOnStudent())
-  },[])*/
+ 
 
 
    useEffect(()=>{
+
+    setSubjectsForAddingTitle([])
+    setSubjectsForAddingId([])
+
+
     setSubjectsForAddingTitle(subjectsForAdding && subjectsForAdding.map((item)=>(item.title)))
 
     setSubjectsForAddingId(subjectsForAdding && subjectsForAdding.map((item)=>(item.uid)))
 
-    if(!subjectsForAdding){
-
-      setSubjectsForAddingTitle()
-      setSubjectsForAddingId()
+    if(!subjectsForAdding ||(subjectsForAdding && !(subjectsForAdding.length))){
+      setEmail()
+      setSubjectsForAddingTitle([])
+      setSubjectsForAddingId([])
   
     }
   },[subjectsForAdding])
@@ -121,14 +124,19 @@ function AddTeacher() {
 
 
   useEffect(()=>{
+
+    setSubjectsForAddingTitle([])
+    setSubjectsForAddingId([])
+
+
     setSubjectsForAddingTitle(subjectsForAdding && subjectsForAdding.map((item)=>(item.title)))
 
     setSubjectsForAddingId(subjectsForAdding && subjectsForAdding.map((item)=>(item.uid)))
 
-    if(!subjectsForAdding){
-
-      setSubjectsForAddingTitle()
-      setSubjectsForAddingId()
+    if(!subjectsForAdding || (subjectsForAdding && !(subjectsForAdding.length))){
+      setEmail()
+      setSubjectsForAddingTitle([])
+      setSubjectsForAddingId([])
   
     }
 
@@ -138,7 +146,7 @@ function AddTeacher() {
 
 
   useEffect(()=>{
-  if(email.length === 0 ){setCourse([])
+  if(email && email.length === 0 ){setCourse([])
     
     dispatch(clearSubjectsBasedOnStudent())
     setSubjectsForAddingTitle([])
@@ -307,8 +315,8 @@ const handleDelete1 = (chosenId) => {
             onChange = {(e)=>{setEmail(e.target.value);
              
               
-                setSubjectsForAddingTitle();
-                setSubjectsForAddingId()
+                setSubjectsForAddingTitle([]);
+                setSubjectsForAddingId([])
               
                }
              }

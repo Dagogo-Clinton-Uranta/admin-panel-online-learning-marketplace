@@ -51,6 +51,9 @@ saveCategoryVideos: (state, action) => {
 saveSubjectsForAdding: (state, action) => {
   state.subjectsForAdding = action.payload;
 },
+clearSubjectsForAdding: (state, action) => {
+  state.subjectsForAdding = [ ];
+},
 saveCategoryChapters: (state, action) => {
   state.categoryChapters = action.payload;
 },
@@ -123,6 +126,7 @@ export const {
  saveCategoryVideos,
  saveCategoryChapters,
  saveSubjectsForAdding,
+ clearSubjectsForAdding,
  savePresentOpenMenu,
  savePresentOpenChapter,
  savePresentOpenSessions,

@@ -8,7 +8,7 @@ import { isItLoading, saveAllGroup ,saveEmployeer,
           saveCategoryVideos,saveSubjectsForAdding,saveCategoryChapters,
         saveChapterSessions,saveChapterQuizzes,
         saveSubjectInfo,saveLessonInfo,saveQuizInfo,
-        saveChapterInfo,saveTeacherInfo, savePacks} from '../reducers/group.slice';
+        saveChapterInfo,saveTeacherInfo, savePacks, clearSubjectsForAdding} from '../reducers/group.slice';
 import firebase from "firebase/app";
 
 import { getTeachers } from './job.action';
@@ -351,7 +351,7 @@ export const fetchGroups = (adminID) => async (dispatch) => {
      dispatch(saveSubjectsForAdding(sortedSectionVids));
    } else {
       // dispatch(isItLoading(false));
-      dispatch(saveSubjectsForAdding([]));
+      dispatch(clearSubjectsForAdding());
        console.log("No sections for this category!");
    }
  }).catch((error) => {
@@ -1334,12 +1334,12 @@ export const addSubjectToPack = (subjectId,packId,packSubjects) => async (dispat
 }
 
 export const clearSubjectsBasedOnStudent = () => async (dispatch) => {
-  dispatch(saveSubjectsForAdding([]));
+  dispatch(clearSubjectsForAdding());
 }
 
 
 export const fetchSubjectsBasedOnStudent = (studentId,email,setReadyList,setStudentId) => async (dispatch) => {
-  dispatch(saveSubjectsForAdding([]));
+  dispatch(clearSubjectsForAdding());
   let correctId;
    
    /* db.collection("users").doc(studentId).get(
@@ -1363,7 +1363,7 @@ if(allGroups.length > 0){
     dispatch(fetchSubjectsForAdding(allGroups[0].classOption))
     notifyInfoFxn("Courses have been populated, please choose from the dropdown below")
 }else{
-  dispatch(saveSubjectsForAdding([]));
+  dispatch(clearSubjectsForAdding());
     notifyErrorFxn("No student with this Email,please try again")
 }
 

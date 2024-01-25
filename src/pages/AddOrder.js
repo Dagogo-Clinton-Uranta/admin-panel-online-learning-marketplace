@@ -12,6 +12,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { Chip } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core';
+import { saveSubjectsForAdding } from 'src/redux/reducers/group.slice';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -94,8 +95,8 @@ function AddTeacher() {
   const { user } = useSelector((state) => state.auth);
   const { subjectsForAdding} = useSelector((state) => state.group);
   const [subjectRequested,setSubjectRequested] = useState(true)
-  const [subjectsForAddingId,setSubjectsForAddingId] = useState(subjectsForAdding && subjectsForAdding.map((item)=>(item.uid)))
-  const [subjectsForAddingTitle,setSubjectsForAddingTitle] = useState(subjectsForAdding && subjectsForAdding.map((item)=>(item.title)))
+  const [subjectsForAddingId,setSubjectsForAddingId] = useState()
+  const [subjectsForAddingTitle,setSubjectsForAddingTitle] = useState()
   const [changeList,setChangeList] = useState(false)
 
 
@@ -108,6 +109,13 @@ function AddTeacher() {
     setSubjectsForAddingTitle(subjectsForAdding && subjectsForAdding.map((item)=>(item.title)))
 
     setSubjectsForAddingId(subjectsForAdding && subjectsForAdding.map((item)=>(item.uid)))
+
+    if(!subjectsForAdding){
+
+      setSubjectsForAddingTitle()
+      setSubjectsForAddingId()
+  
+    }
   },[subjectsForAdding])
 
 
@@ -117,6 +125,13 @@ function AddTeacher() {
 
     setSubjectsForAddingId(subjectsForAdding && subjectsForAdding.map((item)=>(item.uid)))
 
+    if(!subjectsForAdding){
+
+      setSubjectsForAddingTitle()
+      setSubjectsForAddingId()
+  
+    }
+
 
   },[subjectsForAdding])
 
@@ -125,7 +140,7 @@ function AddTeacher() {
   useEffect(()=>{
   if(email.length === 0 ){setCourse([])
     
-    
+    dispatch(clearSubjectsBasedOnStudent())
     setSubjectsForAddingTitle([])
 
     setSubjectsForAddingId([])
@@ -184,17 +199,18 @@ const handleClick = ()=>{ }
 
       setCourse([])
 
+      
       const makeRequest = async()=>{
         dispatch(fetchSubjectsBasedOnStudent(studentId,email,setReadyList,setStudentId))
     }
 
     makeRequest().then(()=>(setTimeout(()=>{setWait(false)
-      setSubjectsForAddingTitle(subjectsForAdding && subjectsForAdding.map((item)=>(item.title)))
+      setSubjectsForAddingTitle( subjectsForAdding.map((item)=>(item.title)))
 
-      setSubjectsForAddingId(subjectsForAdding && subjectsForAdding.map((item)=>(item.uid)))
+      setSubjectsForAddingId( subjectsForAdding.map((item)=>(item.uid)))
       //window.location.reload()
     
-    },1000)))
+    },600)))
   }
    
 }

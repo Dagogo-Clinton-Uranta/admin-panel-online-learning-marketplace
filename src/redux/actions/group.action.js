@@ -1342,13 +1342,13 @@ export const fetchSubjectsBasedOnStudent = (studentId,email,setReadyList,setStud
   dispatch(saveSubjectsForAdding([]));
   let correctId;
    
-  db.collection("users").doc(studentId).get(
+   /* db.collection("users").doc(studentId).get(
     ).then((doc) => {
    
-    if(doc.exists){
+  if(doc.exists){
       console.log("student being searched for is-->>: ", doc.data());
    dispatch(fetchSubjectsForAdding(doc.data().classOption))
-    }else{
+    }else{*/
       
 
        db.collection("users")
@@ -1356,26 +1356,34 @@ export const fetchSubjectsBasedOnStudent = (studentId,email,setReadyList,setStud
    .get()
    .then((snapshot) => {
      const allGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
-      correctId = allGroups[0].uid
+    
+if(allGroups.length > 0){
+  correctId = allGroups[0].uid
       console.log("THE FOUND STUDENT---->",allGroups[0])
     dispatch(fetchSubjectsForAdding(allGroups[0].classOption))
     notifyInfoFxn("Courses have been populated, please choose from the dropdown below")
+}else{
+  dispatch(saveSubjectsForAdding([]));
+    notifyErrorFxn("No student with this Email,please try again")
+}
+
  }).catch((error)=>{
 
-    notifyErrorFxn("No student with this ID or Email,please try again")
+   
+    notifyErrorFxn("something went wrong,please try again")
 
  })
 
-    }
+   /* }
 
   }).then(()=>{
     setReadyList(true)
   })
   .catch((error) => {
     console.error("Error adding video  to USER watch List: ", error);
-   // notifyErrorFxn("No student with this ID or Email,please try again")
+ 
     
-  });
+  });*/
 
 }
 

@@ -102,7 +102,7 @@ function AddTeacher() {
 
  
 
-
+  /*I AM NOT USING THIS USE effecT, OR THE SUBJECTS FOR ADDING TITLE OR ID, FOR THE TIME BEING */
    useEffect(()=>{
 
     setSubjectsForAddingTitle([])
@@ -122,7 +122,7 @@ function AddTeacher() {
   },[subjectsForAdding])
 
 
-
+  /*I AM NOT USING THIS USE effecT, OR THE SUBJECTS FOR ADDING TITLE OR ID, FOR THE TIME BEING */
   useEffect(()=>{
 
     setSubjectsForAddingTitle([])
@@ -381,7 +381,7 @@ const handleDelete1 = (chosenId) => {
           }}
         >
          
-  {subjectsForAdding &&  subjectsForAddingTitle && subjectsForAddingTitle.length >0 ? subjectsForAdding.map((kiwi,index)=>(
+  {subjectsForAdding  && subjectsForAdding.length >0 ? subjectsForAdding.map((kiwi,index)=>(
   <MenuItem style={{color:"black",width:"100%"}} value={kiwi.title}>{kiwi.title}</MenuItem>
 )):
 <MenuItem style={{color:"black"}}  value={null}>{"No courses listed, please click fetch courses!"}</MenuItem>

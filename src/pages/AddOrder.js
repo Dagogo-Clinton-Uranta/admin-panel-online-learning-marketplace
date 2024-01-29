@@ -382,7 +382,7 @@ const handleDelete1 = (chosenId) => {
         >
          
   {subjectsForAdding  && subjectsForAdding.length >0 ? subjectsForAdding.map((kiwi,index)=>(
-  <MenuItem style={{color:"black",width:"100%"}} value={kiwi.title}>{kiwi.title}</MenuItem>
+  <MenuItem style={{color:"black",width:"100%"}} value={kiwi}>{kiwi.title}</MenuItem>
 )):
 <MenuItem style={{color:"black"}}  value={null}>{"No courses listed, please click fetch courses!"}</MenuItem>
 }

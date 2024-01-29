@@ -371,7 +371,7 @@ const handleDelete1 = (chosenId) => {
           value={"Select a Team"}
           label="icon"
           onChange={(event) => {
-           const indexOfSeleceted =  subjectsForAddingTitle.indexOf(event.target.value)
+           const indexOfSeleceted =  subjectsForAdding.indexOf(event.target.value)
 
            setCourse([...course,{id:subjectsForAdding[indexOfSeleceted].uid,
                                  price:subjectsForAdding[indexOfSeleceted].price,

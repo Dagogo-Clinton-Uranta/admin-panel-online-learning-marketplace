@@ -11,6 +11,7 @@ const initialState = {
        categoryChapters:[],
        chapterSessions:[],
        chapterQuizzes:[],
+       correctStudentId:null,
        presentOpenMenu:null,
        presentOpenChapter:null,
        presentOpenSession:null,
@@ -44,7 +45,9 @@ const groupSlice = createSlice({
     saveSectionVideos: (state, action) => {
       state.allSectionVideos = action.payload;
   },
-
+  saveCorrectStudentId: (state, action) => {
+    state.correctStudentId = action.payload;
+  },
 saveCategoryVideos: (state, action) => {
   state.categoryVideos = action.payload;
 },
@@ -128,6 +131,7 @@ export const {
  saveSubjectsForAdding,
  clearSubjectsForAdding,
  savePresentOpenMenu,
+ saveCorrectStudentId,
  savePresentOpenChapter,
  savePresentOpenSessions,
  saveChapterSessions,

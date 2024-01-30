@@ -8,7 +8,8 @@ import { isItLoading, saveAllGroup ,saveEmployeer,
           saveCategoryVideos,saveSubjectsForAdding,saveCategoryChapters,
         saveChapterSessions,saveChapterQuizzes,
         saveSubjectInfo,saveLessonInfo,saveQuizInfo,
-        saveChapterInfo,saveTeacherInfo, savePacks, clearSubjectsForAdding} from '../reducers/group.slice';
+        saveChapterInfo,saveTeacherInfo,saveCorrectStudentId,
+         savePacks, clearSubjectsForAdding} from '../reducers/group.slice';
 import firebase from "firebase/app";
 
 import { getTeachers } from './job.action';
@@ -1359,6 +1360,7 @@ export const fetchSubjectsBasedOnStudent = (studentId,email,setReadyList,setStud
     
 if(allGroups.length > 0){
   correctId = allGroups[0].uid
+  dispatch(saveCorrectStudentId(allGroups[0].uid))
       console.log("THE FOUND STUDENT---->",allGroups[0])
     dispatch(fetchSubjectsForAdding(allGroups[0].classOption))
     notifyInfoFxn("Courses have been populated, please choose from the dropdown below")
@@ -1413,7 +1415,7 @@ export const updatePurchasedCourses = (studentId,email,newPurchasedCourses,navig
     db.collection("users").doc(studentId)
     .update({
       //purchasedCourses:firebase.firestore.FieldValue.arrayUnion(newPurchasedCourses)
-        purchasedCourses:[...allGroups[0].purchasedCourses,...newPurchasedCourseIds]
+        purchasedCourses:[...doc.data().purchasedCourses,...newPurchasedCourseIds]
       }) 
     }else{
 

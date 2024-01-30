@@ -93,7 +93,7 @@ function AddTeacher() {
  
 
   const { user } = useSelector((state) => state.auth);
-  const { subjectsForAdding} = useSelector((state) => state.group);
+  const { subjectsForAdding,correctStudentId} = useSelector((state) => state.group);
   const [subjectRequested,setSubjectRequested] = useState(true)
   const [subjectsForAddingId,setSubjectsForAddingId] = useState([])
   const [subjectsForAddingTitle,setSubjectsForAddingTitle] = useState([])
@@ -189,7 +189,7 @@ function AddTeacher() {
 
 const updateCourses = ()=>{
   setChangeList(true)
-  dispatch(updatePurchasedCourses(studentId,email,course,navigate))
+  dispatch(updatePurchasedCourses(correctStudentId,email,course,navigate))
   console.log("UPDATE-- PUCHASED COURSES HAS BEEN TRIGGERED")
 }
 

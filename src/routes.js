@@ -48,6 +48,7 @@ import AddSession from './pages/AddSession';
 import AddLesson from './pages/AddLessonAlso';
 //import AddChapter from './pages/AddChapter';
 import AddChapter from './pages/AddChapterAlso';
+import AddPastExam from './pages/AddPastExam';
 import EditChapter from './pages/EditChapter';
 import AddQuiz from './pages/AddQuiz';
 import StudentListPage from './pages/StudentListPage';
@@ -91,6 +92,7 @@ export default function Router() {
         { path: 'add-lesson', element: <AddLesson /> },
         { path: 'edit-lesson', element: <EditLesson /> },
         { path: 'add-chapter', element: <AddChapter /> },
+        { path: 'add-pastexam', element: <AddPastExam /> },
         { path: 'add-quiz', element: <AddQuiz /> },
         { path: 'edit-quiz', element: <EditQuiz /> },
         { path: 'edit-chapter', element: <EditChapter /> },

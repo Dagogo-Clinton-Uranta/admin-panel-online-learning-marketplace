@@ -18,6 +18,7 @@ import 'react-slidedown/lib/slidedown.css'
 import ChapterCard from   'src/components/chapters/chapter-card';
 import { populate } from 'react-redux-firebase';
 import QuizCard from '../chapters/quiz-card';
+import PastExamCard from '../chapters/pastExam-card';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -167,6 +168,7 @@ const SubSectionCard = ({data,index,user}) => {
          
            }
            <QuizCard subject ={data.title} sectionId={data.uid}  category={data.category} /> 
+           <PastExamCard subject ={data.title} sectionId={data.uid}  category={data.category}   />
       
        </Grid>
          }

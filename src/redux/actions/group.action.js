@@ -915,6 +915,67 @@ export const fetchTeacherInfo = (uid) =>async (dispatch) => {
 
  };
 
+
+
+
+ export const addPastExam = (addObject) => async (dispatch) => {
+
+
+  db.collection("pastExams")
+  .where("examName", "==", addObject.name)
+  .where("category", "==", addObject.category)
+  .where("subject", "==", addObject.subject)
+  .get()
+  .then((snapshot) => {
+    const existingSubject = snapshot.docs.map((doc) => ({ ...doc.data() }));
+  if (existingSubject.length) {
+   
+    notifyErrorFxn(`This exam already exists,consider changing the exam name`)
+
+  } else {
+     
+    
+    db.collection("pastExams").add(
+      {
+       
+        category:addObject.category,
+        examName:addObject.name,
+        sectionId:addObject.sectionId,
+        subject:addObject.subject,
+        examUrl:addObject.mediaUrl,
+      }
+    ).then((doc) => {
+       //const publicGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
+       db.collection("pastExams").doc(doc.id).update({
+      uid:doc.id
+       })
+  
+      console.log("the documents id is",doc.id)
+       notifySuccessFxn(`new exam ${addObject.name} added!`)
+  
+   }).catch((error) => {
+     console.log("Error adding exam:", error);
+     notifyErrorFxn(error)
+  
+  
+   });
+
+
+
+
+
+  }
+}).catch((error) => {
+  console.log("Error adding chapter:", error);
+  notifyErrorFxn(error)
+
+
+});
+
+ };
+
+
+
  export const updateChapter = (uid,updateObject) => async (dispatch) => {
   console.log("I have reached the chapter land")
   db.collection("chapters").doc(uid).update(

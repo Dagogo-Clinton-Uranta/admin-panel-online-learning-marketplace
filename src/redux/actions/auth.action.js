@@ -6,7 +6,7 @@ import { clearGroup } from '../reducers/group.slice';
 
 
   export const signin = (user, navigate,) => async (dispatch) => {
-    console.log("all is still well at this point")
+    console.log("all is still well at this point-->")
     fb.auth().signInWithEmailAndPassword(user.email, user.password)
     .then((userCredential) => {
       // Signed in

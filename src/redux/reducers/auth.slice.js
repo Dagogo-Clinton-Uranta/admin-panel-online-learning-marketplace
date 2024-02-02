@@ -37,6 +37,9 @@ const loginSlice = createSlice({
       storeProfileImages: (state, action) => {
         state.profileImages = action.payload;
       },
+      isItLoading: (state, action) => {
+        state.isLoading= action.payload;
+      },
     clearUser: (state) => {
       return {
         ...initialState,
@@ -59,6 +62,7 @@ const loginSlice = createSlice({
 const { actions, reducer } = loginSlice;
 
 export const {
+  isItLoading,
  loginSuccess,
  loginFailed,
  signupPending,

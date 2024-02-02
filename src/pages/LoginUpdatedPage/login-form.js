@@ -19,6 +19,7 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { signin, logout } from 'src/redux/actions/auth.action';
 
 import { logoutSuccess } from 'src/redux/reducers/auth.slice';
+import { notifyErrorFxn } from 'src/utils/toast-fxn';
 
 /**
  * Form Validation Schema
@@ -49,6 +50,8 @@ function LoginForm(props) {
   const { isValid, dirtyFields, errors } = formState;
 
   const [showPassword, setShowPassword] = useState(false);
+  const [email,setEmail] = useState("");
+  const [password,setPassword] = useState("");
 
    const { isLoading, error,user,message } = useSelector( (state) => state.auth);
    
@@ -67,6 +70,22 @@ function LoginForm(props) {
   }
 
 
+
+  function submitLogin() {
+    
+   // const email = model.email;
+   // const password = model.password;
+   if(!email || !password){
+   notifyErrorFxn("Please fill in all fields!")
+   }
+   else{
+    const user = { email, password };
+    dispatch(signin(user, navigate));
+    //navigate('/dashboard/home')
+   }
+  }
+
+
   return (
     <div  style={{paddingLeft: '15%', paddingRight: '15%', scale:"0.85"}}>
         {error && <div><Alert
@@ -81,7 +100,7 @@ function LoginForm(props) {
       </Alert><br/></div>}
 
       
-      <form className="flex flex-col justify-center w-full" onSubmit={handleSubmit(onSubmit)}>
+      <form className="flex flex-col justify-center w-full" >
         <Controller
           name="email"
           control={control}
@@ -93,6 +112,8 @@ function LoginForm(props) {
               error={!!errors.email}
               helperText={errors?.email?.message}
               label="Email Account*"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
@@ -119,6 +140,8 @@ function LoginForm(props) {
               error={!!errors.password}
               helperText={errors?.password?.message}
               variant="outlined"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               InputProps={{
                 className: 'pr-2',
                 type: showPassword ? 'text' : 'password',
@@ -138,12 +161,13 @@ function LoginForm(props) {
           <br/>
         <Button
           style={{ borderRadius: '0.5rem',padding:"0.9rem",backgroundColor:"black",color:"white"}}
-          type="submit"
+          onClick={submitLogin}
+          type="button"
           variant="contained"
           //color="primary"
           className="w-full mx-auto mt-16"
           aria-label="LOG IN"
-            disabled={_.isEmpty(dirtyFields) || !isValid || isLoading}
+            //disabled={_.isEmpty(dirtyFields) || !isValid || isLoading}
           value="legacy"
         >
            {isLoading ? 'Loading...' : 'LOGIN'}

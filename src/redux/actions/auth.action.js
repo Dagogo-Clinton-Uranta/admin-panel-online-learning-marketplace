@@ -1,11 +1,12 @@
 import { db, fb, auth,provider, storage } from '../../config/firebase';
-import { clearUser, loginFailed, loginSuccess, logoutFxn, signupPending, signupFailed, storeUserData,storeProfileImages } from '../reducers/auth.slice';
+import { clearUser, loginFailed, loginSuccess, logoutFxn, signupPending, signupFailed, storeUserData,storeProfileImages, isItLoading } from '../reducers/auth.slice';
 import { v4 as uuidv4 } from 'uuid';
 import { notifyErrorFxn, notifySuccessFxn } from 'src/utils/toast-fxn';
 import { clearGroup } from '../reducers/group.slice';
 
 
   export const signin = (user, navigate,) => async (dispatch) => {
+    dispatch(isItLoading(true))
     console.log("all is still well at this point-->")
     fb.auth().signInWithEmailAndPassword(user.email, user.password)
     .then((userCredential) => {
@@ -14,6 +15,7 @@ import { clearGroup } from '../reducers/group.slice';
       var user = userCredential.user;
       console.log('Signed In user is: ', user.email);
        dispatch(fetchUserData(user.uid, "sigin", navigate));
+       dispatch(isItLoading(false))
     })
     .catch((error) => {
       console.log( ' PROBLEM REPORT ', error.message);

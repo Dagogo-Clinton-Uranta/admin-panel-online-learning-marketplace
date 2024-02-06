@@ -218,7 +218,7 @@ export default function OrdersList({ordersData}) {
         <Table sx={{ maxWidth: 1500,tableLayout:"fixed" }} aria-label="custom pagination table">
           <TableHead>
             <TableRow>
-              <StyledTableCell>Course</StyledTableCell>
+              <StyledTableCell>Course(s)</StyledTableCell>
               <StyledTableCell>Affiliate ID</StyledTableCell>
               <StyledTableCell align="right">Email Address</StyledTableCell>
               <StyledTableCell align="right">Purchased</StyledTableCell>
@@ -236,7 +236,11 @@ export default function OrdersList({ordersData}) {
             ).map((row) => (
               <TableRow key={row && row.id}>
                 <TableCell component="th" scope="row">
-                  {row &&row.courses && row.courses[0] &&  row.courses[0].title && row.courses[0].title}
+                  {row &&row.courses &&
+                   row.courses.map((course,index)=>(
+                    `${course.title}${', '}`
+                   ))
+                   }
                 </TableCell>
                 <TableCell style={{ width: 140 }} align="right">
                   { row && row.userData && row.userData.affiliateId && row.userData.affiliateId }

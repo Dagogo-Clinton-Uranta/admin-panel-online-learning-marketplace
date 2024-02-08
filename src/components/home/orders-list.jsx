@@ -129,6 +129,9 @@ const useStyles = makeStyles({
 
 export default function OrdersList({ordersData}) {
   //search function
+
+  
+
   const dispatch = useDispatch();
   const [OrdersList, setOrdersList] = useState(ordersData && ordersData);
   const [searched, setSearched] = useState("");
@@ -140,7 +143,35 @@ export default function OrdersList({ordersData}) {
     setOrdersList(filteredRows);
   };
 
-  console.log("LIST IS___", OrdersList);
+ // console.log("LIST IS___", OrdersList);
+ // console.log("our original orders list-->",ordersData)
+
+  useEffect(()=>{
+    let brokenDownOrders =[]
+
+
+    ordersData && ordersData.forEach((item)=>(
+  
+item.courses.forEach((course)=>(
+        
+       brokenDownOrders.push({
+        courseId:course.id && course.id,
+        price:course.price && course.price,
+        title:course.title && course.title,
+        purchasedOn:course.purchasedOn && course.purchasedOn,
+        email: item.userData.email &&  item.userData.email,
+        affiliateId:item.userData.affiliateId && item.userData.affiliateId,
+        //you can put more userData in here
+       })
+    ))   
+
+    ))
+
+   setOrdersList(brokenDownOrders) 
+
+   console.log("BROKEN DOWN ORDERS-->",brokenDownOrders)
+
+  },[ordersData])
 
   //search function end
 
@@ -236,20 +267,17 @@ export default function OrdersList({ordersData}) {
             ).map((row) => (
               <TableRow key={row && row.id}>
                 <TableCell component="th" scope="row">
-                  {row &&row.courses &&
-                   row.courses.map((course,index)=>(
-                    `${course.title}${', '}`
-                   ))
-                   }
+                  {row && row.title}
+                  
                 </TableCell>
                 <TableCell style={{ width: 140 }} align="right">
-                  { row && row.userData && row.userData.affiliateId && row.userData.affiliateId }
+                  { row &&  row.affiliateId }
                 </TableCell>
                 <TableCell style={{ width: 140 }} align="right">
-                  { row && row.userData && row.userData.email && row.userData.email}
+                  { row &&  row.email}
                 </TableCell>
                 <TableCell style={{ width: 140 }} align="right">
-                {row && row.createdAt}
+                {row && row.purchasedOn}
                 </TableCell>
 
                

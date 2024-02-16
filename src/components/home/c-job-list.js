@@ -260,7 +260,7 @@ export default function CJobList({jobs}) {
             ).map((row) => (
               <TableRow key={row.id}>
                 <TableCell component="th" scope="row">
-                  {(row.firstName && row.firstName) + " " + (row.lastName && row.lastName)}
+                  {row.firstName && row.lastName?((row.firstName && row.firstName) + " " + (row.lastName && row.lastName)):row.fullName}
                 </TableCell>
                 <TableCell style={{ width: 140 }} align="right">
                   {row.email}

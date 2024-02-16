@@ -151,8 +151,8 @@ export default function OrdersList({ordersData}) {
 
 
     ordersData && ordersData.forEach((item)=>(
-  
-item.courses.forEach((course)=>(
+        item.courses &&
+     item.courses.forEach((course)=>(
         
        brokenDownOrders.push({
         courseId:course.id && course.id,
@@ -161,9 +161,9 @@ item.courses.forEach((course)=>(
         purchasedOn:course.purchasedOn && course.purchasedOn,
         email: item.userData.email &&  item.userData.email,
         affiliateId:item.userData.affiliateId && item.userData.affiliateId,
-        //you can put more userData in here
+       
        })
-    ))   
+    )) 
 
     ))
 

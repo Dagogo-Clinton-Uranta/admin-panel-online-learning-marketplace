@@ -8,6 +8,7 @@ const initialState = {
        allSectionVideos:[],
        categoryVideos:[],
        subjectsForAdding:[],
+       subjectPastExams:[],
        categoryChapters:[],
        chapterSessions:[],
        chapterQuizzes:[],
@@ -20,6 +21,7 @@ const initialState = {
        chapterInfo:{},
        teacherInfo:{},
        lessonInfo:{},
+       pastExamInfo:{},
        quizInfo:{},
        publicGroups: [], 
        privateGroups: [],
@@ -53,6 +55,12 @@ saveCategoryVideos: (state, action) => {
 },
 saveSubjectsForAdding: (state, action) => {
   state.subjectsForAdding = action.payload;
+},
+saveSubjectPastExams: (state, action) => {
+  state.subjectPastExams = action.payload;
+},
+clearSubjectPastExams: (state, action) => {
+  state.subjectPastExams = [];
 },
 clearSubjectsForAdding: (state, action) => {
   state.subjectsForAdding = [ ];
@@ -97,6 +105,9 @@ saveQuizInfo: (state, action) => {
 saveLessonInfo: (state, action) => {
   state.lessonInfo = action.payload;
 },
+savePastExamInfo: (state, action) => {
+  state.pastExamInfo = action.payload;
+},
     savePublicGroup: (state, action) => {
         state.publicGroups = action.payload;
     },
@@ -129,6 +140,8 @@ export const {
  saveCategoryVideos,
  saveCategoryChapters,
  saveSubjectsForAdding,
+ saveSubjectPastExams,
+ clearSubjectPastExams,
  clearSubjectsForAdding,
  savePresentOpenMenu,
  saveCorrectStudentId,
@@ -144,6 +157,7 @@ export const {
  saveChapterInfo,
  saveTeacherInfo,
  saveLessonInfo,
+ savePastExamInfo,
  savePrivateGroup,
  saveGroupMembers,
  saveEmployeer,

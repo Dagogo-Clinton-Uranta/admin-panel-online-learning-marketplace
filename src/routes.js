@@ -57,6 +57,7 @@ import OrdersPage from './pages/OrdersPage';
 
 import EditLesson from './pages/EditLesson';
 import EditQuiz from './pages/EditQuiz';
+import EditPastExam from './pages/EditPastExam';
 
 export default function Router() {
   const routes = useRoutes([
@@ -91,6 +92,7 @@ export default function Router() {
         { path: 'edit-subject', element: <EditCourse /> },
         { path: 'add-lesson', element: <AddLesson /> },
         { path: 'edit-lesson', element: <EditLesson /> },
+        { path: 'edit-past-exam', element: <EditPastExam /> },
         { path: 'add-chapter', element: <AddChapter /> },
         { path: 'add-pastexam', element: <AddPastExam /> },
         { path: 'add-quiz', element: <AddQuiz /> },

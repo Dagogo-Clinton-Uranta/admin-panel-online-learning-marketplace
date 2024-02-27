@@ -16,6 +16,7 @@ import {SlideDown} from 'react-slidedown'
 import 'react-slidedown/lib/slidedown.css'
 
 import ChapterCard from   'src/components/chapters/chapter-card';
+import ExamCard from   'src/components/chapters/exam-card';
 import { populate } from 'react-redux-firebase';
 import QuizCard from '../chapters/quiz-card';
 import PastExamCard from '../chapters/pastExam-card';
@@ -57,7 +58,7 @@ const SubSectionCard = ({data,index,user}) => {
   const navigate = useNavigate();
 
   const { allSectionVideos,requestedSection } = useSelector((state) => state.group);
-    const { categoryChapters,presentOpenChapter} = useSelector((state) => state.group);
+    const { categoryChapters,presentOpenChapter,subjectPastExams} = useSelector((state) => state.group);
    // const { user} = useSelector((state) => state.auth);
 
 
@@ -167,6 +168,26 @@ const SubSectionCard = ({data,index,user}) => {
            </center>
          
            }
+
+       <h1 style={{marginTop:"1rem",marginBottom:"2rem"}}>Past Exams</h1> 
+{subjectPastExams.length?
+       
+       subjectPastExams.map(((dt,i) => {
+        return (
+
+        
+            <ExamCard data={dt} index={i} user={user.uid}/>
+        )
+       })):
+          
+         <center>
+          <br/> <br/>
+          No  Past Exam(s) available for this subject.
+          </center>
+        
+          }
+
+
            <QuizCard subject ={data.title} sectionId={data.uid}  category={data.category} /> 
            <PastExamCard subject ={data.title} sectionId={data.uid}  category={data.category}   />
       

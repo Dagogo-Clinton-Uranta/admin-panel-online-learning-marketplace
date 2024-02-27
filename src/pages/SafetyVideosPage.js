@@ -49,7 +49,7 @@ const allIncubatorVideos = data?.length ? (
   return (
     <>
       <Helmet>
-        <title> incubator | Videos </title>
+        <title> Bonecole Admin | Courses </title>
       </Helmet>
       <Container maxWidth="xl">
       <Paper sx={{boxShadow: "-5px 5px 8px 3px rgba(0,0,0,0.24)"}}>

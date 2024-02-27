@@ -70,7 +70,7 @@ const allIncubatorVideos = data?.length ? (
   return (
     <>
       <Helmet>
-        <title> incubator | Videos </title>
+        <title> Bonecole Admin | Courses </title>
       </Helmet>
       <Container maxWidth="xl">
         

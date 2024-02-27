@@ -9,7 +9,7 @@ import { isItLoading, saveAllGroup ,saveEmployeer,
         saveChapterSessions,saveChapterQuizzes,
         saveSubjectInfo,saveLessonInfo,saveQuizInfo,
         saveChapterInfo,saveTeacherInfo,saveCorrectStudentId,
-         savePacks, clearSubjectsForAdding} from '../reducers/group.slice';
+         savePacks, clearSubjectsForAdding, clearSubjectPastExams, saveSubjectPastExams, savePastExamInfo} from '../reducers/group.slice';
 import firebase from "firebase/app";
 
 import { getTeachers } from './job.action';
@@ -403,6 +403,29 @@ export const fetchGroups = (adminID) => async (dispatch) => {
 
  export const fetchSubjectChapters = (chosenSection)=> async(dispatch) =>{
 
+  db.collection("pastExams")
+  .where("sectionId", "==", chosenSection )
+   .get()
+   .then(
+
+    (snapshot) => {
+      const pastExamsArray = snapshot.docs.map((doc) => ({ ...doc.data() }));
+    if (pastExamsArray.length) {
+     
+      console.log(`pastExams for The subject ${chosenSection} are:`, pastExamsArray);
+      dispatch(saveSubjectPastExams(pastExamsArray));
+      return pastExamsArray
+    } else {
+     dispatch(clearSubjectPastExams([]));
+        console.log(`No past exams for the subject; ${chosenSection}`);
+        return []
+    }
+  }
+   )
+
+
+
+
   //dispatch(isItLoading(true));
   db.collection("chapters")
   .where('sectionId', '==', chosenSection)
@@ -631,6 +654,18 @@ export const fetchLessonInfo = (uid) =>async (dispatch) => {
     dispatch(saveLessonInfo(doc.data()))
  }).catch((error) => {
   console.log("Error fetching a particular lesson from boneCourses collection:", error);
+
+});
+};
+
+
+export const fetchPastExamInfo = (uid) =>async (dispatch) => {
+  db.collection("pastExams").doc(uid).get().then((doc) => {
+  console.log()
+  
+    dispatch(savePastExamInfo(doc.data()))
+ }).catch((error) => {
+  console.log("Error fetching a particular past exam from past exams collection:", error);
 
 });
 };
@@ -1028,6 +1063,96 @@ export const fetchTeacherInfo = (uid) =>async (dispatch) => {
 
  });
  };
+
+
+
+ export const updatePastExam = (uid,updateObject) => async (dispatch) => {
+ 
+  db.collection("pastExams").doc(uid).update(
+    {
+     
+     
+      examName:updateObject.examName,
+     
+      sectionId:updateObject.sectionId,
+      category:updateObject.category,
+      subject:updateObject.subject,
+     
+     
+      examUrl:updateObject.examUrl,
+    
+    }
+  ).then((snapshot) => {
+     //const publicGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
+     
+     notifySuccessFxn("updated Exam successfully")
+
+ }).catch((error) => {
+   console.log("Error updating past exam:", error);
+   notifyErrorFxn("Problem Updating past exam, please try again")
+
+
+ });
+ };
+
+
+
+ export const deletePastExam = (uid) => async (dispatch) => {
+  let sectionId
+ let itemToBeDeleted = db.collection("pastExams").doc(uid)
+
+ 
+
+
+ await itemToBeDeleted.get().then((doc) => {
+  if (doc.exists) {
+     sectionId = doc.data().sectionId
+     itemToBeDeleted.delete()
+
+      db.collection("pastExams")
+      .where("sectionId", "==", sectionId )
+       .get()
+       .then(
+    
+        (snapshot) => {
+          const pastExamsArray = snapshot.docs.map((doc) => ({ ...doc.data() }));
+        if (pastExamsArray.length) {
+         
+          console.log(`pastExams for The subject ${sectionId} are:`, pastExamsArray);
+          dispatch(saveSubjectPastExams(pastExamsArray));
+          return pastExamsArray
+        } else {
+         dispatch(clearSubjectPastExams([]));
+            console.log(`No past exams for the subject; ${sectionId}`);
+            return []
+        }
+      }
+       )
+   
+      
+    
+  } else {
+    notifyErrorFxn("Problem Deleting Lesson, please try again")
+  }
+})
+   
+  .then((snapshot) => {
+    
+     notifySuccessFxn("deleted successfully")
+  
+
+ }).catch((error) => {
+   console.log("Error deleting lesson:", error);
+   notifyErrorFxn(error)
+
+
+ });
+
+ };
+
+
+
+
 
 
 

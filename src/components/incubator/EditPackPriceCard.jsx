@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   row: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
     backgroundColor:'#b6f2fcCC',
     border:'1px solid lightgrey',
     borderRadius:'5pxyyy',
@@ -112,10 +112,10 @@ const EditPackPriceCard = ({packId}) => {
   return (
     <>
     <div className={classes.row}>
-      <div  style={{display:"flex",justifyContent:"center", alignItems:"center", gap:"5rem"}}>
+      <div  style={{display:"flex",justifyContent:"center", alignItems:"center", gap:"2rem",width:"90%"}}>
        
         <span style={{ color: 'black' }}>
-          <b>{'CURRENT PRICE:'} </b>
+          <b>{'Current Price:'} </b>
         </span>{' '}
        
        
@@ -125,7 +125,7 @@ const EditPackPriceCard = ({packId}) => {
         onChange={(e)=>{setPackPrice(e.target.value)}}
         style={{ paddingLeft: '20px',fontSize:"1.5rem", border:"1px solid lightgrey",height:"4rem",width:"16rem",borderRadius:"1rem",backgroundColor:"transparent" }}/>
          
-         <span style={{fontSize:"1.8rem",color:"gray",marginLeft:"20px"}}>GNF</span>
+         <span style={{color:"black",marginLeft:"20px"}}>GNF</span>
          
         </span>
 

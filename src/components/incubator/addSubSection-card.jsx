@@ -4,7 +4,9 @@ import LockIcon from '@mui/icons-material/Lock';
 import { Divider, Chip, Grid, Paper, Typography, Box, Avatar, Button, ButtonBase, Stack, 
   ToggleButton, ToggleButtonGroup, Hidden  } from '@mui/material';
 import { useDispatch,useSelector } from 'react-redux';
-import {fetchSubjectChapters, updateVideoAndUserWatchlists,fetchSubjectInfo,fetchSubjectsForAdding} from 'src/redux/actions/group.action'
+import {fetchSubjectChapters, updateVideoAndUserWatchlists,
+       fetchSubjectInfo,fetchSubjectsForAdding, 
+       updatePackPrice, fetchSinglePack} from 'src/redux/actions/group.action'
 
 import { useNavigate } from 'react-router-dom';
 
@@ -19,6 +21,7 @@ import { populate } from 'react-redux-firebase';
 import QuizCard from '../chapters/quiz-card';
 import SubSectionCard from './subSection-card';
 import AddSubjectToPackCard from './addSubjectToPackCard';
+import EditPackPriceCard from './EditPackPriceCard';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -56,7 +59,7 @@ const AddSubSectionCard = ({topLevelName,categoryId,categoryName,subjectsInPack,
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { allSectionVideos,requestedSection } = useSelector((state) => state.group);
+  const { singlePack} = useSelector((state) => state.group);
     const { categoryChapters,presentOpenChapter} = useSelector((state) => state.group);
     const { user} = useSelector((state) => state.auth);
    const { subjectsForAdding,categoryVideos,presentOpenMenu } = useSelector((state) => state.group);
@@ -70,7 +73,10 @@ const AddSubSectionCard = ({topLevelName,categoryId,categoryName,subjectsInPack,
   
   const [loading,setLoading] =useState(false)
   const [wait,setWait] =useState(false)
+  const [wait2,setWait2] =useState(false)
+  const [packPrice,setPackPrice] =useState(singlePack && singlePack.price)
   const [dropDown, setDropDown] = useState(false);
+  const [dropDown2, setDropDown2] = useState(false);
   const [categoryData,setCategoryData] = useState(categoryChapters?categoryChapters:dummyData) 
 
   //console.log("THE VIDEO ID IS",dummyData[0].uid)
@@ -94,6 +100,7 @@ const AddSubSectionCard = ({topLevelName,categoryId,categoryName,subjectsInPack,
 
             const makeRequest = async()=>{
               dispatch(fetchSubjectsForAdding(cat))
+
           }
       
           makeRequest().then(()=>(setTimeout(()=>{setWait(false);setDropDown(true)},1000)))
@@ -119,6 +126,28 @@ const AddSubSectionCard = ({topLevelName,categoryId,categoryName,subjectsInPack,
     }
 
 
+    const editPackPrice = (id)=>{
+     console.log("EDIT FUNCTION ACTIVATED WITH PACK ID OF--->",id)
+      if(!dropDown2){
+
+        setWait2(true)
+
+       
+
+        const makeRequest = async()=>{
+          //dispatch(updatePackPrice(id,packPrice))
+          dispatch(fetchSinglePack(id))
+      }
+  
+      makeRequest().then(()=>(setTimeout(()=>{setWait2(false);setDropDown2(true)},1000)))
+
+      }else{
+        setDropDown2(false)
+      }
+
+    }
+
+
 
   return (
     <>
@@ -127,7 +156,7 @@ const AddSubSectionCard = ({topLevelName,categoryId,categoryName,subjectsInPack,
         <div style={{ color: 'black' }}>
           <b> {/*data && data.title*/} </b>
         </div>{' '}
-        <b style={{ marginLeft: '20px',color: 'black' }}>{"Add a new subject here"}</b>
+        <b style={{ marginLeft: '20px',color: 'black' }}>{"Add a new subject here, or edit the price of a pack."}</b>
       </div>
 
       <div className={classes.buttonSpacer}>
@@ -140,6 +169,19 @@ const AddSubSectionCard = ({topLevelName,categoryId,categoryName,subjectsInPack,
               }}>
                 {wait?"Please Wait...":<span><b style={{fontSize:"1.5rem"}}>+</b> Add Subject{subjectsInPack && subjectsInPack.length >0 && ' To Pack'}</span> }
             </Button>
+
+
+            { subjectsInPack && subjectsInPack.length >0 &&
+
+            <Button variant="contained" style={{minHeight: '45px', minWidth: '185px', backgroundColor:'black' }}
+              onClick={() => {
+             
+               editPackPrice(packId)
+              }}>
+                {<span>{'Edit'}</span> }
+            </Button>
+             }
+
        </div>
            
     </div>
@@ -193,6 +235,51 @@ const AddSubSectionCard = ({topLevelName,categoryId,categoryName,subjectsInPack,
         </>
       }
         </SlideDown>
+
+
+     {dropDown2 && 
+        <SlideDown style={{width:"100%"}}>
+           
+        <>
+        <center style={{fontSize:"1rem"}}>CHANGE THE PRICE BELOW AND THEN CLICK SUBMIT</center>
+     <Grid item xs container direction="column" spacing={6} style={{marginLeft:"10px",paddingLeft: '0px', paddingRight: '0px',transition:" height 5s ease"}}>
+                <br/><br/>
+               {singlePack?
+               
+              
+                    <EditPackPriceCard  packId={packId}/>
+               
+               
+               :
+                  <>
+                 <center>
+                  <br/> <br/>
+                  Problem loading the pack,please re-open the menu.
+                  </center>
+              
+                  </>
+                  }
+
+                     
+            <center style={{fontSize:"1.3em"}}>
+            
+                              
+            <Button variant="contained" style={{minHeight: '45px', minWidth: '145px', backgroundColor:'black' }}
+              onClick={() => {
+             
+                setDropDown2(false)
+              }}>
+                {<span>CANCEL &nbsp;  <b style={{fontSize:"1rem"}}>x</b> </span> }
+            </Button>
+            
+                  </center>
+
+                
+        </Grid>
+        </>
+      
+        </SlideDown>
+      }
 
      </>
   );

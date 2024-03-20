@@ -7,6 +7,7 @@ import { isItLoading, saveAllGroup ,saveEmployeer,
          savePresentOpenSessions,savePresentOpenMenu ,savePublicGroup, saveSectionVideos,
           saveCategoryVideos,saveSubjectsForAdding,saveCategoryChapters,
         saveChapterSessions,saveChapterQuizzes,
+        saveSinglePack,
         saveSubjectInfo,saveLessonInfo,saveQuizInfo,
         saveChapterInfo,saveTeacherInfo,saveCorrectStudentId,
          savePacks, clearSubjectsForAdding, clearSubjectPastExams, saveSubjectPastExams, savePastExamInfo} from '../reducers/group.slice';
@@ -621,8 +622,37 @@ export const fetchGroups = (adminID) => async (dispatch) => {
 
  }
 
+ export const updatePackPrice = (packId,price) =>async (dispatch) => {
+
+ db.collection("packs").doc(packId).update({
+  price:price.toString()
+   })
+
+  console.log("the pack id is",packId)
+   notifySuccessFxn(`new Price successfully updated!`)
 
 
+  }
+
+
+  export const fetchSinglePack = (packId) =>async (dispatch) => {
+
+    db.collection("packs").doc(packId).get()
+    .then((doc) => {
+      console.log("THE SINGLE PACK'S FULL INFO IS-->",doc.data())
+      
+        dispatch(saveSinglePack(doc.data()))
+     }).catch((error) => {
+      console.log("Error fetching a particular subject from sections collection:", error);
+    
+    });
+   
+    
+   
+     }
+
+
+  
 
 
  export const fetchSubjectInfo = (uid) =>async (dispatch) => {

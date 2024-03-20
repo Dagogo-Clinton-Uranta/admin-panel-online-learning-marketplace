@@ -5,6 +5,7 @@ const initialState = {
        allGroups: [], 
        allCategories:[],
        allPacks:[],
+       singlePack:{},
        allSectionVideos:[],
        categoryVideos:[],
        subjectsForAdding:[],
@@ -47,6 +48,9 @@ const groupSlice = createSlice({
     saveSectionVideos: (state, action) => {
       state.allSectionVideos = action.payload;
   },
+  saveSinglePack: (state, action) => {
+    state.singlePack = action.payload;
+},
   saveCorrectStudentId: (state, action) => {
     state.correctStudentId = action.payload;
   },
@@ -151,6 +155,7 @@ export const {
  saveChapterQuizzes,
  saveQuizInfo,
  savePublicGroup,
+ saveSinglePack,
  saveCategories,
  savePacks,
  saveSubjectInfo,

@@ -4,7 +4,7 @@ import LockIcon from '@mui/icons-material/Lock';
 import { Divider, Chip, Grid, Paper, Typography, Box, Avatar, Button, ButtonBase, Stack, 
   ToggleButton, ToggleButtonGroup, Hidden  } from '@mui/material';
 import { useDispatch,useSelector } from 'react-redux';
-import {fetchSubjectChapters, updateVideoAndUserWatchlists,fetchSubjectInfo,addSubjectToPack} from 'src/redux/actions/group.action'
+import {fetchSubjectChapters, updateVideoAndUserWatchlists,fetchSubjectInfo,addSubjectToPack, updatePackPrice} from 'src/redux/actions/group.action'
 
 import { useNavigate } from 'react-router-dom';
 
@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AddSubjectToPackCard = ({data,index,user,packId,packSubjects}) => {
+const EditPackPriceCard = ({packId}) => {
   console.log("PACK ID IS --->",packId)
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -58,6 +58,8 @@ const AddSubjectToPackCard = ({data,index,user,packId,packSubjects}) => {
 
   const { allSectionVideos,requestedSection } = useSelector((state) => state.group);
     const { categoryChapters,presentOpenChapter} = useSelector((state) => state.group);
+    const { singlePack} = useSelector((state) => state.group);
+
    // const { user} = useSelector((state) => state.auth);
 
 
@@ -73,42 +75,31 @@ const AddSubjectToPackCard = ({data,index,user,packId,packSubjects}) => {
   const [dropDown, setDropDown] = useState(false);
   const [categoryData,setCategoryData] = useState(categoryChapters?categoryChapters:dummyData) 
 
+  const [packPrice,setPackPrice] =useState(singlePack && singlePack.price)
+
+
   //console.log("THE VIDEO ID IS",dummyData[0].uid)
-  console.log(" SUBJECT CARD  CHECK !!!!- - ->",data)
+
   
 
   useEffect(()=>{ 
-    //this code is responsible for the right section appearing in the dropdown
-    if(presentOpenChapter !== data.uid){setTimeout(()=>{setDropDown(false)},300)}
+    //this code "presentOpenChapter" is responsible for the right section appearing in the dropdown, not needed here though
+    //a higher level deals with this section appearing
+    //if(presentOpenChapter !== data.uid){setTimeout(()=>{setDropDown(false)},300)}
    
        setTimeout(()=>{setCategoryData(categoryChapters)},600)
 
     },[categoryChapters,presentOpenChapter])
 
 
-    const fetchChaptersAndDropDown  = (id)=> {
-      console.log("ID BEING PASSED IN IS",id)
- if(!dropDown){
-      setLoading(true)
-      dispatch(fetchSubjectChapters(id))
-      dispatch(savePresentOpenChapter(id))
-      console.log("I WANNA SEE CATEGORY CAHPTERS", categoryData)
-     setTimeout(()=>{setLoading(false);setDropDown(true)},600)
-     }
-     else{
-       setDropDown(false)
-     }
-
-
+    const updateThisPackPrice = (id,packPrice)=>{
+    
+      if(window.confirm("do you confirm that this is the new price of the pack ?")){
+        dispatch(updatePackPrice(id,packPrice))
+      }
     }
 
-    const populateEditSubject = (identity)=>{
-
-      setWait(true)
-      dispatch(fetchSubjectInfo(identity))
-
-     setTimeout(()=> {navigate('/dashboard/edit-subject',{state:{uid:identity}})}, 1500)
-    }
+ 
 
 
     const addThisSubjectToPack = (subjectId,packId,packSubjects)=>{
@@ -121,59 +112,43 @@ const AddSubjectToPackCard = ({data,index,user,packId,packSubjects}) => {
   return (
     <>
     <div className={classes.row}>
-      <div className={classes.text}>
-        <div style={{ color: 'black' }}>
-          <b>{ `${index + 1}.) `/*data.id*/} {data && data.title} </b>
-        </div>{' '}
-        <span style={{ marginLeft: '20px' }}>{data && data.body}</span>
+      <div  style={{display:"flex",justifyContent:"center", alignItems:"center", gap:"5rem"}}>
+       
+        <span style={{ color: 'black' }}>
+          <b>{'CURRENT PRICE:'} </b>
+        </span>{' '}
+       
+       
+        <span style={{display:"flex",justifyContent:"center", alignItems:"center"}} >
+        <input
+        value={singlePack && packPrice}
+        onChange={(e)=>{setPackPrice(e.target.value)}}
+        style={{ paddingLeft: '20px',fontSize:"1.5rem", border:"1px solid lightgrey",height:"4rem",width:"16rem",borderRadius:"1rem",backgroundColor:"transparent" }}/>
+         
+         <span style={{fontSize:"1.8rem",color:"gray",marginLeft:"20px"}}>GNF</span>
+         
+        </span>
+
       </div>
 
       <div className={classes.buttonSpacer}>
       <Button variant="contained" style={{minHeight: '45px', minWidth: '145px', backgroundColor: 'black', }}
               onClick={() => {
                
-                addThisSubjectToPack(data.uid,packId,packSubjects)
-               // fetchChaptersAndDropDown(data.uid)
+                updateThisPackPrice(packId,packPrice)
+              
               }}>
-                {loading?"Loading...":"Add"}
+                {loading?"Loading...":"Submit"}
             </Button>
        </div>
            
     </div>
 
 
-     {/*=================THE DROPDOWN ICON (YOU DONT NEED IT IN THIS COMPONENT FOR NOW) =============================}
-          
-     <SlideDown style={{width:"100%"}}>
-     {dropDown &&
-    <Grid item xs container direction="column" spacing={6} style={{marginLeft:"0px",marginTop:"0px",backgroundColor:"#f2ecfe",display:"flex",flexDirection:"column",alignItems:"center" }}>
-         <br/><br/>
-        {categoryData.length?
-       
-        categoryData.map(((dt,i) => {
-         return (
-
-         
-             <ChapterCard data={dt} index={i} user={user.uid}/>
-         )
-        })):
-           
-          <center>
-           <br/> <br/>
-           No Chapter(s) available for this subject.
-           </center>
-         
-           }
-           <QuizCard subject ={data.title} sectionId={data.uid}  category={data.category} /> 
-      
-       </Grid>
-         }
-       </SlideDown>
-     
-     {=================THE DROPDOWN ICON END  (YOU DONT NEED IT IN THIS COMPONENT FOR NOW)  =============================*/}
+    
 
      </>
   );
 };
 
-export default AddSubjectToPackCard;
+export default EditPackPriceCard;

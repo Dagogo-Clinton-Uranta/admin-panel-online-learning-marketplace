@@ -150,6 +150,20 @@ export default function OrdersList({ordersData}) {
     let brokenDownOrders =[]
 
 
+    function convertToAmericanDateFormat(britishDateString) {
+      var parts = britishDateString.split("/");
+      if (parts.length !== 3) {
+          return "Invalid date string";
+      }
+      var day = parts[0];
+      var month = parts[1];
+      var year = parts[2];
+      // Construct the date string in American format
+      var americanDateString = month + "/" + day + "/" + year;
+      return americanDateString;
+  }
+
+
     ordersData && ordersData.forEach((item)=>(
         item.courses &&
      item.courses.forEach((course)=>(
@@ -158,7 +172,7 @@ export default function OrdersList({ordersData}) {
         courseId:course.id && course.id,
         price:course.price && course.price,
         title:course.title && course.title,
-        purchasedOn:course.purchasedOn && course.purchasedOn,
+        purchasedOn:course.purchasedOn && (Number(course.purchasedOn.substring(0,2)) >new Date().getMonth()?convertToAmericanDateFormat(course.purchasedOn):course.purchasedOn ),
         email: item.userData.email &&  item.userData.email,
         affiliateId:item.userData.affiliateId && item.userData.affiliateId,
        
@@ -167,9 +181,34 @@ export default function OrdersList({ordersData}) {
 
     ))
 
-   setOrdersList(brokenDownOrders) 
 
-   console.log("BROKEN DOWN ORDERS-->",brokenDownOrders)
+    function formatDate(dateString) {
+      // Parse the original date string
+      var date = new Date(dateString);
+  
+      // Define arrays for day and month names
+      var daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+      var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  
+      // Extract day, month, and year components
+      var dayOfWeek = daysOfWeek[date.getDay()];
+      var month = months[date.getMonth()];
+      var dayOfMonth = date.getDate();
+      var year = date.getFullYear();
+  
+      // Construct the formatted date string
+      var formattedDate = dayOfWeek + " " + month + " " + dayOfMonth + " " + year;
+  
+      return formattedDate;
+  }
+
+    const sortedOrders = brokenDownOrders.sort((a,b)=>(Date.parse(b.purchasedOn) - Date.parse(a.purchasedOn)   ))
+
+
+
+   setOrdersList(sortedOrders) 
+
+   console.log("BROKEN DOWN ORDERS-->",sortedOrders)
 
   },[ordersData])
 

@@ -1677,7 +1677,7 @@ export const updatePurchasedCourses = (studentId,email,newPurchasedCourses,navig
         db.collection("purchasedCourses").add({
           courses:newPurchasedCourses,
           uid:studentId,
-          createdAt:(new Date()).toDateString()
+          createdAt:(new Date())
         })
     
       }else{
@@ -1699,7 +1699,7 @@ export const updatePurchasedCourses = (studentId,email,newPurchasedCourses,navig
              db.collection("purchasedCourses").add({
               courses:newPurchasedCourses,
               uid:correctId,
-              createdAt:(new Date()).toDateString()
+              createdAt:(new Date())
             })
         
       })

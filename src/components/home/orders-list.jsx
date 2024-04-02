@@ -172,7 +172,7 @@ export default function OrdersList({ordersData}) {
         courseId:course.id && course.id,
         price:course.price && course.price,
         title:course.title && course.title,
-        purchasedOn:course.purchasedOn && (Number(course.purchasedOn.substring(0,2)) >new Date().getMonth()?convertToAmericanDateFormat(course.purchasedOn):course.purchasedOn ),
+        purchasedOn:course.purchasedOn && ( typeof(course.purchasedOn) === "string"?(  Number(course.purchasedOn.substring(0,2)) >new Date().getMonth()?convertToAmericanDateFormat(course.purchasedOn):course.purchasedOn ):course.purchasedOn ),
         email: item.userData.email &&  item.userData.email,
         affiliateId:item.userData.affiliateId && item.userData.affiliateId,
        
@@ -202,7 +202,7 @@ export default function OrdersList({ordersData}) {
       return formattedDate;
   }
 
-    const sortedOrders = brokenDownOrders.sort((a,b)=>(Date.parse(b.purchasedOn) - Date.parse(a.purchasedOn)   ))
+    const sortedOrders = brokenDownOrders.sort((a,b)=>(new Date(b.purchasedOn) - new Date(a.purchasedOn)   ))
 
 
 
@@ -316,7 +316,7 @@ export default function OrdersList({ordersData}) {
                   { row &&  row.email}
                 </TableCell>
                 <TableCell style={{ width: 140 }} align="right">
-                {row && row.purchasedOn}
+                {row && row.purchasedOn }
                 </TableCell>
 
                

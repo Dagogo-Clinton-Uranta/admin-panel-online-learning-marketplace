@@ -376,7 +376,7 @@ const handleDelete1 = (chosenId) => {
            setCourse([...course,{id:subjectsForAdding[indexOfSeleceted].uid,
                                  price:subjectsForAdding[indexOfSeleceted].price,
                                  title:subjectsForAdding[indexOfSeleceted].title,
-                                 purchasedOn:(new Date())
+                                 purchasedOn:(new Date()).toDateString()
                              }])
 
           }}

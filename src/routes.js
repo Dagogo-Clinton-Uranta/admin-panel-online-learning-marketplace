@@ -36,6 +36,7 @@ import CoursesStatsPage from './pages/CoursesStatsPage'
 import ContractorListPage from './pages/ContractorListPage'
 import ContractorStatsPage from './pages/ContractorStatsPage'
 import AddCourse from './pages/AddCourse';
+import AddBlog from './pages/AddBlog';
 import EditCourse from './pages/EditCourse';
 import AddSubject from './pages/AddSubject';
 import AddTeacher from './pages/AddTeacher';
@@ -58,6 +59,7 @@ import OrdersPage from './pages/OrdersPage';
 import EditLesson from './pages/EditLesson';
 import EditQuiz from './pages/EditQuiz';
 import EditPastExam from './pages/EditPastExam';
+import BlogPage from './pages/BlogPage';
 
 export default function Router() {
   const routes = useRoutes([
@@ -84,10 +86,13 @@ export default function Router() {
         { path: 'video-details', element: <VideoDetailsPage /> },
         { path: 'docs', element: <DocsPage /> },
         { path: 'courses', element: <CategoriesVideoPage /> },
+        { path: 'blog', element: <BlogPage/> },
         { path: 'teacher-list', element: <TeacherListPage /> },
+
         
         { path: 'chat', element: <InboxPage /> },
         { path: 'add-course', element: <AddCourse /> },
+        { path: 'add-blog', element: <AddBlog /> },
         { path: 'add-subject', element: <AddSubject /> },
         { path: 'edit-subject', element: <EditCourse /> },
         { path: 'add-lesson', element: <AddLesson /> },

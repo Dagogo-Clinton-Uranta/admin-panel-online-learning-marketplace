@@ -281,10 +281,16 @@ export default function QuizStatsList({student,allQuizzes}) {
                   {row.subject}
                 </TableCell>
 
-                <TableCell style={{ width: 140 }} align="right">
+               {/* <TableCell style={{ width: 140 }} align="right">
+                  {console.log("QUIZ TAKEN ON IS--->," ,row.takenOn)}
                   { row.takenOn && (new Date((row.takenOn.seconds)*1000)).toDateString()}
                   
-                </TableCell>
+                </TableCell> */}
+
+
+                {<TableCell style={{ width: 140 }} align="right">
+                {row.takenOn &&typeof(row.takenOn) !== "string"  ?(new Date(row.takenOn.seconds*1000)).toDateString():new Date(row.takenOn).toDateString()}
+                </TableCell>}
 
                 <TableCell style={{ width: 140 }} align="right">
                   {/*row.resultPercentage > 50? ("pass" `${student.quizzesTaken[index].resultPercentage}%`):"TBD"*/}

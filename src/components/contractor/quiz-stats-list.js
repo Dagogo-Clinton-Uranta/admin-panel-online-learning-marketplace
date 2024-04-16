@@ -271,7 +271,7 @@ export default function QuizStatsList({student,allQuizzes}) {
                   page * rowsPerPage,
                   page * rowsPerPage + rowsPerPage
                 )
-              : jobList
+              : jobList.length && jobList
             ).map((row,index) => (
               <TableRow key={row.id}>
                 <TableCell component="th" scope="row">
@@ -287,7 +287,8 @@ export default function QuizStatsList({student,allQuizzes}) {
                 </TableCell>
 
                 <TableCell style={{ width: 140 }} align="right">
-                  {row.resultPercentage > 50? ("pass" /*`${student.quizzesTaken[index].resultPercentage}%`*/):"TBD"}
+                  {/*row.resultPercentage > 50? ("pass" `${student.quizzesTaken[index].resultPercentage}%`):"TBD"*/}
+                  {`${student.quizzesTaken[index].resultPercentage}%` }
                 </TableCell>
 
                 {/*<TableCell style={{ width: 140 }} align="right">

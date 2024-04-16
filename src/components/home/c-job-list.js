@@ -270,7 +270,7 @@ export default function CJobList({jobs}) {
                 </TableCell>*/}
                 
                 <TableCell style={{ width: 140 }} align="right">
-                {row.registeredOn &&typeof(row.registeredOn) !== "string"  ?(new Date(row.registeredOn.seconds*1000)).toDateString():row.accountCreated}
+                {row.registeredOn &&typeof(row.registeredOn) !== "string"  ?(new Date(row.registeredOn.seconds*1000)).toDateString():(row.accountCreated &&typeof(row.accountCreated) !== "string"  ?(new Date(row.accountCreated.seconds*1000)).toDateString():typeof(row.accountCreated) === "string" &&row.accountCreated ) }
                 </TableCell>
 
                

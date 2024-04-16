@@ -77,7 +77,8 @@ export default function ContractorStatsPage() {
     });
  
  
- 
+ /*
+
  useEffect(() => {
    dispatch(getUserCourses(location.state.id.trim()));  
    setTimeout(setJobArr([...userCourses]), 1000);
@@ -90,7 +91,12 @@ export default function ContractorStatsPage() {
        }  
      }, [userCourses])
 
-  console.log('cmc user data is: ', jobArr);
+ 
+
+
+  */
+
+     console.log('WHAT IS USER COURSES--->: ', userCourses);
 
   return (
       
@@ -99,7 +105,7 @@ export default function ContractorStatsPage() {
        <h1 style={{position:"relative",fontWeight:"bold",left:"0px",marginBottom:"40px",fontSize:"30px"}}>STUDENT STATS</h1>
      
 
-       {/*jobArr.length &&*/ userCourses ?
+       {jobArr.length === 0 /* userCourses*/ ?
            <>
            <LessonStatsList student={student}  allLessons={allLessonsOneStudent.length > 0?allLessonsOneStudent:[]}/>
 

@@ -1377,29 +1377,27 @@ export const fetchTeacherInfo = (uid) =>async (dispatch) => {
 
  
 
- export const updateQuiz = (uid,updateObject) => async (dispatch) => {
+ export const updateQuiz = (updateObject,uid) => async (dispatch) => {
  
   db.collection("quizzes").doc(uid).update(
     {
      
-      quizFileUrl:updateObject.quizFileUrl,
+      
       title:updateObject.title,
+      body:updateObject.body,
+      chapterId:updateObject.chapterId,
+      level:updateObject.level,
       subject:updateObject.subject,
       
-      body:updateObject.body,
       lessonNumber:updateObject.lessonNumber,
-      question:updateObject.question,
-      correctAnswer:updateObject.correctAnswer,
-      optionsArray:updateObject.optionsArray,
-
-      chapterId:updateObject.chapterId,
+      questionsArray:updateObject.questionsArray,
       quizFileUrl:updateObject.quizFileUrl
     
     }
   ).then((snapshot) => {
      //const publicGroups = snapshot.docs.map((doc) => ({ ...doc.data() }));
      
-     notifySuccessFxn("updated Quiz successfully")
+     notifySuccessFxn("Updated Quiz successfully")
 
  }).catch((error) => {
    console.log("Error updating quiz:", error);

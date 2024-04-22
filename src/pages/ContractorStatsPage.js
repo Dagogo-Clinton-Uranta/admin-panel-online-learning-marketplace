@@ -21,7 +21,7 @@ import ReactApexChart from 'react-apexcharts';
 export default function ContractorStatsPage() {
   const dispatch = useDispatch();
   const { courses,userCourses,allQuizzesOneStudent,allLessonsOneStudent,student } = useSelector((state) => state.jobs);
- console.log("oho ! the student i have is !!",student)
+ console.log("oho ! the student i have is !!--<",student)
 
   const [jobArr, setJobArr] = useState([]);
   const navigate = useNavigate()

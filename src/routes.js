@@ -57,9 +57,10 @@ import TeacherListPage from './pages/TeacherListPage';
 import OrdersPage from './pages/OrdersPage';
 
 import EditLesson from './pages/EditLesson';
-import EditQuiz from './pages/EditQuiz';
+import EditQuiz from './pages/EditQuizBackup';
 import EditPastExam from './pages/EditPastExam';
 import BlogPage from './pages/BlogPage';
+import ViewQuizBreakdown from './pages/ViewQuizBreakdown';
 
 export default function Router() {
   const routes = useRoutes([
@@ -102,6 +103,7 @@ export default function Router() {
         { path: 'add-pastexam', element: <AddPastExam /> },
         { path: 'add-quiz', element: <AddQuiz /> },
         { path: 'edit-quiz', element: <EditQuiz /> },
+        { path: 'view-quiz-breakdown', element: <ViewQuizBreakdown /> },
         { path: 'edit-chapter', element: <EditChapter /> },
         { path: 'add-teacher', element: <AddTeacher /> },
         { path: 'add-order', element: <AddOrder /> },

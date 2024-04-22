@@ -32,6 +32,7 @@ import { notifyErrorFxn, notifySuccessFxn } from 'src/utils/toast-fxn';
 import { useDispatch, useSelector } from "react-redux";
 
 import { deleteSingleJob } from "../../redux/actions/job.action";
+import { fetchQuizInfo } from "src/redux/actions/group.action";
 
 function TablePaginationActions(props) {
   const theme = useTheme();
@@ -126,7 +127,7 @@ export default function QuizStatsList({student,allQuizzes}) {
   //search function
 
   const dispatch = useDispatch();
-  const mixedArray =[...( allQuizzes.map((item,i)=>({...item,resultPercentage:student.quizzesTaken[i].resultPercentage,takenOn:student.quizzesTaken[i].takenOn})))]
+  const mixedArray =[...( allQuizzes.map((item,i)=>({...item,resultPercentage:student.quizzesTaken[i].resultPercentage,takenOn:student.quizzesTaken[i].takenOn,studentAnswers:student.quizzesTaken[i].studentAnswers})))]
   console.log("mixed array is",mixedArray)
 
   const [jobList, setJobList] = useState(allQuizzes.length> 0 && student.quizzesTaken?mixedArray:
@@ -145,9 +146,11 @@ export default function QuizStatsList({student,allQuizzes}) {
                                                       
 
 
-  console.log("all quizzes are now:",allQuizzes)
+  console.log("all quizzes are now--->:",allQuizzes)
   console.log("the student is:",student)
   const [searched, setSearched] = useState("");
+  const [wait, setWait] = useState(null);
+
   const classes = useStyles();
   const requestSearch = (searchedVal) => {
     const filteredRows = allQuizzes?.filter((row) => {
@@ -180,6 +183,20 @@ export default function QuizStatsList({student,allQuizzes}) {
   const viewallQuizzesFxn = (id) => {
     navigate(`/dashboard/student-stats/`,{ state: { id:id } });
   };
+
+
+
+  const populateEditQuiz = (identity,index,studentAnswers)=>{
+
+    setWait(index)
+    dispatch(fetchQuizInfo(identity))
+
+   setTimeout(()=> {navigate('/dashboard/view-quiz-breakdown',{state:{uid:identity,studentAnswers}})}, 2000)
+  }
+
+
+
+
 
   const deleteJobFxn = (id) => {
    const preserveId = id
@@ -319,9 +336,9 @@ export default function QuizStatsList({student,allQuizzes}) {
                       fontSize: "15px",
                     }}
                     sx={{ mt: 7, mb: 2 }}
-                    onClick={() => viewallQuizzesFxn(row.uid.trim())}
+                    onClick={() => populateEditQuiz(row.uid.trim(),index,row.studentAnswers)}
                   >
-                    EXPAND 
+                   { wait === index ?"loading...":"EXPAND" }
                   </Button>
                 </TableCell>
 
